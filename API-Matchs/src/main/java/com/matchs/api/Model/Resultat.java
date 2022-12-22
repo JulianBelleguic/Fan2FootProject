@@ -16,4 +16,7 @@ public class Resultat {
 
     @ManyToOne
     private Equipe id_equipe;
+
+    public Resultat(Long aLong, Object id_equipe) {
+    }
 }

@@ -38,6 +38,13 @@ public class Equipe {
         this.id_resultat = id_resultat;
     }
 
+    public Equipe(Object id, Object nom) {
+    }
+
+    public Equipe() {
+
+    }
+
     public Long getId() {
         return id;
     }
