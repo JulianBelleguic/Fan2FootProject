@@ -29,7 +29,7 @@ public class Equipe {
     private List<Resultat> id_resultat;
 
 
-    public Equipe(Long id, String nom, Integer score, List<Match> id_equipe1, List<Match> id_equipe2, List<Resultat> id_resultat) {
+    public Equipe(Long id, String nom, Integer score, List<Match> id_equipe1, List<Match> id_equipe2, List<Resultat> id_resultat, List<Resultat> id_joueur) {
         this.id = id;
         this.nom = nom;
         this.score = score;
