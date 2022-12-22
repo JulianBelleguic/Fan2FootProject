@@ -1,5 +1,6 @@
 package com.paris.api.controllers;
 
+import com.paris.api.models.CoteModel;
 import com.paris.api.models.ParieurModel;
 import com.paris.api.services.ParieurService;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,15 +19,18 @@ public class ParieurController {
     public ParieurController(ParieurService service){
         this.service = service;
     }
+    @PostMapping("/create")
+    public ParieurModel createParieur(@RequestBody ParieurModel parieur){
+        return service.createParieur(parieur);
+    }
+    @PutMapping("/deleteByID/{id}")
+    public String deleteByID(@RequestParam Long id){
+        return service.deleteByID(id);
+    }
 
-    @GetMapping("/searchByID")
-    public ResponseEntity<ParieurModel> searchById(@RequestParam Long id){
+    @PutMapping("/findByID/{id}")
+    public ParieurModel searchById(@RequestParam Long id){
         ParieurModel model = this.service.findParieur(id);
-        if (model.getId() == null) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        else {
-            return new ResponseEntity(model, HttpStatus.OK);
-        }
+        return model;
     }
 }

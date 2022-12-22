@@ -19,8 +19,13 @@ public class ParieurService implements Serializable {
         return this.repository.findById(id).orElse(new ParieurModel());
     }
 
-    public ParieurModel addParieur(ParieurModel model) {
+    public ParieurModel createParieur(ParieurModel model) {
         return this.repository.save(model);
+    }
+
+    public String deleteByID(Long id){
+        repository.deleteById(id);
+        return "Parieur supprimer";
     }
 
 }
