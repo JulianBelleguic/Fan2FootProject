@@ -16,9 +16,7 @@ public class MatchService implements Serializable {
         this.repository = repository;
     }
 
-    public Match findMatch(Long id) {
-        return this.repository.findById(id).orElse(new Match(null, null));
-    }
+    public Match findMatch(Long id) {return this.repository.findById(id).orElse(new Match(null));}
 
     public Match addMatch(Match model) {
         return this.repository.save(model);

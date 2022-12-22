@@ -1,13 +1,10 @@
 package com.matchs.api.Controller;
 
 import com.matchs.api.Service.JoueurService;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import com.matchs.api.Model.Joueur;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/joueur")
