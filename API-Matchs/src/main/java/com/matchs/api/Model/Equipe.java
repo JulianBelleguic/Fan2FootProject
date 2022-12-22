@@ -24,17 +24,18 @@ public class Equipe {
 
     @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe2")
     private List<Match> id_equipe2;
-//
-//    @OneToMany(targetEntity = Resultats.class, mappedBy = "equ_id")
-//    private List<Resultats> equ_id;
+
+    @OneToMany(targetEntity = Resultat.class, mappedBy = "id_resultat")
+    private List<Resultat> id_resultat;
 
 
-    public Equipe(Long id, String nom, Integer score, List<Match> id_equipe1, List<Match> id_equipe2) {
+    public Equipe(Long id, String nom, Integer score, List<Match> id_equipe1, List<Match> id_equipe2, List<Resultat> id_resultat) {
         this.id = id;
         this.nom = nom;
         this.score = score;
         this.id_equipe1 = id_equipe1;
         this.id_equipe2 = id_equipe2;
+        this.id_resultat = id_resultat;
     }
 
     public Long getId() {

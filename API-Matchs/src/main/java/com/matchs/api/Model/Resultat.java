@@ -5,20 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name= "matchs")
+@Table(name= "resultat")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Match {
+public class Resultat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "match_id", nullable = false, updatable = false)
-    private long id_match;
+    @Column(name = "id_resultat", nullable = false, updatable = false)
+    private long id_resultat;
 
     @ManyToOne
-    private Equipe id_equipe1;
-
-    @ManyToOne
-    private Equipe id_equipe2;
-
-
+    private Equipe id_equipe;
 }
