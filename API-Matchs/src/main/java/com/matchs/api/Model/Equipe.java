@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name= "equipe")
 public class Equipe {
 
     @Id
@@ -18,22 +19,23 @@ public class Equipe {
 //    @OneToMany(targetEntity = Joueurs.class, mappedBy = "equipe_id")
 //    private List<Joueurs> joueurs;
 //
-//    @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe1")
-//    private List<Match> id_equipe1;
-//
-//    @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe2")
-//    private List<Match> id_equipe2;
-//
-//    @OneToMany(targetEntity = Resultats.class, mappedBy = "equ_id")
-//    private List<Resultats> equ_id;
+    @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe1")
+    private List<Match> id_equipe1;
 
-    //List<Match> id_equipe1, List<Match> id_equipe2
-    public Equipe(Long id, String nom, Integer score) {
+    @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe2")
+    private List<Match> id_equipe2;
+
+    @OneToMany(targetEntity = Resultat.class, mappedBy = "id_resultat")
+    private List<Resultat> id_resultat;
+
+
+    public Equipe(Long id, String nom, Integer score, List<Match> id_equipe1, List<Match> id_equipe2, List<Resultat> id_resultat) {
         this.id = id;
         this.nom = nom;
         this.score = score;
-//        this.id_equipe1 = id_equipe1;
-//        this.id_equipe2 = id_equipe2;
+        this.id_equipe1 = id_equipe1;
+        this.id_equipe2 = id_equipe2;
+        this.id_resultat = id_resultat;
     }
 
     public Long getId() {
@@ -60,21 +62,21 @@ public class Equipe {
         this.score = score;
     }
 
-//    public List<Match> getId_equipe1() {
-//        return id_equipe1;
-//    }
-//
-//    public void setId_equipe1(List<Match> id_equipe1) {
-//        this.id_equipe1 = id_equipe1;
-//    }
-//
-//    public List<Match> getId_equipe2() {
-//        return id_equipe2;
-//    }
-//
-//    public void setId_equipe2(List<Match> id_equipe2) {
-//        this.id_equipe2 = id_equipe2;
-//    }
+    public List<Match> getId_equipe1() {
+        return id_equipe1;
+    }
+
+    public void setId_equipe1(List<Match> id_equipe1) {
+        this.id_equipe1 = id_equipe1;
+    }
+
+    public List<Match> getId_equipe2() {
+        return id_equipe2;
+    }
+
+    public void setId_equipe2(List<Match> id_equipe2) {
+        this.id_equipe2 = id_equipe2;
+    }
 
     @Override
     public String toString() {
@@ -82,8 +84,8 @@ public class Equipe {
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", score=" + score +
-//                ", id_equipe1=" + id_equipe1 +
-//                ", id_equipe2=" + id_equipe2 +
+                ", id_equipe1=" + id_equipe1 +
+                ", id_equipe2=" + id_equipe2 +
                 '}';
     }
 }
