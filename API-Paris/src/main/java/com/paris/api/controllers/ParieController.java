@@ -3,6 +3,7 @@ package com.paris.api.controllers;
 import com.paris.api.models.ParieModel;
 import com.paris.api.services.ParieService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ public class ParieController {
 
     private final ParieService service;
 
+    @Autowired
     public ParieController(ParieService service){
         this.service = service;
     }
@@ -27,5 +29,9 @@ public class ParieController {
         else {
             return new ResponseEntity(model, HttpStatus.OK);
         }
+    }    @GetMapping("/createParis")
+    public String createParis(@RequestParam Long id){
+        System.out.println("ok");
+        return "ok";
     }
 }

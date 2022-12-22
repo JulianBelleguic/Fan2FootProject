@@ -23,4 +23,5 @@ public class ParieService implements Serializable {
         return this.repository.save(model);
     }
 
+
 }

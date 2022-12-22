@@ -10,9 +10,7 @@ import lombok.Setter;
 @Table(name = "assoPariParieur")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-
 public class AssoParisParieurModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
