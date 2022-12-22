@@ -1,6 +1,7 @@
 package com.paris.api.controllers;
 
 import com.paris.api.models.ParieModel;
+import com.paris.api.models.ParieurModel;
 import com.paris.api.services.ParieService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +20,17 @@ public class ParieController {
     public ParieController(ParieService service){
         this.service = service;
     }
+    @PostMapping("/create")
+    public ParieModel createParie(@RequestBody ParieModel parie){
+        return service.createParie(parie);
+    }
+    @PutMapping("/deleteByID/{id}")
+    public String deleteByID(@RequestParam Long id){
+        return service.deleteByID(id);
+    }
 
-    @GetMapping("/searchByID")
-    public ResponseEntity<ParieModel> searchById(@RequestParam Long id){
-        ParieModel model = this.service.findParie(id);
-        if (model.getId() == null) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        else {
-            return new ResponseEntity(model, HttpStatus.OK);
-        }
-    }    @GetMapping("/createParis")
-    public String createParis(@RequestParam Long id){
-        System.out.println("ok");
-        return "ok";
+    public ParieModel findByID(@RequestParam Long id, ParieModel parie){
+        ParieModel model = this.service.findByID(id);
+        return parie;
     }
 }

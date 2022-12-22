@@ -15,12 +15,17 @@ public class ParieService implements Serializable {
         this.repository = repository;
     }
 
-    public ParieModel findParie(Long id) {
+    public ParieModel findByID(Long id) {
         return this.repository.findById(id).orElse(new ParieModel());
     }
 
-    public ParieModel addParie(ParieModel model) {
+    public ParieModel createParie(ParieModel model) {
         return this.repository.save(model);
+    }
+
+    public String deleteByID(Long id){
+        repository.deleteById(id);
+        return "Parieur supprimer";
     }
 
 
