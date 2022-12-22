@@ -1,11 +1,15 @@
 package com.matchs.api.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name= "equipe")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Equipe {
 
     @Id
@@ -39,10 +43,6 @@ public class Equipe {
     }
 
     public Equipe(Object id, Object nom) {
-    }
-
-    public Equipe() {
-
     }
 
     public Long getId() {
