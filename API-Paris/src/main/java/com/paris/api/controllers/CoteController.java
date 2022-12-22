@@ -10,13 +10,22 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController 
-@RequestMapping("/Cote")
+@RequestMapping("/cote")
 public class CoteController {
     
     private final CoteService service;
     @Autowired
     public CoteController(CoteService service){
         this.service = service;
+    }
+
+    @PostMapping("/create")
+    public CoteModel createCote(@RequestBody CoteModel cote){
+        return service.createCote(cote);
+    }
+    @PutMapping("/delete/{id}")
+    public String deleteCote(Long id, CoteModel cote){
+        return service.deleteCoteByID(id);
     }
 
     @GetMapping("/searchByID")

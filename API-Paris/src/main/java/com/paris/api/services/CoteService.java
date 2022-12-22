@@ -16,11 +16,16 @@ public class CoteService implements Serializable {
     }
 
     public CoteModel findCote(Long id) {
-        return this.repository.findById(id).orElse(new CoteModel());
+        return this.repository.findById(id).orElseThrow();
     }
 
-    public CoteModel addCote(CoteModel model) {
+    public CoteModel createCote(CoteModel model) {
         return this.repository.save(model);
+    }
+
+    public String deleteCoteByID(Long id){
+        repository.deleteById(id);
+        return "Produit supprimer";
     }
 
 }
