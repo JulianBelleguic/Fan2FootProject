@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Parie {
+public class ParieModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -25,13 +25,13 @@ public class Parie {
 
     @OneToOne( cascade = CascadeType.ALL )
     @JoinColumn(name="idCoteA")
-    private Cote idCoteA;
+    private CoteModel idCoteA;
 
     @OneToOne( cascade = CascadeType.ALL )
     @JoinColumn(name="idCoteB")
-    private Cote idCoteB;
+    private CoteModel idCoteB;
 
     @OneToOne( cascade = CascadeType.ALL )
     @JoinColumn(name="idCoteN")
-    private Cote idCoteN;
+    private CoteModel idCoteN;
 }

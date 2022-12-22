@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class AssoParisParieur {
+public class AssoParisParieurModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -22,11 +22,11 @@ public class AssoParisParieur {
 
     @ManyToOne( cascade = CascadeType.ALL )
     @JoinColumn(name="idParieur")
-    private Parieur idParieur;
+    private ParieurModel idParieur;
 
     @ManyToOne( cascade = CascadeType.ALL )
     @JoinColumn(name="idParie")
-    private Parie idParie;
+    private ParieModel idParie;
 
     @Column(length=30)
     private Long idParis;
@@ -36,7 +36,7 @@ public class AssoParisParieur {
 
     @ManyToOne( cascade = CascadeType.ALL )
     @JoinColumn(name="idCote")
-    private Cote idCote;
+    private CoteModel idCote;
 
 
     @Column(length=30)
