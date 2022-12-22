@@ -21,4 +21,6 @@ public class Match {
     private Equipe id_equipe2;
 
 
+    public Match(Object o, Object o1) {
+    }
 }

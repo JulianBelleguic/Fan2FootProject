@@ -29,13 +29,20 @@ public class Equipe {
     private List<Resultat> id_resultat;
 
 
-    public Equipe(Long id, String nom, Integer score, List<Match> id_equipe1, List<Match> id_equipe2, List<Resultat> id_resultat) {
+    public Equipe(Long id, String nom, Integer score, List<Match> id_equipe1, List<Match> id_equipe2, List<Resultat> id_resultat, List<Resultat> id_joueur) {
         this.id = id;
         this.nom = nom;
         this.score = score;
         this.id_equipe1 = id_equipe1;
         this.id_equipe2 = id_equipe2;
         this.id_resultat = id_resultat;
+    }
+
+    public Equipe(Object id, Object nom) {
+    }
+
+    public Equipe() {
+
     }
 
     public Long getId() {
