@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Cote {
+public class CoteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
