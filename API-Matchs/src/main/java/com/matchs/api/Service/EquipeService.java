@@ -5,30 +5,33 @@ import com.matchs.api.Repository.EquipeRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Service
 public class EquipeService implements Serializable {
     // on crée l'attribut de class qui va contenir le repository
-    private final EquipeRepository repository;
+    private final EquipeRepository equipeRepository;
 
     // on propose un constructeur, qui va recevoir une instance du repository fournie automatiquement par Spring
-    public EquipeService(EquipeRepository repository) {
-        this.repository = repository;
+    public EquipeService(EquipeRepository equipeRepository) {
+        this.equipeRepository = equipeRepository;
     }
 
+    public List<Equipe> findAllEquipes() { return equipeRepository.findAll(); }
+
     public Equipe findEquipe(Long id) {
-        return this.repository.findById(id).orElse(new Equipe(null, null));
+        return this.equipeRepository.findById(id).orElse(new Equipe(null, null));
     }
 
     public Equipe addEquipe(Equipe model) {
-        return this.repository.save(model);
+        return this.equipeRepository.save(model);
     }
 
     public Equipe updEquipe(Equipe model) {
-        return this.repository.save(model);
+        return this.equipeRepository.save(model);
     }
 
     public void delEquipe(Long id) {
-        this.repository.deleteById(id);
+        this.equipeRepository.deleteById(id);
     }
 }
