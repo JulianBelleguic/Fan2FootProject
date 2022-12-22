@@ -23,12 +23,12 @@ public class CoteController {
     public CoteModel createCote(@RequestBody CoteModel cote){
         return service.createCote(cote);
     }
-    @PutMapping("/delete/{id}")
+    @PutMapping("/deleteById/{id}")
     public String deleteCote(Long id, CoteModel cote){
-        return service.deleteCoteByID(id);
+        return service.deleteByID(id);
     }
 
-    @GetMapping("/searchByID")
+    @GetMapping("/findByID")
     public ResponseEntity<CoteModel> searchById(@RequestParam Long id){
         CoteModel model = this.service.findCote(id);
         if (model.getId() == null) {

@@ -23,9 +23,9 @@ public class CoteService implements Serializable {
         return this.repository.save(model);
     }
 
-    public String deleteCoteByID(Long id){
+    public String deleteByID(Long id){
         repository.deleteById(id);
-        return "Produit supprimer";
+        return "Cote supprimer";
     }
 
 }
