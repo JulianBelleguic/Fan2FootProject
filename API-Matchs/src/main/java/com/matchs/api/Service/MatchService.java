@@ -1,32 +1,51 @@
 package com.matchs.api.Service;
 
+import com.matchs.api.Model.Equipe;
 import com.matchs.api.Model.Match;
+import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.MatchRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.Optional;
+
 
 @Service
+@Transactional
 public class MatchService implements Serializable {
     // on crée l'attribut de class qui va contenir le repository
-    private final MatchRepository repository;
+    private MatchRepository matchRepository;
+    private EquipeService equipeService;
 
-    // on propose un constructeur, qui va recevoir une instance du repository fournie automatiquement par Spring
-    public MatchService(MatchRepository repository) {
-        this.repository = repository;
+    public MatchService(MatchRepository matchRepository, EquipeRepository equipeRepository, EquipeService equipeService) {
+        this.matchRepository = matchRepository;
+        this.equipeService = equipeService;
+
     }
 
-    public Match findMatch(Long id) {return this.repository.findById(id).orElse(new Match(null));}
+    public Match findMatch(Long id) {return this.matchRepository.findById(id).orElse(new Match(null, null,null));}
+
+    public Match addMatchById(Match model, Long id_equipe1, Long id_equipe2) {
+        Match new_match = this.matchRepository.save(model);
+        Equipe eqp1 = equipeService.findEquipe(id_equipe1);
+        Equipe eqp2 = equipeService.findEquipe(id_equipe2);
+        if (new_match.getId_equipe1()==null && model.getId_equipe2()==null){
+            new_match.setId_equipe1(eqp1);
+            new_match.setId_equipe2(eqp2);
+        }
+        return this.matchRepository.save(new_match);
+    }
 
     public Match addMatch(Match model) {
-        return this.repository.save(model);
+        return this.matchRepository.save(model);
     }
 
     public Match updMatch(Match model) {
-        return this.repository.save(model);
+        return this.matchRepository.save(model);
     }
 
     public void delMatch(Long id) {
-        this.repository.deleteById(id);
+        this.matchRepository.deleteById(id);
     }
 }

@@ -32,6 +32,13 @@ public class MatchController {
     }
 
 
+    @GetMapping("/add/{id_eq1}/{id_eq2}")
+    public ResponseEntity<Object> addMatchById(@PathVariable ("id_eq1") Long id_equipe1,@PathVariable ("id_eq2") Long id_equipe2) {
+        Match new_model = new Match();
+        Match model = this.service.addMatchById(new_model, id_equipe1, id_equipe2);
+        return new ResponseEntity(model, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Object> addMatch(@RequestBody Match p_model){
         Match model = this.service.addMatch(p_model);
