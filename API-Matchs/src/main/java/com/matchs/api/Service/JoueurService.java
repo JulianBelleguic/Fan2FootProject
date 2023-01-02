@@ -1,6 +1,8 @@
 package com.matchs.api.Service;
 
+import com.matchs.api.Model.Equipe;
 import com.matchs.api.Model.Joueur;
+import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.JoueurRepository;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +23,12 @@ public class JoueurService implements Serializable{
 
     public Joueur addJoueur(Joueur model) {
         return this.repository.save(model);
+    }
+
+    public void addEquipeToJoueur(Long joueurId, Equipe equipe){
+        Joueur joueur = this.repository.getReferenceById(joueurId);
+        joueur.setId_equipe(equipe);
+        this.repository.save(joueur);
     }
 
 }

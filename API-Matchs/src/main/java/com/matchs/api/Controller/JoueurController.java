@@ -1,5 +1,6 @@
 package com.matchs.api.Controller;
 
+import com.matchs.api.Model.Equipe;
 import com.matchs.api.Service.JoueurService;
 import org.springframework.web.bind.annotation.*;
 import com.matchs.api.Model.Joueur;
@@ -33,5 +34,9 @@ public class JoueurController {
     public ResponseEntity<Joueur> addJoueur(@RequestBody Joueur joueur){
         Joueur newJoueur = this.service.addJoueur(joueur);
         return new ResponseEntity<>(newJoueur, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/addEtoJ/{idJ}/{idEq}", method = RequestMethod.PUT)
+   public void updateEquipe(@PathVariable Long idJ, @PathVariable Equipe idEq) {
+       this.service.addEquipeToJoueur(idJ, idEq);
     }
 }
