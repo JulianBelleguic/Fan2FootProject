@@ -51,6 +51,10 @@ public class MatchController {
         return new ResponseEntity(model, HttpStatus.OK);
     }
 
-
+    @GetMapping("/del")
+    public ResponseEntity<Object> delMatch(@RequestParam Long id){
+        this.service.delMatch(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }
