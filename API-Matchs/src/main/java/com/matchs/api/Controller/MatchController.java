@@ -1,14 +1,13 @@
 package com.matchs.api.Controller;
 
 import com.matchs.api.Model.Match;
+import com.matchs.api.Model.info_match;
 import com.matchs.api.Service.MatchService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
-
-import static java.util.Objects.isNull;
 
 @RestController
 @RequestMapping("/api/match")
@@ -52,9 +51,15 @@ public class MatchController {
     }
 
     @GetMapping("/del")
-    public ResponseEntity<Object> delMatch(@RequestParam Long id){
+    public ResponseEntity delMatch(@RequestParam Long id){
         this.service.delMatch(id);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/scores")
+    public ResponseEntity<Object> envoiScores(@RequestParam Long id){
+        info_match model = this.service.envoiScores(id);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
 }

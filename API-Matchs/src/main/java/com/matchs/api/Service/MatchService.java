@@ -2,6 +2,7 @@ package com.matchs.api.Service;
 
 import com.matchs.api.Model.Equipe;
 import com.matchs.api.Model.Match;
+import com.matchs.api.Model.info_match;
 import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.MatchRepository;
 import org.springframework.stereotype.Service;
@@ -47,5 +48,16 @@ public class MatchService implements Serializable {
 
     public void delMatch(Long id) {
         this.matchRepository.deleteById(id);
+    }
+
+    public info_match envoiScores(Long id) {
+        Match game = findMatch(id);
+        info_match infomatch = new info_match(null, null, null, null, null);
+        infomatch.setId_match(id);
+        infomatch.setNom_eq1(game.getId_equipe1().getNom());
+        infomatch.setNom_eq2(game.getId_equipe2().getNom());
+        infomatch.setScore_eq1(game.getId_equipe1().getScore());
+        infomatch.setScore_eq2(game.getId_equipe2().getScore());
+        return infomatch;
     }
 }
