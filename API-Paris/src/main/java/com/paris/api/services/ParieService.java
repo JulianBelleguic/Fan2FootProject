@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Service
 public class ParieService implements Serializable {
@@ -37,9 +38,26 @@ public class ParieService implements Serializable {
         info_match response = restTemplate.getForObject(fooResourceUrl + "?id=" + id, info_match.class);
         System.out.println(response);
         ParieModel newParie = new ParieModel(null, null, null,null,null);
+        assert response != null;
         newParie.setIdMatch(response.getId_match());
-
         return null;
+    }
+
+    private static Float calculChances (Integer score1, Integer score2, String call) {
+        Integer scoreA, scoreB;
+        if (score1 >= score2) {
+            scoreA = score1;
+            scoreB = score2;
+        }
+        else {
+            scoreA = score2;
+            scoreB = score1;
+        }
+        int delta = scoreA - scoreB;
+
+        Float chanceNulle = (float) ((50 - (delta / 2)) / 100);
+        Float chanceA = (float) (((50 + (delta / 2)) / 100) * ((50 + (delta / 2)) / 100));
+        Float chanceB = (float) (((50 + (delta / 2)) / 100) * ((50 - (delta / 2)) / 100));
     }
 
 }
