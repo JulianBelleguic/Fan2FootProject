@@ -10,8 +10,6 @@ import lombok.Setter;
 @Table(name = "cote")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 
 public class CoteModel {
     @Id
@@ -23,5 +21,27 @@ public class CoteModel {
     @Column(length=30)
     private double valeur;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public double getValeur() {
+        return valeur;
+    }
+
+    public void setValeur(double valeur) {
+        this.valeur = valeur;
+    }
+
+    public CoteModel(Long id, double valeur) {
+        this.id = id;
+        this.valeur = valeur;
+
+    }
+    public CoteModel() {
+    }
 }

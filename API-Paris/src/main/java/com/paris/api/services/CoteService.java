@@ -5,6 +5,7 @@ import com.paris.api.repository.CoteRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Service
 public class CoteService implements Serializable {
@@ -17,6 +18,10 @@ public class CoteService implements Serializable {
 
     public CoteModel findCote(Long id) {
         return this.repository.findById(id).orElseThrow();
+    }
+
+    public List<CoteModel> findAll() {
+        return repository.findAll();
     }
 
     public CoteModel createCote(CoteModel model) {

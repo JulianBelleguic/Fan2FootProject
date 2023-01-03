@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController 
 @RequestMapping("/cote")
@@ -19,16 +21,21 @@ public class CoteController {
         this.service = service;
     }
 
-    @PostMapping("/create")
+    @GetMapping("/create")
     public CoteModel createCote(@RequestBody CoteModel cote){
         return service.createCote(cote);
     }
-    @PutMapping("/deleteById/{id}")
+    @GetMapping("/all")
+    public ResponseEntity<List<CoteModel>> findAll() {
+        List<CoteModel> cote = this.service.findAll();
+        return new ResponseEntity<>(cote, HttpStatus.OK);
+    }
+    @GetMapping("/deleteById/{id}")
     public String deleteCote(Long id, CoteModel cote){
         return service.deleteByID(id);
     }
 
-    @GetMapping("/findByID")
+    @GetMapping("/findByID/{id}")
     public ResponseEntity<CoteModel> searchById(@RequestParam Long id){
         CoteModel model = this.service.findCote(id);
         if (model.getId() == null) {
