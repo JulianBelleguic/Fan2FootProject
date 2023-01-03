@@ -17,22 +17,22 @@ public class ParieModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Column(name="idParie", nullable=false, updatable=false)
+    @Column(name="id_parie", nullable=false, updatable=false)
     private Long id;
 
     @Column(length=30)
     private Long idMatch;
 
     @OneToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="idCoteA")
+    @JoinColumn(name="id_cotea")
     private CoteModel idCoteA;
 
     @OneToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="idCoteB")
+    @JoinColumn(name="id_coteb")
     private CoteModel idCoteB;
 
     @OneToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="idCoteN")
+    @JoinColumn(name="id_coten")
     private CoteModel idCoteN;
 
     public Long getId() {
@@ -75,11 +75,4 @@ public class ParieModel {
         this.idCoteN = idCoteN;
     }
 
-    public ParieModel(Long id, Long idMatch, CoteModel id_coteA, CoteModel id_coteB, CoteModel id_coteN){
-        this.id = id;
-        this.idMatch = idMatch;
-        this.idCoteA = id_coteA;
-        this.idCoteB = id_coteB;
-        this.idCoteN = id_coteN;
-    }
 }
