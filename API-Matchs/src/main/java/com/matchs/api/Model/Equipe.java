@@ -1,15 +1,20 @@
 package com.matchs.api.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name= "equipe")
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+
 public class Equipe {
 
     @Id
@@ -20,79 +25,18 @@ public class Equipe {
     @Column(length=50)
     private String nom;
     private Integer score;
-//    @OneToMany(targetEntity = Joueurs.class, mappedBy = "equipe_id")
-//    private List<Joueurs> joueurs;
-//
+
     @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe1")
-    private List<Match> id_equipe1;
+    @ToString.Exclude
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Match> id_equipe1 = new ArrayList<>();
 
     @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe2")
-    private List<Match> id_equipe2;
+    @ToString.Exclude
+    @JsonProperty (access = JsonProperty.Access.WRITE_ONLY)
+    private List<Match> id_equipe2 = new ArrayList<>();
 
     @OneToMany(targetEntity = Resultat.class, mappedBy = "id_resultat")
     private List<Resultat> id_resultat;
 
-
-    public Equipe(Long id, String nom, Integer score, List<Match> id_equipe1, List<Match> id_equipe2, List<Resultat> id_resultat, List<Resultat> id_joueur) {
-        this.id = id;
-        this.nom = nom;
-        this.score = score;
-        this.id_equipe1 = id_equipe1;
-        this.id_equipe2 = id_equipe2;
-        this.id_resultat = id_resultat;
-    }
-
-    public Equipe(Object id, Object nom) {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public List<Match> getId_equipe1() {
-        return id_equipe1;
-    }
-
-    public void setId_equipe1(List<Match> id_equipe1) {
-        this.id_equipe1 = id_equipe1;
-    }
-
-    public List<Match> getId_equipe2() {
-        return id_equipe2;
-    }
-
-    public void setId_equipe2(List<Match> id_equipe2) {
-        this.id_equipe2 = id_equipe2;
-    }
-
-    @Override
-    public String toString() {
-        return "Equipe{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", score=" + score +
-                ", id_equipe1=" + id_equipe1 +
-                ", id_equipe2=" + id_equipe2 +
-                '}';
-    }
-}
+ }

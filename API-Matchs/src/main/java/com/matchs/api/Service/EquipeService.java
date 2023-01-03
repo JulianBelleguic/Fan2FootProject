@@ -20,7 +20,7 @@ public class EquipeService implements Serializable {
     public List<Equipe> findAllEquipes() { return equipeRepository.findAll(); }
 
     public Equipe findEquipe(Long id) {
-        return this.equipeRepository.findById(id).orElse(new Equipe(null, null));
+        return this.equipeRepository.findById(id).orElse(new Equipe(null, null, null, null, null, null));
     }
 
     public Equipe addEquipe(Equipe model) {

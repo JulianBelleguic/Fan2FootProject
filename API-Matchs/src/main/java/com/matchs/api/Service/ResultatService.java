@@ -17,7 +17,7 @@ public class ResultatService implements Serializable {
     }
 
     public Resultat findResultat(Long id) {
-        return this.repository.findById(id).orElse(new Resultat(null, null));
+        return this.repository.findById(id).orElse(new Resultat(null, null, null));
     }
 
     public Resultat addResultat(Resultat model) {

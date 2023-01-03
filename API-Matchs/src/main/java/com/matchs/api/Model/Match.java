@@ -1,18 +1,20 @@
 package com.matchs.api.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name= "matchs")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "match_id", nullable = false, updatable = false)
-    private long id_match;
+    private Long id_match;
 
     @ManyToOne
     private Equipe id_equipe1;
@@ -20,7 +22,4 @@ public class Match {
     @ManyToOne
     private Equipe id_equipe2;
 
-
-    public Match(Object o, Object o1) {
-    }
 }
