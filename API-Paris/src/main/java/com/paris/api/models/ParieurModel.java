@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Parieur {
+public class ParieurModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 

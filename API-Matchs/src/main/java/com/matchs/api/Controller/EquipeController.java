@@ -39,4 +39,16 @@ public class EquipeController {
         Equipe newEquipe = equipeService.addEquipe(equipe);
         return new ResponseEntity<>(newEquipe, HttpStatus.CREATED);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<Equipe> updateEquipe(@RequestBody Equipe equipe)  {
+        Equipe updatedEquipe = equipeService.updEquipe(equipe);
+        return new ResponseEntity<>(updatedEquipe, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Equipe> deleteEquipeById(@PathVariable ("id") Long id) {
+        equipeService.delEquipe(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
