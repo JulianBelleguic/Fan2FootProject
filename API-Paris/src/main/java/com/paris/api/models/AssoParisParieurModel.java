@@ -105,7 +105,5 @@ public class AssoParisParieurModel {
         this.gainPotentiel = gainPotentiel;
 
     }
-    public AssoParisParieurModel() {
-    }
 
 }

@@ -16,7 +16,6 @@ import lombok.Setter;
 public class ParieModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name="id_parie", nullable=false, updatable=false)
     private Long id;
 
@@ -35,44 +34,5 @@ public class ParieModel {
     @JoinColumn(name="id_coten")
     private CoteModel idCoteN;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getIdMatch() {
-        return idMatch;
-    }
-
-    public void setIdMatch(Long idMatch) {
-        this.idMatch = idMatch;
-    }
-
-    public CoteModel getIdCoteA() {
-        return idCoteA;
-    }
-
-    public void setIdCoteA(CoteModel idCoteA) {
-        this.idCoteA = idCoteA;
-    }
-
-    public CoteModel getIdCoteB() {
-        return idCoteB;
-    }
-
-    public void setIdCoteB(CoteModel idCoteB) {
-        this.idCoteB = idCoteB;
-    }
-
-    public CoteModel getIdCoteN() {
-        return idCoteN;
-    }
-
-    public void setIdCoteN(CoteModel idCoteN) {
-        this.idCoteN = idCoteN;
-    }
 
 }
