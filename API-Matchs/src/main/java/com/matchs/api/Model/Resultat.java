@@ -1,22 +1,25 @@
 package com.matchs.api.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name= "resultat")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Resultat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_resultat", nullable = false, updatable = false)
-    private long id_resultat;
+    private Long id_resultat;
+
+    @Column(name = "resultat")
+    private Float resultat;
 
     @ManyToOne
     private Equipe id_equipe;
 
-    public Resultat(Long aLong, Object id_equipe) {
-    }
 }
