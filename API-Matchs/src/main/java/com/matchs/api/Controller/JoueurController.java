@@ -36,7 +36,13 @@ public class JoueurController {
         return new ResponseEntity<>(newJoueur, HttpStatus.OK);
     }
     @RequestMapping(value = "/addEtoJ/{idJ}/{idEq}", method = RequestMethod.PUT)
-   public void updateEquipe(@PathVariable Long idJ, @PathVariable Equipe idEq) {
-       this.service.addEquipeToJoueur(idJ, idEq);
+   public ResponseEntity<Joueur> updateEquipe(@PathVariable Long idJ, @PathVariable Equipe idEq) {
+       boolean ans = this.service.addEquipeToJoueur(idJ, idEq);
+       Joueur model = this.service.findJoueur(idJ);
+       if (ans == true){
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+       }else {
+           return new ResponseEntity<>(model, HttpStatus.OK);
+       }
     }
 }

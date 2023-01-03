@@ -25,10 +25,15 @@ public class JoueurService implements Serializable{
         return this.repository.save(model);
     }
 
-    public void addEquipeToJoueur(Long joueurId, Equipe equipe){
+    public boolean addEquipeToJoueur(Long joueurId, Equipe equipe){
         Joueur joueur = this.repository.getReferenceById(joueurId);
         joueur.setId_equipe(equipe);
-        this.repository.save(joueur);
+        Joueur rep = this.repository.save(joueur);
+        if (rep == null){
+            return false;
+        }else {
+            return true;
+        }
     }
 
 }
