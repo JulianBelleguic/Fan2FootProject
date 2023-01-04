@@ -25,7 +25,7 @@ public class MatchService implements Serializable {
 
     }
 
-    public Match findMatch(Long id) {return this.matchRepository.findById(id).orElse(new Match(null, null,null));}
+    public Match findMatch(Long id) {return this.matchRepository.findById(id).orElse(new Match(null, null,null,null));}
 
     public Match addMatchById(Match model, Long id_equipe1, Long id_equipe2) {
         Match new_match = this.matchRepository.save(model);
@@ -48,6 +48,12 @@ public class MatchService implements Serializable {
 
     public void delMatch(Long id) {
         this.matchRepository.deleteById(id);
+    }
+
+    public Match addResultat(Long id, String Result){
+        Match match = findMatch(id);
+        match.setResultat(Result);
+        return this.matchRepository.save(match);
     }
 
     public info_match envoiScores(Long id) {
