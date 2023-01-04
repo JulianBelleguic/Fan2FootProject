@@ -1,12 +1,8 @@
 package com.paris.api.controllers;
 
-import com.paris.api.models.CoteModel;
 import com.paris.api.models.ParieurModel;
 import com.paris.api.services.ParieurService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -33,4 +29,5 @@ public class ParieurController {
         ParieurModel model = this.service.findParieur(id);
         return model;
     }
+
 }
