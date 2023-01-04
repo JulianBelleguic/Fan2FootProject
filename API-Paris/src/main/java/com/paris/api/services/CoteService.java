@@ -3,6 +3,7 @@ package com.paris.api.services;
 import com.paris.api.models.CoteModel;
 import com.paris.api.repository.CoteRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,6 +25,7 @@ public class CoteService implements Serializable {
         return repository.findAll();
     }
 
+    @GetMapping("/createCote")
     public CoteModel createCote(CoteModel model) {
         return this.repository.save(model);
     }

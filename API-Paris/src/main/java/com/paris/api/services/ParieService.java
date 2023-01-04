@@ -1,18 +1,21 @@
 package com.paris.api.services;
 
+import com.paris.api.models.CoteModel;
 import com.paris.api.models.ParieModel;
 import com.paris.api.models.info_match;
 import com.paris.api.repository.ParieRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Service
 public class ParieService implements Serializable {
 
-    private final ParieRepository repository;
+    private static ParieRepository repository;
 
     public ParieService (ParieRepository repository){
         this.repository = repository;
@@ -20,6 +23,10 @@ public class ParieService implements Serializable {
 
     public ParieModel findByID(Long id) {
         return this.repository.findById(id).orElse(new ParieModel());
+    }
+    @GetMapping("/all")
+    public static List<ParieModel> all() {
+        return repository.findAll();
     }
 
     public ParieModel createParie(ParieModel model) {
@@ -58,6 +65,7 @@ public class ParieService implements Serializable {
         Float chanceNulle = (float) ((50 - (delta / 2)) / 100);
         Float chanceA = (float) (((50 + (delta / 2)) / 100) * ((50 + (delta / 2)) / 100));
         Float chanceB = (float) (((50 + (delta / 2)) / 100) * ((50 - (delta / 2)) / 100));
+        return chanceA;
     }
 
 }

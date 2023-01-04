@@ -22,7 +22,7 @@ public class CoteController {
     }
 
     @GetMapping("/create")
-    public CoteModel createCote(@RequestBody CoteModel cote){
+    public CoteModel createCote(@RequestParam CoteModel cote){
         return service.createCote(cote);
     }
     @GetMapping("/all")

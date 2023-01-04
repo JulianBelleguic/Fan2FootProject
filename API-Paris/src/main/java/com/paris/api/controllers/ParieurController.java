@@ -1,6 +1,7 @@
 package com.paris.api.controllers;
 
 import com.paris.api.models.CoteModel;
+import com.paris.api.models.ParieModel;
 import com.paris.api.models.ParieurModel;
 import com.paris.api.services.ParieurService;
 import jakarta.persistence.EntityNotFoundException;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -32,5 +35,10 @@ public class ParieurController {
     public ParieurModel searchById(@RequestParam Long id){
         ParieurModel model = this.service.findParieur(id);
         return model;
+    }
+    @GetMapping("/getParis")
+    public List<ParieModel> getParis(){
+        List<ParieModel> paris = ParieController.findAll();
+        return paris;
     }
 }
