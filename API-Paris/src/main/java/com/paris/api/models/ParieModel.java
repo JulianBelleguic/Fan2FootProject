@@ -22,17 +22,13 @@ public class ParieModel {
     @Column(length=30)
     private Long idMatch;
 
-    @OneToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="id_cotea")
-    private CoteModel idCoteA;
+    @Column(name="coteA")
+    private double CoteA;
 
-    @OneToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="id_coteb")
-    private CoteModel idCoteB;
+    @Column(name="coteB")
+    private double CoteB;
 
-    @OneToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="id_coten")
-    private CoteModel idCoteN;
-
+    @Column(name="coteN")
+    private double CoteN;
 
 }

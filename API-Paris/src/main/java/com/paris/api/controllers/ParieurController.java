@@ -1,6 +1,5 @@
 package com.paris.api.controllers;
 
-import com.paris.api.models.CoteModel;
 import com.paris.api.models.ParieModel;
 import com.paris.api.models.ParieurModel;
 import com.paris.api.services.ParieurService;
