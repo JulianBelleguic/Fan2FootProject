@@ -28,8 +28,6 @@ public class JoueurController {
         }
     }
 
-    //COUCOU TOI
-
     @PostMapping("/add")
     public ResponseEntity<Joueur> addJoueur(@RequestBody Joueur joueur){
         Joueur newJoueur = this.service.addJoueur(joueur);

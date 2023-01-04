@@ -18,6 +18,7 @@ public class ParieurService implements Serializable {
         this.repository = repository;
     }
 
+
     public ParieurModel findParieur(Long id) {
         return this.repository.findById(id).orElse(new ParieurModel());
     }

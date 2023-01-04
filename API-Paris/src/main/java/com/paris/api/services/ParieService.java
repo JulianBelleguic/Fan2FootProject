@@ -15,6 +15,7 @@ import java.util.Objects;
 public class ParieService implements Serializable {
 
     private static ParieRepository repository;
+    private static List<ParieModel> all;
 
     public ParieService (ParieRepository repository){
         this.repository = repository;
@@ -25,7 +26,7 @@ public class ParieService implements Serializable {
     }
     @GetMapping("/all")
     public static List<ParieModel> all() {
-        return repository.findAll();
+        return all;
     }
 
     public ParieModel createParie(ParieModel model) {
