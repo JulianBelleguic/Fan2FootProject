@@ -1,7 +1,9 @@
 package com.paris.api.services;
 
+import com.paris.api.models.CoteModel;
 import com.paris.api.models.ParieModel;
 import com.paris.api.models.info_match;
+import com.paris.api.repository.CoteRepository;
 import com.paris.api.repository.ParieRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,8 +15,10 @@ import java.util.Objects;
 public class ParieService implements Serializable {
 
     private final ParieRepository repository;
+    private final CoteRepository coteRepository;
 
-    public ParieService (ParieRepository repository){
+    public ParieService (ParieRepository repository,CoteRepository coteRepository){
+        this.coteRepository = coteRepository;
         this.repository = repository;
     }
 
@@ -40,7 +44,16 @@ public class ParieService implements Serializable {
         ParieModel newParie = new ParieModel(null, null, null,null,null);
         assert response != null;
         newParie.setIdMatch(response.getId_match());
-        return null;
+        CoteModel coteA = new CoteModel(null, calculChances(response.getScore_eq1(), response.getScore_eq2(), "A"));
+        this.coteRepository.save(coteA);
+        CoteModel coteB = new CoteModel(null, calculChances(response.getScore_eq1(), response.getScore_eq2(), "B"));
+        this.coteRepository.save(coteB);
+        CoteModel coteN = new CoteModel(null, calculChances(response.getScore_eq1(), response.getScore_eq2(), "N"));
+        this.coteRepository.save(coteN);
+        newParie.setIdCoteA(coteA);
+        newParie.setIdCoteB(coteB);
+        newParie.setIdCoteN(coteN);
+        return this.repository.save(newParie);
     }
 
     private static Float calculChances (Integer score1, Integer score2, String call) {
@@ -55,9 +68,20 @@ public class ParieService implements Serializable {
         }
         int delta = scoreA - scoreB;
 
-        Float chanceNulle = (float) ((50 - (delta / 2)) / 100);
-        Float chanceA = (float) (((50 + (delta / 2)) / 100) * ((50 + (delta / 2)) / 100));
-        Float chanceB = (float) (((50 + (delta / 2)) / 100) * ((50 - (delta / 2)) / 100));
-    }
+        Float result = null;
+        float chanceN = (float) ((50 - (delta / 2)) / 100);
+        float chanceA = (float) (((50 + (delta / 2)) / 100) * ((50 + (delta / 2)) / 100));
+        float chanceB = (float) (((50 + (delta / 2)) / 100) * ((50 - (delta / 2)) / 100));
 
+        if (Objects.equals(call, "A")) {
+            result = chanceA;
+        } 
+        else if (Objects.equals(call, "B")) {
+            result = chanceB;
+        }
+        else if (Objects.equals(call, "N")) {
+            result = chanceN;
+        }
+        return result;
+    }
 }
