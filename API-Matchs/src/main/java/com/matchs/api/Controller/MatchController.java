@@ -30,6 +30,11 @@ public class MatchController {
         }
     }
 
+    @GetMapping("/result/{id_match}/{score}")
+    public ResponseEntity<Object> addResultat(@PathVariable ("id_match") Long id_match,@PathVariable ("score") String score) {
+        Match model = this.service.addResultat(id_match, score);
+        return new ResponseEntity(model, HttpStatus.OK);
+    }
 
     @GetMapping("/add/{id_eq1}/{id_eq2}")
     public ResponseEntity<Object> addMatchById(@PathVariable ("id_eq1") Long id_equipe1,@PathVariable ("id_eq2") Long id_equipe2) {
