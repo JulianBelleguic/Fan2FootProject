@@ -2,13 +2,12 @@ package com.matchs.api.Service;
 
 import com.matchs.api.Model.Equipe;
 import com.matchs.api.Model.Joueur;
-import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.JoueurRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 
-@Component
+@Service
 public class JoueurService implements Serializable{
 
     private final JoueurRepository repository;
