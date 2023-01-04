@@ -45,13 +45,5 @@ public class ParieurController {
         return paris;
     }
 
-    @GetMapping("/parier")
-    public ResponseEntity<AssoParisParieurModel> parier(@RequestParam Long id_parieur,@RequestParam Long id_parie, @RequestParam double montant, @RequestParam String cote){
-        AssoParisParieurModel parier = new AssoParisParieurModel(null, id_parieur, id_parie, montant, cote, 0);
-        if (parier.getId() == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(parier, HttpStatus.OK);
-        }
-    }
+
 }

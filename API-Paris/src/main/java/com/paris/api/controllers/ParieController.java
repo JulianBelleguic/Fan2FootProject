@@ -31,9 +31,9 @@ public class ParieController {
         return service.deleteByID(id);
     }
 
-    public ParieModel findByID(@RequestParam Long id, ParieModel parie){
+    public ParieModel findByID(@RequestParam Long id){
         ParieModel model = this.service.findByID(id);
-        return parie;
+        return model;
     }
     @GetMapping("/all")
     public static List<ParieModel> findAll() {
@@ -45,4 +45,11 @@ public class ParieController {
         ParieModel model = this.service.addParie(id);
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
+
+//    @GetMapping("/paris")
+//    public List<ParieModel> getParie(){
+//        List<ParieModel> paris = ParieService.all();
+//        return paris;
+//    }
+
 }
