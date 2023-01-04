@@ -11,6 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+
 public class AssoParisParieurModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +34,13 @@ public class AssoParisParieurModel {
     @Column(length=30)
     private double montant;
 
-    @ManyToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="idCote")
-    private CoteModel idCote;
+
+    @Column(name="coteChoisie", length = 1)
+    private String coteChoisie;
 
 
     @Column(length=30)
     private double gainPotentiel;
+
 
 }

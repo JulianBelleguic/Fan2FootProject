@@ -10,8 +10,8 @@ import lombok.Setter;
 @Table(name = "parieur")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 
 public class ParieurModel {
     @Id

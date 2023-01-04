@@ -16,22 +16,19 @@ import lombok.Setter;
 public class ParieModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column(name="idParie", nullable=false, updatable=false)
+    @Column(name="id_parie", nullable=false, updatable=false)
     private Long id;
 
     @Column(length=30)
     private Long idMatch;
 
-    @OneToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="idCoteA")
-    private CoteModel idCoteA;
+    @Column(name="coteA")
+    private double CoteA;
 
-    @OneToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="idCoteB")
-    private CoteModel idCoteB;
+    @Column(name="coteB")
+    private double CoteB;
 
-    @OneToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="idCoteN")
-    private CoteModel idCoteN;
+    @Column(name="coteN")
+    private double CoteN;
+
 }
