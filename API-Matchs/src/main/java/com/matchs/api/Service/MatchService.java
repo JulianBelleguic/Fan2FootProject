@@ -66,24 +66,18 @@ public class MatchService implements Serializable {
         if (score1>score2){
                 resultat1.setResultat(1.0f);
                 resultat2.setResultat(0.0f);
-                resultat1.setId_resultat(match.getId_equipe1().getId());
-                resultat2.setId_resultat(match.getId_equipe2().getId());
                 resultat1.setId_equipe(equipe1);
                 resultat2.setId_equipe(equipe2);
         }
         else if (score2>score1){
             resultat1.setResultat(0.0f);
             resultat2.setResultat(1.0f);
-            resultat1.setId_resultat(match.getId_equipe1().getId());
-            resultat2.setId_resultat(match.getId_equipe2().getId());
             resultat1.setId_equipe(equipe1);
             resultat2.setId_equipe(equipe2);
         }
         else{
             resultat1.setResultat(0.5f);
             resultat2.setResultat(0.5f);
-            resultat1.setId_resultat(match.getId_equipe1().getId());
-            resultat2.setId_resultat(match.getId_equipe2().getId());
             resultat1.setId_equipe(equipe1);
             resultat2.setId_equipe(equipe2);
         }
