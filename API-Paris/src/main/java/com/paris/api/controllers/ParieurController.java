@@ -64,6 +64,16 @@ public class ParieurController {
          return service.saveBalance(id, montant);
     }
 
+    @GetMapping("/soustraireBalance")
+    public ParieurModel soustraireBalance(@RequestParam Long id, @RequestParam double montant){
+        return service.soustraireBalance(id, montant);
+    }
+
+    @GetMapping("/additionnerBalance")
+    public ParieurModel additionnerBalance(@RequestParam Long id, @RequestParam double montant){
+        return service.additionnerBalance(id, montant);
+    }
+
     @GetMapping("/getParier")
     public List<AssoParisParieurModel> getParierByParieurId(@RequestParam Long id_parieur){
         List<AssoParisParieurModel> parier = serviceAsso.getParierByIdJoueur(id_parieur);

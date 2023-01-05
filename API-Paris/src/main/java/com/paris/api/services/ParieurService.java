@@ -35,6 +35,16 @@ public class ParieurService implements Serializable {
         parieur.setBalance(montant);
         return this.repository.save(parieur);
     }
+    public ParieurModel soustraireBalance(Long id, double montant) {
+        ParieurModel parieur = this.findParieur(id);
+        parieur.setBalance(parieur.getBalance() - montant);
+        return this.repository.save(parieur);
+    }
+    public ParieurModel additionnerBalance(Long id, double montant) {
+        ParieurModel parieur = this.findParieur(id);
+        parieur.setBalance(parieur.getBalance() + montant);
+        return this.repository.save(parieur);
+    }
 
     public String deleteByID(Long id){
         repository.deleteById(id);
