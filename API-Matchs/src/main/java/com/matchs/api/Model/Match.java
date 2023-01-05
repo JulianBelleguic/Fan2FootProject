@@ -16,6 +16,9 @@ public class Match {
     @Column(name = "match_id", nullable = false, updatable = false)
     private Long id_match;
 
+    @Column(name="resultat")
+    private String resultat;
+
     @ManyToOne
     private Equipe id_equipe1;
 
