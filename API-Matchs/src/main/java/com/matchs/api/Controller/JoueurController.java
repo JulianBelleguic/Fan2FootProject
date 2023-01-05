@@ -30,8 +30,6 @@ public class JoueurController {
         }
     }
 
-    //COUCOU TOI
-
     @PostMapping("/add")
     @Operation(summary = "Add player.", description = "Add player from the Body provided.")
     public ResponseEntity<Joueur> addJoueur(@RequestBody Joueur joueur){

@@ -20,13 +20,8 @@ public class AssoParisParieurModel {
     @Column(name="id", nullable=false, updatable=false)
     private Long id;
 
-    @ManyToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="idParieur")
-    private ParieurModel idParieur;
-
-    @ManyToOne( cascade = CascadeType.ALL )
-    @JoinColumn(name="idParie")
-    private ParieModel idParie;
+    @Column(length=30)
+    private Long idParieur;
 
     @Column(length=30)
     private Long idParis;
