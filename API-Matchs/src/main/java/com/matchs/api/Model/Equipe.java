@@ -38,7 +38,7 @@ public class Equipe {
     @ToString.Exclude
     private List<Match> id_equipe2 = new ArrayList<>();
 
-    @OneToMany(targetEntity = Resultat.class, mappedBy = "id_equipe")
+    @OneToMany(targetEntity = Resultat.class, mappedBy = "id_equipe", fetch = FetchType.EAGER)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ToString.Exclude
     private List<Resultat> id_equipe = new ArrayList<>();

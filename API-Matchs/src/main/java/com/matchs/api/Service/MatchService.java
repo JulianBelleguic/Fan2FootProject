@@ -88,7 +88,6 @@ public class MatchService implements Serializable {
         this.equipeService.updScore(equipe1);
         this.equipeService.updScore(equipe2);
 
-        System.out.println(this.resultatRepository.findResulats(equipe1.getId()));
         return match;
     }
 
