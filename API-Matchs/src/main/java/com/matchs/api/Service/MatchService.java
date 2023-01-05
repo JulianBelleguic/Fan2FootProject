@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 @Service
@@ -96,4 +97,9 @@ public class MatchService implements Serializable {
         infomatch.setScore_eq2(game.getId_equipe2().getScore());
         return infomatch;
     }
+
+    public List<Resultat> findByIdEquipe(Long id){
+        return resultatRepository.findById_equipe(id);
+    }
+
 }
