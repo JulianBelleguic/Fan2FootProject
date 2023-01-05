@@ -56,6 +56,5 @@ public class EquipeService implements Serializable {
             score = Precision.round(score + variation,2);
         }
         equipe.setScore(score);
-        System.out.println(equipe.getScore());
     }
 }
