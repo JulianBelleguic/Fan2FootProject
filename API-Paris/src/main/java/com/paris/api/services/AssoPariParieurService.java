@@ -33,7 +33,7 @@ public class AssoPariParieurService implements Serializable {
 
     public AssoParisParieurModel parier( Long id_parieur,  Long id_parie,  double montant, String cote){
         AssoParisParieurModel model = new AssoParisParieurModel();
-        ParieModel pariModel = this.parieService.findPari(id_parie);
+        ParieModel pariModel = this.parieService.findByID(id_parie);
         ParieurModel parieurModel = this.parieurService.findParieur(id_parieur) ;
         model.setIdParieur(parieurModel.getId());
         model.setIdParis(pariModel.getId());
