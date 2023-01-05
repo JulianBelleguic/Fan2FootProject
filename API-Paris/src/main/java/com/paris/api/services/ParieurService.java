@@ -22,6 +22,7 @@ public class ParieurService implements Serializable {
         this.repository = repository;
     }
 
+
     public ParieurModel findParieur(Long id) {
         return this.repository.findById(id).orElse(new ParieurModel());
     }
@@ -29,11 +30,25 @@ public class ParieurService implements Serializable {
     public ParieurModel createParieur(ParieurModel model) {
         return this.repository.save(model);
     }
+    public ParieurModel saveBalance(Long id, double montant) {
+        ParieurModel parieur = this.findParieur(id);
+        parieur.setBalance(montant);
+        return this.repository.save(parieur);
+    }
+    public ParieurModel soustraireBalance(Long id, double montant) {
+        ParieurModel parieur = this.findParieur(id);
+        parieur.setBalance(parieur.getBalance() - montant);
+        return this.repository.save(parieur);
+    }
+    public ParieurModel additionnerBalance(Long id, double montant) {
+        ParieurModel parieur = this.findParieur(id);
+        parieur.setBalance(parieur.getBalance() + montant);
+        return this.repository.save(parieur);
+    }
 
     public String deleteByID(Long id){
         repository.deleteById(id);
         return "Parieur supprimer";
-
     }
 
 
