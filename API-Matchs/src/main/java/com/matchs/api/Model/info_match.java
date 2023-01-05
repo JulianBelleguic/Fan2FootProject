@@ -14,11 +14,11 @@ public class info_match {
 
     private String nom_eq2;
 
-    private Integer score_eq1;
+    private Float score_eq1;
 
-    private Integer score_eq2;
+    private Float score_eq2;
 
-    public info_match(Long id_match, String nom_eq1, String nom_eq2, Integer score_eq1, Integer score_eq2) {
+    public info_match(Long id_match, String nom_eq1, String nom_eq2, Float score_eq1, Float score_eq2) {
         this.id_match = id_match;
         this.nom_eq1 = nom_eq1;
         this.nom_eq2 = nom_eq2;

@@ -1,5 +1,6 @@
 package com.matchs.api.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,5 +22,4 @@ public class Resultat {
 
     @ManyToOne
     private Equipe id_equipe;
-
 }

@@ -2,6 +2,7 @@ package com.matchs.api.Controller;
 
 import com.matchs.api.Model.Equipe;
 import com.matchs.api.Service.EquipeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/equipe")
 public class EquipeController {
-    // on créé l'attribut de class qui va contenir le service associé à notre controller
+    // on crée l'attribut de class qui va contenir le service associé à notre controller
     private final EquipeService equipeService;
 
+    @Autowired
     public EquipeController(EquipeService equipeService) {
         this.equipeService = equipeService;
     }

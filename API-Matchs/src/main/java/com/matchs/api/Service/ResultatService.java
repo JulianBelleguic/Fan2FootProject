@@ -5,6 +5,7 @@ import com.matchs.api.Repository.ResultatRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Service
 public class ResultatService implements Serializable {
@@ -31,4 +32,5 @@ public class ResultatService implements Serializable {
     public void delResultat(Long id) {
         this.repository.deleteById(id);
     }
+
 }

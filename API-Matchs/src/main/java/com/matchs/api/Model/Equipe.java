@@ -24,19 +24,23 @@ public class Equipe {
 
     @Column(length=50)
     private String nom;
-    private Integer score;
+    private Float score;
 
     @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe1")
-    @ToString.Exclude
+    //@ToString.Exclude
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ToString.Exclude
     private List<Match> id_equipe1 = new ArrayList<>();
 
     @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe2")
-    @ToString.Exclude
+    //@ToString.Exclude
     @JsonProperty (access = JsonProperty.Access.WRITE_ONLY)
+    @ToString.Exclude
     private List<Match> id_equipe2 = new ArrayList<>();
 
-    @OneToMany(targetEntity = Resultat.class, mappedBy = "id_resultat")
-    private List<Resultat> id_resultat;
+    @OneToMany(targetEntity = Resultat.class, mappedBy = "id_equipe", fetch = FetchType.EAGER)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ToString.Exclude
+    private List<Resultat> id_equipe = new ArrayList<>();
 
  }
