@@ -44,7 +44,7 @@ public class AssoPariParieurService implements Serializable {
 
     public AssoParisParieurModel parier( Long id_parieur,  Long id_parie,  double montant, String cote){
         ParieurModel parieur = parieurController.searchById(id_parieur);
-        if (parieur.getBalance() < montant ||parieur.getBalance() < 0)
+        if (parieur.getBalance() < montant ||parieur.getBalance() > 0)
         {} else
         {
             double gainPotentiel;
