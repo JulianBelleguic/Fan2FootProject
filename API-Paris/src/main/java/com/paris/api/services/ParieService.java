@@ -4,23 +4,28 @@ import com.paris.api.models.ParieModel;
 import com.paris.api.models.info_match;
 import com.paris.api.repository.ParieRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Service
 public class ParieService implements Serializable {
 
-    private final ParieRepository repository;
+    private static ParieRepository repository;
 
     public ParieService (ParieRepository repository){
         this.repository = repository;
     }
 
-
     public ParieModel findByID(Long id) {
-        return this.repository.findById(id).orElse(new ParieModel());
+        return this.repository.findById(id).orElse(new ParieModel(null, null, 0,0,0));
+    }
+    @GetMapping("/all")
+    public static List<ParieModel> all() {
+        return repository.findAll();
     }
 
     public ParieModel createParie(ParieModel model) {
@@ -33,11 +38,9 @@ public class ParieService implements Serializable {
     }
 
     public ParieModel addParie(Long id){
-        //info_match result = new info_match(null,null,null,null,null);
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl  = "http://localhost:8080/api/match/scores";
         info_match response = restTemplate.getForObject(fooResourceUrl + "?id=" + id, info_match.class);
-        System.out.println(response);
         ParieModel newParie = new ParieModel(null, null, 0,0,0);
         assert response != null;
         newParie.setIdMatch(response.getId_match());
