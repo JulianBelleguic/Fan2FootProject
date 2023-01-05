@@ -43,7 +43,7 @@ public class EquipeService implements Serializable {
 
     public void updScore(Equipe equipe) {
         Float listresultats;
-        listresultats = this.resultatRepository.findById_equipe(equipe.getId());
+        listresultats = this.resultatRepository.findResulats(equipe.getId());
         System.out.println(listresultats);
     }
 }

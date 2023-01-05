@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ResultatRepository extends JpaRepository<Resultat, Long> {
-    @Query(value = "SELECT SUM(resultat.resultat) FROM resultat WHERE id_equipe_equipe_id = :id ORDER BY id_resultat DESC LIMIT 10", nativeQuery = true)
-    public Float findById_equipe(@Param("id") Long id);
+    @Query(value = "SELECT SUM(resultat) FROM resultat WHERE id_equipe_equipe_id = :id", nativeQuery = true)
+    //public List<Resultat> findResulats(@Param("id") Long id);
+    public Float findResulats(@Param("id") Long id);
 }

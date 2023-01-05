@@ -33,7 +33,4 @@ public class ResultatService implements Serializable {
         this.repository.deleteById(id);
     }
 
-    public Float findByIdEquipe(Long id){
-        return repository.findById_equipe(id);
-    }
 }
