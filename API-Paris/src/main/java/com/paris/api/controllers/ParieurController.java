@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class ParieurController {
     private ParieController parieController;
 
 @Autowired
-    public ParieurController(ParieurService service, AssoPariParieurService serviceAsso,  ParieController parieController){
+    public ParieurController(ParieurService service, @Lazy AssoPariParieurService serviceAsso, ParieController parieController){
         this.service = service;
         this.serviceAsso = serviceAsso;
         this.parieController = parieController;
