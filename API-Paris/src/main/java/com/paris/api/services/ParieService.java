@@ -38,11 +38,9 @@ public class ParieService implements Serializable {
     }
 
     public ParieModel addParie(Long id){
-        //info_match result = new info_match(null,null,null,null,null);
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl  = "http://localhost:8080/api/match/scores";
         info_match response = restTemplate.getForObject(fooResourceUrl + "?id=" + id, info_match.class);
-        System.out.println(response);
         ParieModel newParie = new ParieModel(null, null, 0,0,0);
         assert response != null;
         newParie.setIdMatch(response.getId_match());
