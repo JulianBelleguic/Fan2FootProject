@@ -82,13 +82,12 @@ public class MatchService implements Serializable {
             resultat1.setId_equipe(equipe1);
             resultat2.setId_equipe(equipe2);
         }
-        resultatRepository.save(resultat1);
-        resultatRepository.save(resultat2);
-
         this.equipeService.updScore(equipe1);
         this.equipeService.updScore(equipe2);
 
-        System.out.println(this.resultatRepository.findResulats(equipe1.getId()));
+        resultatRepository.save(resultat1);
+        resultatRepository.save(resultat2);
+
         return match;
     }
 

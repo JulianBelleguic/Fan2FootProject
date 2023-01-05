@@ -4,6 +4,7 @@ import com.matchs.api.Model.Equipe;
 import com.matchs.api.Model.Resultat;
 import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.ResultatRepository;
+import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +43,19 @@ public class EquipeService implements Serializable {
     }
 
     public void updScore(Equipe equipe) {
-        Float listresultats;
-        listresultats = this.resultatRepository.findResulats(equipe.getId());
-        System.out.println(listresultats);
+        Float sommeResultats;
+        sommeResultats = this.resultatRepository.findResulats(equipe.getId());
+        float score = equipe.getScore();
+        float variation;
+        if (sommeResultats > 5) {
+            variation = (float) (2 * (sommeResultats - 5) * (0.001) * (100 - score));
+            score = Precision.round(score + variation,2);
+        }
+        if (sommeResultats < 5) {
+            variation = (float) (2 * (sommeResultats - 5) * (0.001) * (score));
+            score = Precision.round(score + variation,2);
+        }
+        equipe.setScore(score);
+        System.out.println(equipe.getScore());
     }
 }

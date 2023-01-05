@@ -24,7 +24,7 @@ public class Equipe {
 
     @Column(length=50)
     private String nom;
-    private Integer score;
+    private Float score;
 
     @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe1")
     //@ToString.Exclude
