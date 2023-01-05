@@ -21,7 +21,7 @@ public class ParieService implements Serializable {
         this.repository = repository;
     }
 
-    public ParieModel findPari(Long id) {
+    public ParieModel findByID(Long id) {
         return this.repository.findById(id).orElse(new ParieModel(null, null, 0,0,0));
     }
     @GetMapping("/all")
