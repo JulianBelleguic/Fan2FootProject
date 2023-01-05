@@ -52,5 +52,12 @@ public class ParieurController {
         return paris;
     }
 
+    @GetMapping("/getParier")
+    public List<AssoParisParieurModel> getParierByParieurId(@RequestParam Long id_parieur){
+        List<AssoParisParieurModel> parier = serviceAsso.getParierByIdJoueur(id_parieur);
+
+        return parier;
+    }
+
 
 }

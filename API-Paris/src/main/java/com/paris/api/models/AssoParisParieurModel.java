@@ -20,7 +20,7 @@ public class AssoParisParieurModel {
     @Column(name="id", nullable=false, updatable=false)
     private Long id;
 
-    @Column(length=30)
+    @Column(length=30, name="idParieur")
     private Long idParieur;
 
     @Column(length=30)

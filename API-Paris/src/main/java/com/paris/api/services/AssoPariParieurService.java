@@ -8,6 +8,8 @@ import com.paris.api.repository.ParieurRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AssoPariParieurService implements Serializable {
@@ -29,6 +31,10 @@ public class AssoPariParieurService implements Serializable {
 
     public AssoParisParieurModel addAssoParisParieur(AssoParisParieurModel model) {
         return this.repository.save(model);
+    }
+    public List<AssoParisParieurModel> getParierByIdJoueur(Long id_joueur){
+        List<AssoParisParieurModel> parier = this.repository.findAllByIdParieur(id_joueur);
+        return parier;
     }
 
     public AssoParisParieurModel parier( Long id_parieur,  Long id_parie,  double montant, String cote){

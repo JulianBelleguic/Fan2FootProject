@@ -33,7 +33,6 @@ public class ParieurService implements Serializable {
     public String deleteByID(Long id){
         repository.deleteById(id);
         return "Parieur supprimer";
-
     }
 
 

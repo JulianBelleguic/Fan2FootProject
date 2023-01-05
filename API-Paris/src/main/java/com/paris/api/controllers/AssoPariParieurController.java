@@ -34,6 +34,8 @@ public class AssoPariParieurController {
         }
     }
 
+
+
     @GetMapping("/parier")
     public ResponseEntity<AssoParisParieurModel> parier(@RequestParam Long id_parieur,@RequestParam Long id_parie, @RequestParam double montant, @RequestParam String cote){
         AssoParisParieurModel parier = this.service.parier(id_parieur, id_parie, montant, cote);
