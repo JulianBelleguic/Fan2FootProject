@@ -23,12 +23,23 @@ public class ParieModel {
     private Long idMatch;
 
     @Column(name="coteA")
-    private double CoteA;
+    private double CoteA = 0;
 
     @Column(name="coteB")
-    private double CoteB;
+    private double CoteB = 0;
 
     @Column(name="coteN")
-    private double CoteN;
+    private double CoteN = 0;
 
+    public double getCoteA() {
+        return CoteA;
+    }
+
+    public double getCoteB() {
+        return CoteB;
+    }
+
+    public double getCoteN() {
+        return CoteN;
+    }
 }

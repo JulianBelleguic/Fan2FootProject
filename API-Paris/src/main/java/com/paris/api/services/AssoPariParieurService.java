@@ -32,13 +32,28 @@ public class AssoPariParieurService implements Serializable {
     }
 
     public AssoParisParieurModel parier( Long id_parieur,  Long id_parie,  double montant, String cote){
+        double gainPotentiel;
+
         AssoParisParieurModel model = new AssoParisParieurModel();
         ParieModel pariModel = this.parieService.findByID(id_parie);
-        ParieurModel parieurModel = this.parieurService.findParieur(id_parieur) ;
+        ParieurModel parieurModel = this.parieurService.findParieur(id_parieur);
+        if ("A".equalsIgnoreCase(cote) || "a".equalsIgnoreCase(cote))
+        {
+            gainPotentiel = montant * pariModel.getCoteA();
+        } else if ("B".equalsIgnoreCase(cote) || "b".equalsIgnoreCase(cote)) {
+            gainPotentiel = montant * pariModel.getCoteB();
+        }
+        else if ("N".equalsIgnoreCase(cote) || "n".equalsIgnoreCase(cote)) {
+            gainPotentiel = montant * pariModel.getCoteN();
+        } else
+        {
+            gainPotentiel = 0.0;
+        }
         model.setIdParieur(parieurModel.getId());
         model.setIdParis(pariModel.getId());
         model.setMontant(montant);
         model.setCoteChoisie(cote);
+        model.setGainPotentiel(gainPotentiel);
         return this.repository.save(model);
     }
 

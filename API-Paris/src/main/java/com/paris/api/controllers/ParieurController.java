@@ -20,10 +20,13 @@ public class ParieurController {
 
     private final ParieurService service;
     private final AssoPariParieurService serviceAsso;
+
+    private  ParieController parieController;
     @Autowired
-    public ParieurController(ParieurService service, AssoPariParieurService serviceAsso){
+    public ParieurController(ParieurService service, AssoPariParieurService serviceAsso,  ParieController parieController){
         this.service = service;
         this.serviceAsso = serviceAsso;
+        this.parieController = parieController;
     }
     @PostMapping("/create")
     public ParieurModel createParieur(@RequestBody ParieurModel parieur){
@@ -41,9 +44,11 @@ public class ParieurController {
     }
     @GetMapping("/getParis")
     public List<ParieModel> getParis(){
-        List<ParieModel> paris = ParieController.findAll();
+        List<ParieModel> paris = parieController.findAll();
         return paris;
     }
+
+    //@GetMapping("")
 
 
 }

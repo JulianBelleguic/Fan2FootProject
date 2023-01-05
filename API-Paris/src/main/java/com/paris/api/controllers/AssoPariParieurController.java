@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/AssoPariParieur")
+@RequestMapping("/asso")
 public class AssoPariParieurController {
 
     private final AssoPariParieurService service;
