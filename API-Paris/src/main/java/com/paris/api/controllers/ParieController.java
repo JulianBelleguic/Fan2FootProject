@@ -36,4 +36,9 @@ public class ParieController {
         ParieModel model = this.service.findByID(id);
         return parie;
     }
+    @GetMapping("/add")
+    public ResponseEntity<Object> addParie(@RequestParam Long id){
+        ParieModel model = this.service.addParie(id);
+        return new ResponseEntity<>(model, HttpStatus.OK);
+    }
 }

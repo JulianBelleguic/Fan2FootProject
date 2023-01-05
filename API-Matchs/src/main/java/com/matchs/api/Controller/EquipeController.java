@@ -15,7 +15,7 @@ public class EquipeController {
     // on créé l'attribut de class qui va contenir le service associé à notre controller
     private final EquipeService equipeService;
 
-    public EquipeController(EquipeService service, EquipeService equipeService) {
+    public EquipeController(EquipeService equipeService) {
         this.equipeService = equipeService;
     }
 
