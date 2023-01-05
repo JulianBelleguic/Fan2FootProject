@@ -18,9 +18,9 @@ import java.util.List;
 @Transactional
 public class MatchService implements Serializable {
     // on crée l'attribut de class qui va contenir le repository
-    private MatchRepository matchRepository;
-    private EquipeService equipeService;
-    private ResultatRepository resultatRepository;
+    private final MatchRepository matchRepository;
+    private final EquipeService equipeService;
+    private final ResultatRepository resultatRepository;
 
     public MatchService(MatchRepository matchRepository, EquipeService equipeService, ResultatRepository resultatRepository) {
         this.matchRepository = matchRepository;
@@ -84,6 +84,11 @@ public class MatchService implements Serializable {
         }
         resultatRepository.save(resultat1);
         resultatRepository.save(resultat2);
+
+        this.equipeService.updScore(equipe1);
+        this.equipeService.updScore(equipe2);
+
+        System.out.println(this.resultatRepository.findById_equipe(equipe1.getId()));
         return match;
     }
 
@@ -96,10 +101,6 @@ public class MatchService implements Serializable {
         infomatch.setScore_eq1(game.getId_equipe1().getScore());
         infomatch.setScore_eq2(game.getId_equipe2().getScore());
         return infomatch;
-    }
-
-    public List<Resultat> findByIdEquipe(Long id){
-        return resultatRepository.findById_equipe(id);
     }
 
 }

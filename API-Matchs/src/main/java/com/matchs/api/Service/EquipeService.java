@@ -1,7 +1,10 @@
 package com.matchs.api.Service;
 
 import com.matchs.api.Model.Equipe;
+import com.matchs.api.Model.Resultat;
 import com.matchs.api.Repository.EquipeRepository;
+import com.matchs.api.Repository.ResultatRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -11,10 +14,13 @@ import java.util.List;
 public class EquipeService implements Serializable {
     // on crée l'attribut de class qui va contenir le repository
     private final EquipeRepository equipeRepository;
+    private final ResultatRepository resultatRepository;
 
+    @Autowired
     // on propose un constructeur, qui va recevoir une instance du repository fournie automatiquement par Spring
-    public EquipeService(EquipeRepository equipeRepository) {
+    public EquipeService(EquipeRepository equipeRepository, ResultatRepository resultatRepository) {
         this.equipeRepository = equipeRepository;
+        this.resultatRepository = resultatRepository;
     }
 
     public List<Equipe> findAllEquipes() { return equipeRepository.findAll(); }
@@ -33,5 +39,11 @@ public class EquipeService implements Serializable {
 
     public void delEquipe(Long id) {
         this.equipeRepository.deleteById(id);
+    }
+
+    public void updScore(Equipe equipe) {
+        Float listresultats;
+        listresultats = this.resultatRepository.findById_equipe(equipe.getId());
+        System.out.println(listresultats);
     }
 }
