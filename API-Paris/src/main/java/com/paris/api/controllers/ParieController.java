@@ -1,14 +1,14 @@
 package com.paris.api.controllers;
 
 import com.paris.api.models.ParieModel;
+import com.paris.api.models.ParieurModel;
 import com.paris.api.services.ParieService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController
@@ -23,7 +23,7 @@ public class ParieController {
     }
     @PostMapping("/create")
     @Operation(summary = "Create one 'pari'.", description = "Create one 'pari' from the provided Body.")
-    public ParieModel createParie(@RequestParam ParieModel parie){
+    public ParieModel createParie(@RequestBody ParieModel parie){
         return service.createParie(parie);
     }
     @PutMapping("/deleteByID/{id}")
@@ -32,14 +32,9 @@ public class ParieController {
         return service.deleteByID(id);
     }
 
-    public ParieModel findByID(@RequestParam Long id){
+    public ParieModel findByID(@RequestParam Long id, ParieModel parie){
         ParieModel model = this.service.findByID(id);
-        return model;
-    }
-    @GetMapping("/all")
-    public static List<ParieModel> findAll() {
-        List<ParieModel> paris = ParieService.all();
-        return paris;
+        return parie;
     }
     @GetMapping("/add")
     public ResponseEntity<Object> addParie(@RequestParam Long id){
