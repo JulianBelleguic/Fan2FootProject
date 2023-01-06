@@ -1,7 +1,6 @@
 package com.matchs.api.Controller;
 
 import com.matchs.api.Model.Match;
-import com.matchs.api.Model.info_match;
 import com.matchs.api.Service.MatchService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;

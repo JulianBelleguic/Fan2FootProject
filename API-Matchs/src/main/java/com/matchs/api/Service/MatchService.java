@@ -3,17 +3,13 @@ package com.matchs.api.Service;
 import com.matchs.api.Model.Equipe;
 import com.matchs.api.Model.Match;
 import com.matchs.api.Model.Resultat;
-import com.matchs.api.Model.info_match;
-import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.MatchRepository;
 import com.matchs.api.Repository.ResultatRepository;
-import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.Serializable;
-import java.util.List;
 
 
 @Service
@@ -33,24 +29,23 @@ public class MatchService implements Serializable {
     public Match findMatch(Long id) {return this.matchRepository.findById(id).orElse(new Match(null, null,null,null));}
 
     public Match addMatch(Match model, Long idEquipe1, Long idEquipe2) {
-        Match newMatch = this.matchRepository.save(model);
         Equipe eqp1 = equipeService.findEquipe(idEquipe1);
         Equipe eqp2 = equipeService.findEquipe(idEquipe2);
-        if (newMatch.getId_equipe1()==null && model.getId_equipe2()==null){
-            newMatch.setId_equipe1(eqp1);
-            newMatch.setId_equipe2(eqp2);
+        if (model.getId_equipe1()==null && model.getId_equipe2()==null){
+            model.setId_equipe1(eqp1);
+            model.setId_equipe2(eqp2);
         }
-        this.matchRepository.save(newMatch);
+        this.matchRepository.save(model);
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl  = "http://localhost:8081/Parie/add";
-        Boolean response = restTemplate.getForObject(fooResourceUrl + "?idMatch=" + newMatch.getId_match() + "&scoreEqip1=" + eqp1.getScore() + "&scoreEqip2=" + eqp2.getScore(), Boolean.class);
+        Boolean response = restTemplate.getForObject(fooResourceUrl + "?idMatch=" + model.getId_match() + "&scoreEqip1=" + eqp1.getScore() + "&scoreEqip2=" + eqp2.getScore(), Boolean.class);
         if (response){
             System.out.println("Pari créé.");
         }
         else{
             System.out.println("Erreur lors de la création du pari.");
         }
-        return newMatch;
+        return model;
     }
 
     public Match updMatch(Match model) {

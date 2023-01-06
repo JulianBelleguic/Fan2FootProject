@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @RestController
-@RequestMapping("/api/joueur")
+@RequestMapping("/joueur")
 public class JoueurController {
 
     private final JoueurService service;
