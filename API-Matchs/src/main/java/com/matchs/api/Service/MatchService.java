@@ -85,8 +85,8 @@ public class MatchService implements Serializable {
             resultat1.setId_equipe(equipe1);
             resultat2.setId_equipe(equipe2);
         }
-//        this.equipeService.updScore(equipe1);
-//        this.equipeService.updScore(equipe2);
+        this.equipeService.updScore(equipe1);
+        this.equipeService.updScore(equipe2);
 
         resultatRepository.save(resultat1);
         resultatRepository.save(resultat2);
@@ -109,5 +109,4 @@ public class MatchService implements Serializable {
         infomatch.setScore_eq2(game.getId_equipe2().getScore());
         return infomatch;
     }
-
 }
