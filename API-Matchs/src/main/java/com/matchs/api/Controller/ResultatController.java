@@ -1,8 +1,7 @@
 package com.matchs.api.Controller;
 
-import com.matchs.api.Model.Match;
+
 import com.matchs.api.Model.Resultat;
-import com.matchs.api.Service.MatchService;
 import com.matchs.api.Service.ResultatService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
