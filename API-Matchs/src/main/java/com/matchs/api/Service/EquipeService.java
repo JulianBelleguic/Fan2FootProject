@@ -1,7 +1,6 @@
 package com.matchs.api.Service;
 
 import com.matchs.api.Model.Equipe;
-import com.matchs.api.Model.Resultat;
 import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.ResultatRepository;
 import org.apache.commons.math3.util.Precision;

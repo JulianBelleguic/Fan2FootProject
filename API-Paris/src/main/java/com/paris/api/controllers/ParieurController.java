@@ -35,7 +35,6 @@ public class ParieurController {
         this.service = service;
         this.serviceAsso = serviceAsso;
         this.parieController = parieController;
-
     }
     @PostMapping("/create")
     @Operation(summary = "Create one 'parieur'.", description = "Create one 'parieur' from the provided Body.")
@@ -76,11 +75,15 @@ public class ParieurController {
     }
 
     @GetMapping("/getParier")
-    public List<AssoParisParieurModel> getParierByParieurId(@RequestParam Long id_parieur){
-        List<AssoParisParieurModel> parier = serviceAsso.getParierByIdJoueur(id_parieur);
-
+    public List<AssoParisParieurModel> getParierByParieurId(@RequestParam Long idParieur){
+        List<AssoParisParieurModel> parier = serviceAsso.getParierByIdJoueur(idParieur);
         return parier;
     }
 
+    @GetMapping("/profit")
+    public ResponseEntity updBalanceByMatch(@RequestParam Long idmatch,@RequestParam String cote ){
+        this.service.updBalanceByMatch(idmatch, cote);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
