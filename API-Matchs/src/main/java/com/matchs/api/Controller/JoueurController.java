@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @RestController
-@RequestMapping("/api/joueur")
+@RequestMapping("/joueur")
 public class JoueurController {
 
     private final JoueurService service;
@@ -18,6 +18,12 @@ public class JoueurController {
         this.service = service;
     }
 
+    @PostMapping("/create")
+    @Operation(summary = "Create and add player.", description = "Create and Add player ")
+    public ResponseEntity<Joueur> createRandomJoueur(){
+        Joueur newJoueur = this.service.addJoueur(this.service.createRandomJoueur());
+        return new ResponseEntity<>(newJoueur, HttpStatus.OK);
+    }
     @GetMapping("/find/{id}")
     @Operation(summary = "Select one player.", description = "Get one player from the Id provided.")
     public ResponseEntity<Joueur> getJoueurById(@PathVariable ("id") Long id) {
@@ -40,7 +46,7 @@ public class JoueurController {
    public ResponseEntity<Joueur> updateEquipe(@PathVariable Long idJ, @PathVariable Equipe idEq) {
        boolean ans = this.service.addEquipeToJoueur(idJ, idEq);
        Joueur model = this.service.findJoueur(idJ);
-       if (ans == true){
+       if (ans){
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        }else {
            return new ResponseEntity<>(model, HttpStatus.OK);

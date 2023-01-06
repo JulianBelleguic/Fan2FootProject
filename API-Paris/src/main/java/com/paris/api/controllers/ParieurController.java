@@ -27,18 +27,16 @@ import java.util.List;
 public class ParieurController {
 
     private final ParieurService service;
-    private AssoPariParieurService serviceAsso;
-    private ParieController parieController;
+    private final AssoPariParieurService serviceAsso;
 
-@Autowired
+    @Autowired
     public ParieurController(ParieurService service, @Lazy AssoPariParieurService serviceAsso, ParieController parieController){
         this.service = service;
         this.serviceAsso = serviceAsso;
-        this.parieController = parieController;
 
     }
-    @PostMapping("/create")
-    @Operation(summary = "Create one 'parieur'.", description = "Create one 'parieur' from the provided Body.")
+    @PostMapping("/add")
+    @Operation(summary = "Ajoute one 'parieur'.", description = "Ajoute one 'parieur' from the provided Body.")
     public ParieurModel createParieur(@RequestBody ParieurModel parieur){
         return service.createParieur(parieur);
     }
@@ -51,13 +49,11 @@ public class ParieurController {
     @PutMapping("/findByID/{id}")
     @Operation(summary = "Find one 'parieur'.", description = "Find one 'parieur' from the provided Id.")
     public ParieurModel searchById(@RequestParam Long id){
-        ParieurModel model = this.service.findParieur(id);
-        return model;
+        return this.service.findParieur(id);
     }
     @GetMapping("/getParis")
     public List<ParieModel> getParis(){
-        List<ParieModel> paris = parieController.findAll();
-        return paris;
+        return ParieController.findAll();
     }
 
     @GetMapping("/ajouterArgent")
@@ -77,10 +73,6 @@ public class ParieurController {
 
     @GetMapping("/getParier")
     public List<AssoParisParieurModel> getParierByParieurId(@RequestParam Long id_parieur){
-        List<AssoParisParieurModel> parier = serviceAsso.getParierByIdJoueur(id_parieur);
-
-        return parier;
+        return serviceAsso.getParierByIdJoueur(id_parieur);
     }
-
-
 }

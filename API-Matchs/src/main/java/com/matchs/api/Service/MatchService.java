@@ -1,5 +1,7 @@
 package com.matchs.api.Service;
 
+import com.github.javafaker.service.FakeValuesService;
+import com.github.javafaker.service.RandomService;
 import com.matchs.api.Model.Equipe;
 import com.matchs.api.Model.Match;
 import com.matchs.api.Model.Resultat;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
 
 @Service
@@ -82,13 +85,18 @@ public class MatchService implements Serializable {
             resultat1.setId_equipe(equipe1);
             resultat2.setId_equipe(equipe2);
         }
-        this.equipeService.updScore(equipe1);
-        this.equipeService.updScore(equipe2);
+//        this.equipeService.updScore(equipe1);
+//        this.equipeService.updScore(equipe2);
 
         resultatRepository.save(resultat1);
         resultatRepository.save(resultat2);
 
         return match;
+    }
+
+    public String createResult() {
+        FakeValuesService fvs = new FakeValuesService(new Locale("fr,FR"),new RandomService());
+        return fvs.numerify("#-#");
     }
 
     public info_match envoiScores(Long id) {

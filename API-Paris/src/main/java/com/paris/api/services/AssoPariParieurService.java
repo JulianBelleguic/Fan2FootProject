@@ -18,9 +18,9 @@ import java.util.List;
 public class AssoPariParieurService implements Serializable {
 
     private final AssoPariParieurRepository repository;
-    private ParieService parieService;
-    private ParieurService parieurService;
-    private ParieurController parieurController;
+    private final ParieService parieService;
+    private final ParieurService parieurService;
+    private final ParieurController parieurController;
 
 
     public AssoPariParieurService (AssoPariParieurRepository repository,ParieService parieService, ParieurService parieurService, @Lazy ParieurController parieurController){
@@ -38,8 +38,7 @@ public class AssoPariParieurService implements Serializable {
         return this.repository.save(model);
     }
     public List<AssoParisParieurModel> getParierByIdJoueur(Long id_joueur){
-        List<AssoParisParieurModel> parier = this.repository.findAllByIdParieur(id_joueur);
-        return parier;
+        return this.repository.findAllByIdParieur(id_joueur);
     }
 
     public AssoParisParieurModel parier( Long id_parieur,  Long id_parie,  double montant, String cote){
