@@ -1,6 +1,8 @@
 package com.matchs.api.Service;
 
+import com.github.javafaker.Faker;
 import com.matchs.api.Model.Equipe;
+import com.matchs.api.Model.Joueur;
 import com.matchs.api.Model.Resultat;
 import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.ResultatRepository;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class EquipeService implements Serializable {
@@ -31,6 +34,15 @@ public class EquipeService implements Serializable {
 
     public Equipe findEquipe(Long id) {
         return this.equipeRepository.findById(id).orElse(new Equipe(null, null, null, null, null, null));
+    }
+
+    @Deprecated
+    public Equipe createRandomEquipe() {
+        Faker faker = new Faker(new Locale("fr-FR"));
+        Equipe equipe = new Equipe();
+        equipe.setNom(faker.address().cityName());
+        equipe.setScore(Precision.round((float) ((Math.random() * 100) + 0), 2));
+        return equipe;
     }
 
     public Equipe addEquipe(Equipe model) {
