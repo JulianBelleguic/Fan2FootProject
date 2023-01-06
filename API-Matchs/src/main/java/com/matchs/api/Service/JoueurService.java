@@ -33,7 +33,7 @@ public class JoueurService implements Serializable{
         joueur.setNom(faker.name().lastName());
         joueur.setPrenom(faker.name().firstName());
         joueur.setAge((int) ((Math.random() * (35 - 16)) + 16));
-        joueur.setScore((int) ((Math.random() * 100) + 0));
+        joueur.setScore((int) ((Math.random() * 100)));
         return joueur;
     }
 

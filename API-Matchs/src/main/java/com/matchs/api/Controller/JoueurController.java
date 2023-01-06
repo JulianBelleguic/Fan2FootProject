@@ -19,7 +19,7 @@ public class JoueurController {
     }
 
     @PostMapping("/create")
-    @Operation(summary = "Create and add player.", description = "Create and Add player ")
+    @Operation(summary = "Create and add player.", description = "Create and Add player with faker ")
     public ResponseEntity<Joueur> createRandomJoueur(){
         Joueur newJoueur = this.service.addJoueur(this.service.createRandomJoueur());
         return new ResponseEntity<>(newJoueur, HttpStatus.OK);
