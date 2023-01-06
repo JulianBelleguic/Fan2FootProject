@@ -15,12 +15,15 @@ import java.util.List;
 public class EquipeService implements Serializable {
     // on crée l'attribut de class qui va contenir le repository
     private final EquipeRepository equipeRepository;
+    private final ResultatService resultatService;
+
     private final ResultatRepository resultatRepository;
 
     @Autowired
     // on propose un constructeur, qui va recevoir une instance du repository fournie automatiquement par Spring
-    public EquipeService(EquipeRepository equipeRepository, ResultatRepository resultatRepository) {
+    public EquipeService(EquipeRepository equipeRepository, ResultatService resultatService, ResultatRepository resultatRepository) {
         this.equipeRepository = equipeRepository;
+        this.resultatService = resultatService;
         this.resultatRepository = resultatRepository;
     }
 
@@ -31,7 +34,15 @@ public class EquipeService implements Serializable {
     }
 
     public Equipe addEquipe(Equipe model) {
-        return this.equipeRepository.save(model);
+        this.equipeRepository.save(model);
+        for (int i = 0; i < 10; i++) {
+            Resultat resultat = new Resultat();
+            resultat.setResultat(0.5F);
+            resultat.setId_equipe(model);
+            System.out.println(resultat);
+            this.resultatService.addResultat(resultat);
+        }
+        return model;
     }
 
     public Equipe updEquipe(Equipe model) {

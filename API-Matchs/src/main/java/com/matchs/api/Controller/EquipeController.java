@@ -2,6 +2,7 @@ package com.matchs.api.Controller;
 
 import com.matchs.api.Model.Equipe;
 import com.matchs.api.Service.EquipeService;
+import org.hibernate.annotations.Cascade;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
