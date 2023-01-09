@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,6 +44,15 @@ public class EquipeService implements Serializable {
         equipe.setNom(faker.address().cityName());
         equipe.setScore(Precision.round((float) ((Math.random() * 100) + 0), 2));
         return equipe;
+    }
+
+    public ArrayList<Equipe> createMultipleEquipe(Integer n) {
+        ArrayList<Equipe> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            Equipe newEquipe = addEquipe(createRandomEquipe());
+            list.add(newEquipe);
+        }
+        return list;
     }
 
     public Equipe addEquipe(Equipe model) {
