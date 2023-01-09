@@ -3,6 +3,7 @@ package com.matchs.api.Model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name= "resultat")

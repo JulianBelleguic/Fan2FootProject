@@ -19,7 +19,7 @@ public class ParieurModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Column(name="idParieur", nullable=false, updatable=false)
+    @Column(name="id_parieur", nullable=false, updatable=false)
     private Long id;
 
     @Column(length=30)
@@ -29,7 +29,7 @@ public class ParieurModel {
     private String prenom;
 
     @Column(length=30)
-    private double balance = 0;
+    private double balance;
 
     public String getNom() {
         return nom;

@@ -2,6 +2,7 @@ package com.matchs.api.Controller;
 
 import com.matchs.api.Model.Equipe;
 import com.matchs.api.Service.EquipeService;
+import org.hibernate.annotations.Cascade;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/equipe")
+
+
 public class EquipeController {
     // on crée l'attribut de class qui va contenir le service associé à notre controller
     private final EquipeService equipeService;
@@ -26,6 +29,13 @@ public class EquipeController {
     public ResponseEntity<List<Equipe>> getEquipes() {
         List<Equipe> equipes = this.equipeService.findAllEquipes();
         return new ResponseEntity<>(equipes, HttpStatus.OK);
+    }
+
+    @PostMapping("/create")
+    @Operation(summary = "Create random team.", description = "create a random team with Faker")
+    public ResponseEntity<Equipe> createRandomEquipe() {
+        Equipe newEquipe = this.equipeService.addEquipe(this.equipeService.createRandomEquipe());
+        return new ResponseEntity<>(newEquipe, HttpStatus.CREATED);
     }
 
     @GetMapping("/find/{id}")

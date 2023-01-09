@@ -30,9 +30,9 @@ public class MatchController {
         }
     }
 
-    @GetMapping("/result/{id_match}/{score}")
-    public ResponseEntity<Object> addResultat(@PathVariable ("id_match") Long id_match,@PathVariable ("score") String score) {
-        Match model = this.service.addResultat(id_match, score);
+    @GetMapping("/result/{id_match}")
+    public ResponseEntity<Object> addResultat(@PathVariable ("id_match") Long id_match) {
+        Match model = this.service.addResultat(id_match, this.service.createResult());
         return new ResponseEntity(model, HttpStatus.OK);
     }
 
@@ -42,12 +42,6 @@ public class MatchController {
         Match model = this.service.addMatch(new_model, id_equipe1, id_equipe2);
         return new ResponseEntity(model, HttpStatus.OK);
     }
-
-//    @PostMapping("/add")
-//    public ResponseEntity<Object> addMatch(@RequestBody Match p_model){
-//        Match model = this.service.addMatch(p_model);
-//        return new ResponseEntity(model, HttpStatus.OK);
-//    }
 
     @PostMapping("/upd")
     public ResponseEntity<Object> updMatch(@RequestBody Match p_model){
