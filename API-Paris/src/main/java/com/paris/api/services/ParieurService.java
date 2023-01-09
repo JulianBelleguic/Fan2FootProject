@@ -1,5 +1,6 @@
 package com.paris.api.services;
 
+import com.github.javafaker.Faker;
 import com.paris.api.models.AssoParisParieurModel;
 import com.paris.api.models.ParieModel;
 import com.paris.api.models.ParieurModel;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -27,7 +29,16 @@ public class ParieurService implements Serializable {
         return this.repository.findById(id).orElse(new ParieurModel());
     }
 
-    public ParieurModel createParieur(ParieurModel model) {
+    public ParieurModel createRandomParieur() {
+        Faker faker = new Faker(new Locale("fr-FR"));
+        ParieurModel parieur = new ParieurModel();
+        parieur.setNom(faker.name().lastName());
+        parieur.setPrenom(faker.name().firstName());
+        parieur.setBalance((int) ((Math.random() * 5000)));
+        return parieur;
+    }
+
+    public ParieurModel addParieur(ParieurModel model) {
         return this.repository.save(model);
     }
     public ParieurModel saveBalance(Long id, double montant) {

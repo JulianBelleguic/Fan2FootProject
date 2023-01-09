@@ -37,9 +37,17 @@ public class ParieurController {
     }
     @PostMapping("/add")
     @Operation(summary = "Ajoute one 'parieur'.", description = "Ajoute one 'parieur' from the provided Body.")
-    public ParieurModel createParieur(@RequestBody ParieurModel parieur){
-        return service.createParieur(parieur);
+    public ParieurModel addParieur(@RequestBody ParieurModel parieur){
+        return service.addParieur(parieur);
     }
+
+    @PostMapping("/create")
+    @Operation(summary = "Create and add user.", description = "Create and Add user with faker")
+    public ResponseEntity<ParieurModel> createRandomParieurModel(){
+        ParieurModel newParieur = this.service.addParieur(this.service.createRandomParieur());
+        return new ResponseEntity<>(newParieur, HttpStatus.OK);
+    }
+    
     @PutMapping("/deleteByID/{id}")
     @Operation(summary = "Delete one 'parieur'.", description = "Delete one 'parieur' from the provided Id.")
     public String deleteByID(@RequestParam Long id){
