@@ -88,6 +88,8 @@ public class MatchService implements Serializable {
         resultatRepository.save(resultat1);
         resultatRepository.save(resultat2);
 
+
+
         return match;
     }
 
