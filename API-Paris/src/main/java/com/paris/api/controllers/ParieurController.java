@@ -80,7 +80,7 @@ public class ParieurController {
         return parier;
     }
 
-    @GetMapping("/profit")
+    @PutMapping("/profit")
     public ResponseEntity updBalanceByMatch(@RequestParam Long idmatch,@RequestParam String cote ){
         this.service.updBalanceByMatch(idmatch, cote);
         return new ResponseEntity<>(HttpStatus.OK);
