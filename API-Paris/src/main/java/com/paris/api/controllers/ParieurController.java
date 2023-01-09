@@ -27,13 +27,14 @@ import java.util.List;
 public class ParieurController {
 
     private final ParieurService service;
-    private final AssoPariParieurService serviceAsso;
+    private AssoPariParieurService serviceAsso;
+    private ParieController parieController;
 
     @Autowired
     public ParieurController(ParieurService service, @Lazy AssoPariParieurService serviceAsso, ParieController parieController){
         this.service = service;
         this.serviceAsso = serviceAsso;
-
+        this.parieController = parieController;
     }
     @PostMapping("/add")
     @Operation(summary = "Ajoute one 'parieur'.", description = "Ajoute one 'parieur' from the provided Body.")
@@ -47,7 +48,7 @@ public class ParieurController {
         ParieurModel newParieur = this.service.addParieur(this.service.createRandomParieur());
         return new ResponseEntity<>(newParieur, HttpStatus.OK);
     }
-    
+
     @PutMapping("/deleteByID/{id}")
     @Operation(summary = "Delete one 'parieur'.", description = "Delete one 'parieur' from the provided Id.")
     public String deleteByID(@RequestParam Long id){
@@ -61,7 +62,8 @@ public class ParieurController {
     }
     @GetMapping("/getParis")
     public List<ParieModel> getParis(){
-        return ParieController.findAll();
+        List<ParieModel> paris = parieController.findAll();
+        return paris;
     }
 
     @GetMapping("/ajouterArgent")
@@ -80,7 +82,15 @@ public class ParieurController {
     }
 
     @GetMapping("/getParier")
-    public List<AssoParisParieurModel> getParierByParieurId(@RequestParam Long id_parieur){
-        return serviceAsso.getParierByIdJoueur(id_parieur);
+    public List<AssoParisParieurModel> getParierByParieurId(@RequestParam Long idParieur){
+        List<AssoParisParieurModel> parier = serviceAsso.getParierByIdJoueur(idParieur);
+        return parier;
     }
+
+    @PutMapping("/profit")
+    public ResponseEntity updBalanceByMatch(@RequestParam Long idmatch,@RequestParam String cote ){
+        this.service.updBalanceByMatch(idmatch, cote);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

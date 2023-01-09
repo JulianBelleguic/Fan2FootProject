@@ -1,10 +1,9 @@
 package com.paris.api.services;
 
-import com.github.javafaker.Faker;
 import com.paris.api.models.AssoParisParieurModel;
 import com.paris.api.models.ParieModel;
 import com.paris.api.models.ParieurModel;
-import com.paris.api.repository.ParieRepository;
+import com.paris.api.repository.AssoPariParieurRepository;
 import com.paris.api.repository.ParieurRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +18,11 @@ import java.util.Optional;
 public class ParieurService implements Serializable {
 
     private final ParieurRepository repository;
+    private AssoPariParieurRepository assoRepository;
 
-    public ParieurService (ParieurRepository repository){
+    public ParieurService (ParieurRepository repository, AssoPariParieurRepository assoRepository){
         this.repository = repository;
+        this.assoRepository = assoRepository;
     }
 
 
@@ -41,6 +42,21 @@ public class ParieurService implements Serializable {
     public ParieurModel addParieur(ParieurModel model) {
         return this.repository.save(model);
     }
+
+    public String deleteByID(Long id){
+        repository.deleteById(id);
+        return "Parieur supprimer";
+    }
+
+    public void updBalanceByMatch(Long idmatch, String cote){
+        List<AssoParisParieurModel> lst = this.assoRepository.findUpdParieur(idmatch, cote);
+        for (AssoParisParieurModel obj :lst){
+            ParieurModel parieur = findParieur(obj.getIdParieur());
+            parieur.setBalance(parieur.getBalance()+ obj.getGainPotentiel());
+            this.repository.save(parieur);
+        }
+    }
+
     public ParieurModel saveBalance(Long id, double montant) {
         ParieurModel parieur = this.findParieur(id);
         parieur.setBalance(montant);
@@ -57,10 +73,7 @@ public class ParieurService implements Serializable {
         return this.repository.save(parieur);
     }
 
-    public String deleteByID(Long id){
-        repository.deleteById(id);
-        return "Parieur supprimer";
-    }
+
 
 
 
