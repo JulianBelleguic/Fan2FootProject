@@ -19,10 +19,10 @@ public class Match {
     @Column(name="resultat")
     private String resultat;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Equipe id_equipe1;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Equipe id_equipe2;
 
 }
