@@ -23,12 +23,15 @@ public class EquipeService implements Serializable {
 
     private final ResultatRepository resultatRepository;
 
+    private final JoueurService joueurService;
+
     @Autowired
     // on propose un constructeur, qui va recevoir une instance du repository fournie automatiquement par Spring
-    public EquipeService(EquipeRepository equipeRepository, ResultatService resultatService, ResultatRepository resultatRepository) {
+    public EquipeService(EquipeRepository equipeRepository, ResultatService resultatService, ResultatRepository resultatRepository, JoueurService joueurService) {
         this.equipeRepository = equipeRepository;
         this.resultatService = resultatService;
         this.resultatRepository = resultatRepository;
+        this.joueurService = joueurService;
     }
 
     public List<Equipe> findAllEquipes() { return equipeRepository.findAll(); }
@@ -43,6 +46,16 @@ public class EquipeService implements Serializable {
         Equipe equipe = new Equipe();
         equipe.setNom(faker.address().cityName());
         equipe.setScore(Precision.round((float) ((Math.random() * 100) + 0), 2));
+        return equipe;
+    }
+
+    public Equipe createRandomFUllEquipe() {
+        Equipe equipe = addEquipe(createRandomEquipe());
+        for (int i = 0; i < 11; i++) {
+            Joueur joueur = joueurService.createRandomJoueur();
+            joueur.setId_equipe(equipe);
+            joueurService.addJoueur(joueur);
+        }
         return equipe;
     }
 

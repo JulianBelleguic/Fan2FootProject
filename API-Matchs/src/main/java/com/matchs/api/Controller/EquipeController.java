@@ -46,6 +46,13 @@ public class EquipeController {
         return new ResponseEntity<>(list, HttpStatus.CREATED);
     }
 
+    @PostMapping("/createfull")
+    @Operation(summary = "Create random full team.", description = "create a random full team with Faker")
+    public ResponseEntity<Equipe> createRandomFullEquipe() {
+        Equipe newEquipe = this.equipeService.createRandomFUllEquipe();
+        return new ResponseEntity<>(newEquipe, HttpStatus.CREATED);
+    }
+
     @GetMapping("/find/{id}")
     @Operation(summary = "Select one team.", description = "Get one team from the provided Id.")
     public ResponseEntity<Equipe> getEquipeById(@PathVariable ("id") Long id) {

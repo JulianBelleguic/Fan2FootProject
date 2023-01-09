@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -43,9 +44,16 @@ public class ParieurController {
 
     @PostMapping("/create")
     @Operation(summary = "Create and add user.", description = "Create and Add user with faker")
-    public ResponseEntity<ParieurModel> createRandomParieurModel(){
+    public ResponseEntity<ParieurModel> createRandomParieur(){
         ParieurModel newParieur = this.service.addParieur(this.service.createRandomParieur());
         return new ResponseEntity<>(newParieur, HttpStatus.OK);
+    }
+
+    @PostMapping("/createmul/{n}")
+    @Operation(summary = "Create n random gamblers.", description = "create n random gamblers with Faker")
+    public ResponseEntity<List<ParieurModel>> createMultipleParieur(@PathVariable ("n") Integer n) {
+        ArrayList<ParieurModel> list = this.service.createMultipleParieur(n);
+        return new ResponseEntity<>(list, HttpStatus.CREATED);
     }
     
     @PutMapping("/deleteByID/{id}")

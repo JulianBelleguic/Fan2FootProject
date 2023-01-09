@@ -34,6 +34,7 @@ public class JoueurController {
         ArrayList<Joueur> list = this.service.createMultipleJoueur(n);
         return new ResponseEntity<>(list, HttpStatus.CREATED);
     }
+
     @GetMapping("/find/{id}")
     @Operation(summary = "Select one player.", description = "Get one player from the Id provided.")
     public ResponseEntity<Joueur> getJoueurById(@PathVariable ("id") Long id) {
