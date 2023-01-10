@@ -11,6 +11,7 @@ import com.matchs.api.Repository.MatchRepository;
 import com.matchs.api.Repository.ResultatRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.Serializable;
 import java.util.List;
@@ -57,6 +58,7 @@ public class MatchService implements Serializable {
     }
 
     public Match addResultat(Long id, String Result){
+        String cote;
         Match match = findMatch(id);
         match.setResultat(Result);
         this.matchRepository.save(match);
@@ -72,24 +74,31 @@ public class MatchService implements Serializable {
                 resultat2.setResultat(0.0f);
                 resultat1.setId_equipe(equipe1);
                 resultat2.setId_equipe(equipe2);
+                cote = "A";
         }
         else if (score2>score1){
             resultat1.setResultat(0.0f);
             resultat2.setResultat(1.0f);
             resultat1.setId_equipe(equipe1);
             resultat2.setId_equipe(equipe2);
+            cote = "B";
         }
         else{
             resultat1.setResultat(0.5f);
             resultat2.setResultat(0.5f);
             resultat1.setId_equipe(equipe1);
             resultat2.setId_equipe(equipe2);
+            cote = "N";
         }
         this.equipeService.updScore(equipe1);
         this.equipeService.updScore(equipe2);
 
         resultatRepository.save(resultat1);
         resultatRepository.save(resultat2);
+
+        RestTemplate restTemplate = new RestTemplate();
+        String fooResourceUrl  = "http://localhost:8081/Parie/profit";
+        restTemplate.put(fooResourceUrl + "?idmatch=" + id + "&cote=" + cote,null);
 
         return match;
     }
