@@ -3,6 +3,7 @@ package com.paris.api.services;
 import com.paris.api.models.ParieModel;
 import com.paris.api.models.info_match;
 import com.paris.api.repository.ParieRepository;
+import org.apache.commons.math3.util.Precision;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
@@ -17,11 +18,11 @@ public class ParieService implements Serializable {
     private static ParieRepository repository;
 
     public ParieService (ParieRepository repository){
-        this.repository = repository;
+        ParieService.repository = repository;
     }
 
     public ParieModel findByID(Long id) {
-        return this.repository.findById(id).orElse(new ParieModel(null, null, 0,0,0));
+        return repository.findById(id).orElse(new ParieModel(null, null, 0,0,0));
     }
     @GetMapping("/all")
     public static List<ParieModel> all() {
@@ -29,7 +30,7 @@ public class ParieService implements Serializable {
     }
 
     public ParieModel createParie(ParieModel model) {
-        return this.repository.save(model);
+        return repository.save(model);
     }
 
     public String deleteByID(Long id){
@@ -47,7 +48,7 @@ public class ParieService implements Serializable {
         newParie.setCoteA(calculChances(response.getScore_eq1(), response.getScore_eq2(), "A"));
         newParie.setCoteB(calculChances(response.getScore_eq1(), response.getScore_eq2(), "B"));
         newParie.setCoteN(calculChances(response.getScore_eq1(), response.getScore_eq2(), "N"));
-        return this.repository.save(newParie);
+        return repository.save(newParie);
     }
 
     private static Float calculChances (Integer score1, Integer score2, String call) {
@@ -71,13 +72,13 @@ public class ParieService implements Serializable {
 
         if (Objects.equals(call, "A")) {
 
-            result = 1 / chanceA;
+            result = Precision.round(1 / chanceA, 2);
         }
         else if (Objects.equals(call, "B")) {
-            result = 1 / chanceB;
+            result = Precision.round(1 / chanceB, 2);
         }
         else if (Objects.equals(call, "N")) {
-            result = 1 / chanceNulle;
+            result = Precision.round(1 / chanceNulle, 2);
         }
         return result;
     }

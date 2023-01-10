@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,6 +36,20 @@ public class EquipeController {
     @Operation(summary = "Create random team.", description = "create a random team with Faker")
     public ResponseEntity<Equipe> createRandomEquipe() {
         Equipe newEquipe = this.equipeService.addEquipe(this.equipeService.createRandomEquipe());
+        return new ResponseEntity<>(newEquipe, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/createmul/{n}")
+    @Operation(summary = "Create n random teams.", description = "create n random teams with Faker")
+    public ResponseEntity<List<Equipe>> createMultipleEquipe(@PathVariable ("n") Integer n) {
+        ArrayList<Equipe> list = this.equipeService.createMultipleEquipe(n);
+        return new ResponseEntity<>(list, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/createfull")
+    @Operation(summary = "Create random full team.", description = "create a random full team with Faker")
+    public ResponseEntity<Equipe> createRandomFullEquipe() {
+        Equipe newEquipe = this.equipeService.createRandomFUllEquipe();
         return new ResponseEntity<>(newEquipe, HttpStatus.CREATED);
     }
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -37,6 +38,15 @@ public class ParieurService implements Serializable {
         parieur.setPrenom(faker.name().firstName());
         parieur.setBalance((int) ((Math.random() * 5000)));
         return parieur;
+    }
+
+    public ArrayList<ParieurModel> createMultipleParieur(Integer n) {
+        ArrayList<ParieurModel> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            ParieurModel newParieur = addParieur(createRandomParieur());
+            list.add(newParieur);
+        }
+        return list;
     }
 
     public ParieurModel addParieur(ParieurModel model) {
