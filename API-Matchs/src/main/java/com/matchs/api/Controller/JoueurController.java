@@ -1,8 +1,11 @@
 package com.matchs.api.Controller;
 
+import com.matchs.api.Mapstruct.Mapper.MapStructMapper;
 import com.matchs.api.Model.Equipe;
+import com.matchs.api.Repository.JoueurRepository;
 import com.matchs.api.Service.JoueurService;
 import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.matchs.api.Model.Joueur;
 import org.springframework.http.HttpStatus;
@@ -13,6 +16,20 @@ import org.springframework.http.ResponseEntity;
 
 public class JoueurController {
 
+    private MapStructMapper mapstructMapper;
+
+    private JoueurRepository joueurRepository;
+
+    @Autowired
+    public JoueurController(
+            MapStructMapper mapstructMapper,
+            JoueurRepository joueurRepository
+    ) {
+        this.mapstructMapper = mapstructMapper;
+        this.joueurRepository = joueurRepository;
+    }
+
+    /*
     private final JoueurService service;
 
     public JoueurController(JoueurService service) {
@@ -47,4 +64,6 @@ public class JoueurController {
            return new ResponseEntity<>(model, HttpStatus.OK);
        }
     }
+    */
+
 }

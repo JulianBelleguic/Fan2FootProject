@@ -1,7 +1,10 @@
 package com.matchs.api.Controller;
 
+import com.matchs.api.Mapstruct.Mapper.MapStructMapper;
 import com.matchs.api.Model.Equipe;
+import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Service.EquipeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,23 @@ import java.util.List;
 @RestController
 @RequestMapping("/equipe")
 public class EquipeController {
+
+    private MapStructMapper mapstructMapper;
+
+    private EquipeRepository equipeRepository;
+
+    @Autowired
+    public EquipeController(
+            MapStructMapper mapstructMapper,
+            EquipeRepository equipeRepository
+    ) {
+        this.mapstructMapper = mapstructMapper;
+        this.equipeRepository = equipeRepository;
+    }
+
+
+
+    /*
     // on créé l'attribut de class qui va contenir le service associé à notre controller
     private final EquipeService equipeService;
 
@@ -51,4 +71,5 @@ public class EquipeController {
         equipeService.delEquipe(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    */
 }

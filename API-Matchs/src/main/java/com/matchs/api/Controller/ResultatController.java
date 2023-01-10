@@ -1,9 +1,12 @@
 package com.matchs.api.Controller;
 
+import com.matchs.api.Mapstruct.Mapper.MapStructMapper;
 import com.matchs.api.Model.Match;
 import com.matchs.api.Model.Resultat;
+import com.matchs.api.Repository.ResultatRepository;
 import com.matchs.api.Service.MatchService;
 import com.matchs.api.Service.ResultatService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,19 @@ import java.util.Objects;
 @RequestMapping("/api/resultat")
 public class ResultatController {
 
+    private MapStructMapper mapstructMapper;
+
+    private ResultatRepository resultatRepository;
+
+    @Autowired
+    public ResultatController(
+            MapStructMapper mapstructMapper,
+            ResultatRepository resultatRepository
+    ) {
+        this.mapstructMapper = mapstructMapper;
+        this.resultatRepository = resultatRepository;
+    }
+    /*
     private final ResultatService service;
 
     public ResultatController(ResultatService service) {
@@ -61,5 +77,5 @@ public class ResultatController {
         Resultat model = this.service.findResultat(id);
         return new ResponseEntity(model, HttpStatus.OK);
     }
-
+ */
 }

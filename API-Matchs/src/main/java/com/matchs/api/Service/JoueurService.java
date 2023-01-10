@@ -16,11 +16,11 @@ public class JoueurService implements Serializable{
     public JoueurService(JoueurRepository repository) {
         this.repository = repository;
     }
-
+/*
     public Joueur findJoueur(Long id) {
         return this.repository.findById(id).orElse(new Joueur(null, null, null, null, null, null));
     }
-
+*/
     public Joueur addJoueur(Joueur model) {
         return this.repository.save(model);
     }

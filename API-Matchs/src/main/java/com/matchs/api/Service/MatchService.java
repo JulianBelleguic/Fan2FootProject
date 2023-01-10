@@ -18,7 +18,7 @@ public class MatchService implements Serializable {
     // on crée l'attribut de class qui va contenir le repository
     private MatchRepository matchRepository;
     private EquipeService equipeService;
-
+/*
     public MatchService(MatchRepository matchRepository, EquipeRepository equipeRepository, EquipeService equipeService) {
         this.matchRepository = matchRepository;
         this.equipeService = equipeService;
@@ -60,4 +60,6 @@ public class MatchService implements Serializable {
         infomatch.setScore_eq2(game.getId_equipe2().getScore());
         return infomatch;
     }
+    */
+
 }

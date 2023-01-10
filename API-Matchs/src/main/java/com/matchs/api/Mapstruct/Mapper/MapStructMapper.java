@@ -1,8 +1,13 @@
 package com.matchs.api.Mapstruct.Mapper;
 
+import com.matchs.api.Mapstruct.DTO.EquipeSlimDto;
+import com.matchs.api.Mapstruct.DTO.JoueurSlimDto;
+import com.matchs.api.Mapstruct.DTO.MatchGetDto;
+import com.matchs.api.Mapstruct.DTO.ResultatSlimDto;
+import com.matchs.api.Model.Equipe;
 import com.matchs.api.Model.Joueur;
-import com.matchs.api.Mapstruct.DTO.JoueurGetDto;
-import com.matchs.api.Mapstruct.DTO.JoueurPostDto;
+import com.matchs.api.Model.Match;
+import com.matchs.api.Model.Resultat;
 import org.mapstruct.Mapper;
 
 
@@ -11,7 +16,11 @@ import org.mapstruct.Mapper;
 )
 public interface MapStructMapper {
 
-    JoueurGetDto JoueurToJoueurGetDto(Joueur joueur);
+    MatchGetDto MatchtoMatchGetDto(Match match);
 
-    Joueur JoueurPostDtoToUser(JoueurPostDto JoueurPostDto);
+    EquipeSlimDto EquipeToEquipeDto(Equipe equipe);
+
+    JoueurSlimDto JoueurToJoueurDto(Joueur joueur);
+
+    ResultatSlimDto ResultatToResultatDto(Resultat resultat);
 }

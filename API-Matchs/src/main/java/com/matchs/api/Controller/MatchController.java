@@ -1,24 +1,45 @@
 package com.matchs.api.Controller;
 
-import com.matchs.api.Model.Match;
-import com.matchs.api.Model.info_match;
-import com.matchs.api.Service.MatchService;
+import com.matchs.api.Mapstruct.DTO.MatchGetDto;
+import com.matchs.api.Mapstruct.Mapper.MapStructMapper;
+import com.matchs.api.Repository.MatchRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
+
 @RestController
 @RequestMapping("/api/match")
 public class MatchController {
 
-    private final MatchService service;
+    private MapStructMapper mapstructMapper;
 
-    public MatchController(MatchService service) {
-        this.service = service;
+    private MatchRepository matchRepository;
+
+    @Autowired
+    public MatchController(
+            MapStructMapper mapstructMapper,
+            MatchRepository matchRepository
+    ) {
+        this.mapstructMapper = mapstructMapper;
+        this.matchRepository = matchRepository;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<MatchGetDto> getById(
+            @PathVariable(value = "id") Long id
+    ) {
+        return new ResponseEntity<>(
+                mapstructMapper.MatchtoMatchGetDto(
+                        MatchRepository.findById(id).get()
+                ),
+                HttpStatus.OK
+        );
+    }
+    /*
     @GetMapping("/getbyid")
     public ResponseEntity<Match> getMatch(@RequestParam Long id){
         Match model = this.service.findMatch(id);
@@ -61,5 +82,6 @@ public class MatchController {
         info_match model = this.service.envoiScores(id);
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
+    */
 
 }
