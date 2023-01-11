@@ -1,5 +1,6 @@
 package com.paris.api.services;
 
+import com.github.javafaker.Faker;
 import com.paris.api.models.AssoParisParieurModel;
 import com.paris.api.models.ParieModel;
 import com.paris.api.models.ParieurModel;
