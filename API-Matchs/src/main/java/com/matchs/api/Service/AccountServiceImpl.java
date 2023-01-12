@@ -26,20 +26,16 @@ public class AccountServiceImpl implements AccountService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
-    @Override
     public AppUser addNewUser(AppUser appUser) {
         String pw = appUser.getPassword();
         appUser.setPassword(passwordEncoder.encode(pw));
         return appUserRepository.save(appUser);
     }
 
-    @Override
     public AppRole addNewRole(AppRole appRole) {
         return appRoleRepository.save(appRole);
     }
 
-    @Override
     public void addRoleToUser(String username, String rolename) {
         AppUser appUser = appUserRepository.findByUsername(username);
         AppRole appRole = appRoleRepository.findByRolename(rolename);
@@ -47,13 +43,15 @@ public class AccountServiceImpl implements AccountService {
 
     }
 
-    @Override
-    public AppUser loadUserByUsername(String username) {
+    public AppUser findUserByUsername(String username) {
         return appUserRepository.findByUsername(username);
     }
 
-    @Override
     public List<AppUser> listUsers() {
         return  appUserRepository.findAll();
     }
+
+
+
+
 }
