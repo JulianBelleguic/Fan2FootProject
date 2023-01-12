@@ -40,7 +40,7 @@ public class EquipeController {
     }
 
     @PostMapping("/createmul/{n}")
-    @Operation(summary = "Create n random teams.", description = "create n random teams with Faker")
+    @Operation(summary = "Create n random full teams.", description = "create n random teams with Faker")
     public ResponseEntity<List<Equipe>> createMultipleEquipe(@PathVariable ("n") Integer n) {
         ArrayList<Equipe> list = this.equipeService.createMultipleEquipe(n);
         return new ResponseEntity<>(list, HttpStatus.CREATED);

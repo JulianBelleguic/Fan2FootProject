@@ -62,7 +62,7 @@ public class EquipeService implements Serializable {
     public ArrayList<Equipe> createMultipleEquipe(Integer n) {
         ArrayList<Equipe> list = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            Equipe newEquipe = addEquipe(createRandomEquipe());
+            Equipe newEquipe = addEquipe(createRandomFUllEquipe());
             list.add(newEquipe);
         }
         return list;

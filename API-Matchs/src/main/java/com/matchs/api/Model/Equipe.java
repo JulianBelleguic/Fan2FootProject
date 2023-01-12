@@ -32,13 +32,11 @@ public class Equipe {
     private Float score;
 
     @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe1", cascade = CascadeType.ALL)
-    //@ToString.Exclude
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ToString.Exclude
     private List<Match> id_equipe1 = new ArrayList<>();
 
     @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe2", cascade = CascadeType.ALL)
-    //@ToString.Exclude
     @JsonProperty (access = JsonProperty.Access.WRITE_ONLY)
     @ToString.Exclude
     private List<Match> id_equipe2 = new ArrayList<>();

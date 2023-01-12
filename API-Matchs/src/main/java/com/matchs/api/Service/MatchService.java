@@ -66,8 +66,8 @@ public class MatchService implements Serializable {
         this.matchRepository.save(match);
         Equipe equipe1 = equipeService.findEquipe(match.getId_equipe1().getId());
         Equipe equipe2 = equipeService.findEquipe(match.getId_equipe2().getId());
-        Resultat resultat1 = new Resultat(null,null,null);
-        Resultat resultat2 = new Resultat(null,null,null);
+        Resultat resultat1 = new Resultat(null,null,null, null);
+        Resultat resultat2 = new Resultat(null,null,null, null);
         String[] scinde = Result.split("-");
         int score1 = Integer.parseInt(scinde[0]);
         int score2 = Integer.parseInt(scinde[1]);

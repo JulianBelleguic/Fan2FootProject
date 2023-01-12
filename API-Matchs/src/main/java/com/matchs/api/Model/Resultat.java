@@ -22,4 +22,7 @@ public class Resultat {
 
     @ManyToOne
     private Equipe id_equipe;
+
+    @OneToOne
+    private Match id_match;
 }
