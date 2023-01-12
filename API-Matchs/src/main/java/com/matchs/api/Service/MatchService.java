@@ -90,11 +90,12 @@ public class MatchService implements Serializable {
             resultat2.setId_equipe(equipe2);
             cote = "N";
         }
-        this.equipeService.updScore(equipe1);
-        this.equipeService.updScore(equipe2);
 
         resultatRepository.save(resultat1);
         resultatRepository.save(resultat2);
+
+        this.equipeService.updScore(equipe1);
+        this.equipeService.updScore(equipe2);
 
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl  = "http://localhost:8081/Parie/profit";
