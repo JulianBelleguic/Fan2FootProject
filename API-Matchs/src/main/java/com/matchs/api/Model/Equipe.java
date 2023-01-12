@@ -1,8 +1,12 @@
 package com.matchs.api.Model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.commons.lang3.builder.ToStringExclude;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 
 public class Equipe {
 
@@ -43,4 +48,6 @@ public class Equipe {
     @ToString.Exclude
     private List<Resultat> id_equipe = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Joueur.class, mappedBy = "equipe")
+    private List<Joueur> list_joueurs = new ArrayList<>();
  }

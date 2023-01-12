@@ -37,7 +37,7 @@ public class EquipeService implements Serializable {
     public List<Equipe> findAllEquipes() { return equipeRepository.findAll(); }
 
     public Equipe findEquipe(Long id) {
-        return this.equipeRepository.findById(id).orElse(new Equipe(null, null, null, null, null, null));
+        return this.equipeRepository.findById(id).orElse(new Equipe(null, null, null, null, null, null, null));
     }
 
     @Deprecated
@@ -53,7 +53,7 @@ public class EquipeService implements Serializable {
         Equipe equipe = addEquipe(createRandomEquipe());
         for (int i = 0; i < 11; i++) {
             Joueur joueur = joueurService.createRandomJoueur();
-            joueur.setId_equipe(equipe);
+            joueur.setEquipe(equipe);
             joueurService.addJoueur(joueur);
         }
         return equipe;
