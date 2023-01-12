@@ -2,6 +2,7 @@ package com.matchs.api;
 
 import com.matchs.api.Model.AppRole;
 import com.matchs.api.Model.AppUser;
+import com.matchs.api.Model.Role;
 import com.matchs.api.Service.AccountService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,11 +32,11 @@ public class ApiMatchsApplication {
 //			accountService.addNewRole(new AppRole(null, "USER"));
 //			accountService.addNewRole(new AppRole(null, "ADMIN"));
 //			accountService.addNewRole(new AppRole(null, "MANAGER"));
-//			accountService.addNewUser(new AppUser(null, "admin","1234", new ArrayList<>()));
-//			accountService.addNewUser(new AppUser(null, "user1","1234", new ArrayList<>()));
-//			accountService.addNewUser(new AppUser(null, "user2","1234", new ArrayList<>()));
-//			accountService.addNewUser(new AppUser(null, "manager","1234", new ArrayList<>()));
-
+//			accountService.addNewUser(new AppUser(null, "admin","1234", new ArrayList<>(), null));
+//			accountService.addNewUser(new AppUser(null, "user1","1234", new ArrayList<>(),null));
+//			accountService.addNewUser(new AppUser(null, "user2","1234", new ArrayList<>(),null));
+//			accountService.addNewUser(new AppUser(null, "manager","1234", new ArrayList<>(),null));
+//
 //			accountService.addRoleToUser("admin", "USER");
 //			accountService.addRoleToUser("admin", "ADMIN");
 //			accountService.addRoleToUser("admin", "MANAGER");
