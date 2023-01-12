@@ -21,8 +21,10 @@ public class Resultat {
     private Float resultat;
 
     @ManyToOne
+    @JoinColumn(name = "id_equipe")
     private Equipe id_equipe;
 
     @OneToOne
+    @JoinColumn(name = "id_match")
     private Match id_match;
 }

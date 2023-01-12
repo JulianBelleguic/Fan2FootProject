@@ -66,15 +66,12 @@ public class ParieService implements Serializable {
         if (Objects.equals(call, "A")) {
 
             result = Precision.round(1 / chanceA, 2);
-            System.out.println(result);
         }
         else if (Objects.equals(call, "B")) {
             result = Precision.round(1 / chanceB, 2);
-            System.out.println(result);
         }
         else if (Objects.equals(call, "N")) {
             result = Precision.round(1 / chanceNulle, 2);
-            System.out.println(result);
         }
         return result;
     }
