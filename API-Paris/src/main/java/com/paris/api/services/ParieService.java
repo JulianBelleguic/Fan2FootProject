@@ -52,7 +52,6 @@ public class ParieService implements Serializable {
 
         float delta = Math.abs(score1 - score2);
 
-
         float chanceNulle = (float) ((50 - (delta / 2.0)) / 100.0);
 
         if (score1 >= score2) {
@@ -64,16 +63,18 @@ public class ParieService implements Serializable {
             chanceB = (float) (((50 + (delta / 2.0)) / 100) * ((50 + (delta / 2)) / 100.0));
         }
 
-
         if (Objects.equals(call, "A")) {
 
             result = Precision.round(1 / chanceA, 2);
+            System.out.println(result);
         }
         else if (Objects.equals(call, "B")) {
             result = Precision.round(1 / chanceB, 2);
+            System.out.println(result);
         }
         else if (Objects.equals(call, "N")) {
             result = Precision.round(1 / chanceNulle, 2);
+            System.out.println(result);
         }
         return result;
     }

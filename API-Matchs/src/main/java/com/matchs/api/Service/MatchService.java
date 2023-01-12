@@ -10,7 +10,6 @@ import com.matchs.api.Repository.ResultatRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.Serializable;
 import java.util.Locale;
 
@@ -111,5 +110,4 @@ public class MatchService implements Serializable {
         FakeValuesService fvs = new FakeValuesService(new Locale("fr,FR"),new RandomService());
         return fvs.numerify("#-#");
     }
-
 }
