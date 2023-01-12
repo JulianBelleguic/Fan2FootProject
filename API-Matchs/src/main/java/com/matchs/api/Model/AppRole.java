@@ -7,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor @AllArgsConstructor
 @Getter
 @Setter
+@Table(name = "roles")
 
 public class AppRole {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

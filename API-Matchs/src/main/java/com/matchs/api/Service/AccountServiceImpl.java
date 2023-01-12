@@ -40,7 +40,6 @@ public class AccountServiceImpl implements AccountService {
         AppUser appUser = appUserRepository.findByUsername(username);
         AppRole appRole = appRoleRepository.findByRolename(rolename);
         appUser.getAppRoles().add(appRole);
-
     }
 
     public AppUser findUserByUsername(String username) {
