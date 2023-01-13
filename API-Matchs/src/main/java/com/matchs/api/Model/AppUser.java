@@ -15,6 +15,7 @@ import java.util.List;
 
 
 @Entity
+@Builder
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 @Table(name = "users")
@@ -33,8 +34,8 @@ public class AppUser implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<AppRole> appRoles=new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+//    @Enumerated(EnumType.STRING)
+//    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
