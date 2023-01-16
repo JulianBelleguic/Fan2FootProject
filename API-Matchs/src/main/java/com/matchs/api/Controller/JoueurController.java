@@ -1,6 +1,7 @@
 package com.matchs.api.Controller;
 
 import com.matchs.api.Model.Equipe;
+import com.matchs.api.Repository.JoueurRepository;
 import com.matchs.api.Service.JoueurService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -17,9 +18,11 @@ import java.util.List;
 public class JoueurController {
 
     private final JoueurService service;
+    private final JoueurRepository repository;
 
-    public JoueurController(JoueurService service) {
+    public JoueurController(JoueurService service, JoueurRepository repository) {
         this.service = service;
+        this.repository = repository;
     }
 
     @PostMapping("/create")
@@ -55,7 +58,7 @@ public class JoueurController {
         return new ResponseEntity<>(newJoueur, HttpStatus.OK);
     }
     @RequestMapping(value = "/addEtoJ/{idJ}/{idEq}", method = RequestMethod.PUT)
-   public ResponseEntity<Joueur> updateEquipe(@PathVariable Long idJ, @PathVariable Equipe idEq) {
+   public ResponseEntity<Joueur> updateEquipeDuJoueur(@PathVariable Long idJ, @PathVariable Equipe idEq) {
        boolean ans = this.service.addEquipeToJoueur(idJ, idEq);
        Joueur model = this.service.findJoueur(idJ);
        if (ans){
@@ -63,5 +66,31 @@ public class JoueurController {
        }else {
            return new ResponseEntity<>(model, HttpStatus.OK);
        }
+    }
+
+    @PutMapping("/update/{id}")
+    @Operation(summary = "Update player.", description = "Update player from the Id provided to the body provided.")
+    public ResponseEntity<Joueur> updateJoueur(@PathVariable Long id, @Valid @RequestBody Joueur updatedJoueur){
+        Joueur model = this.service.findJoueur(id);
+        if (model.getId() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        else {
+            service.updateJoueur(id, updatedJoueur);
+            return new ResponseEntity<>(model,HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @Operation(summary = "Delete player.", description = "Delete player from the Id provided.")
+    public ResponseEntity<Joueur> deleteJoueurById(@PathVariable Long id){
+        Joueur model = this.service.findJoueur(id);
+        if (model.getId() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        else {
+            service.deleteJoueur(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 }
