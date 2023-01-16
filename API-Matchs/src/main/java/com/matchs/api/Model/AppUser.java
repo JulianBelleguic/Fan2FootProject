@@ -34,12 +34,12 @@ public class AppUser implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<AppRole> appRoles=new ArrayList<>();
 
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(null));
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

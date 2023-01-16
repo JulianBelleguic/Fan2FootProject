@@ -1,17 +1,12 @@
 package com.matchs.api.Controller;
 
-
 import com.matchs.api.Model.AuthenticationRequest;
 import com.matchs.api.Model.AuthenticationResponse;
 import com.matchs.api.Model.RegisterRequest;
 import com.matchs.api.Service.AuthenticationService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/auth")

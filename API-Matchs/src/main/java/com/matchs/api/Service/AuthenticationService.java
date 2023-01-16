@@ -5,10 +5,8 @@ import com.matchs.api.Model.*;
 import com.matchs.api.Repository.AppUserRepository;
 import com.matchs.api.config.JwtService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +24,7 @@ public class AuthenticationService {
         var user = AppUser.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
-                //.role(Role.ADMIN)
+                .role(Role.ADMIN)
                 .build();
         appUserRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
