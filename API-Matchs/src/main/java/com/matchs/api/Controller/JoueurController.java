@@ -29,7 +29,7 @@ public class JoueurController {
     }
 
     @PostMapping("/createmul/{n}")
-    @Operation(summary = "Create n random players.", description = "create n random players with Faker")
+    @Operation(summary = "Create n random players.", description = "create n random players with Faker", )
     public ResponseEntity<List<Joueur>> createMultipleJoueur(@PathVariable ("n") Integer n) {
         ArrayList<Joueur> list = this.service.createMultipleJoueur(n);
         return new ResponseEntity<>(list, HttpStatus.CREATED);
