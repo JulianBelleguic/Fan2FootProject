@@ -49,7 +49,7 @@ public class JoueurService implements Serializable{
 
     public boolean addEquipeToJoueur(Long joueurId, Equipe equipe){
         Joueur joueur = this.repository.getReferenceById(joueurId);
-        joueur.setId_equipe(equipe);
+        joueur.setEquipe(equipe);
         this.repository.save(joueur);
         return true;
     }

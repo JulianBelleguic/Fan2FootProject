@@ -5,16 +5,12 @@ import com.github.javafaker.service.RandomService;
 import com.matchs.api.Model.Equipe;
 import com.matchs.api.Model.Match;
 import com.matchs.api.Model.Resultat;
-import com.matchs.api.Model.info_match;
-import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.MatchRepository;
 import com.matchs.api.Repository.ResultatRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.Serializable;
-import java.util.List;
 import java.util.Locale;
 
 
@@ -34,20 +30,26 @@ public class MatchService implements Serializable {
 
     public Match findMatch(Long id) {return this.matchRepository.findById(id).orElse(new Match(null, null,null,null));}
 
-    public Match addMatch(Match model, Long id_equipe1, Long id_equipe2) {
-        Match new_match = this.matchRepository.save(model);
-        Equipe eqp1 = equipeService.findEquipe(id_equipe1);
-        Equipe eqp2 = equipeService.findEquipe(id_equipe2);
-        if (new_match.getId_equipe1()==null && model.getId_equipe2()==null){
-            new_match.setId_equipe1(eqp1);
-            new_match.setId_equipe2(eqp2);
+    public Match addMatch(Match model, Long idEquipe1, Long idEquipe2) {
+        Equipe eqp1 = equipeService.findEquipe(idEquipe1);
+        Equipe eqp2 = equipeService.findEquipe(idEquipe2);
+        if (model.getId_equipe1()==null && model.getId_equipe2()==null){
+            model.setId_equipe1(eqp1);
+            model.setId_equipe2(eqp2);
         }
-        return this.matchRepository.save(new_match);
+        this.matchRepository.save(model);
+        RestTemplate restTemplate = new RestTemplate();
+        String fooResourceUrl  = "http://localhost:8081/Parie/add";
+        Boolean response = restTemplate.getForObject(fooResourceUrl + "?idMatch=" + model.getId_match() + "&scoreEqip1=" + eqp1.getScore() + "&scoreEqip2=" + eqp2.getScore(), Boolean.class);
+        if (Boolean.TRUE.equals(response)){
+            System.out.println("Pari créé.");
+        }
+        else{
+            System.out.println("Erreur lors de la création du pari.");
+        }
+        return model;
     }
 
-//    public Match addMatch(Match model) {
-//        return this.matchRepository.save(model);
-//    }
 
     public Match updMatch(Match model) {
         return this.matchRepository.save(model);
@@ -64,8 +66,8 @@ public class MatchService implements Serializable {
         this.matchRepository.save(match);
         Equipe equipe1 = equipeService.findEquipe(match.getId_equipe1().getId());
         Equipe equipe2 = equipeService.findEquipe(match.getId_equipe2().getId());
-        Resultat resultat1 = new Resultat(null,null,null);
-        Resultat resultat2 = new Resultat(null,null,null);
+        Resultat resultat1 = new Resultat(null,null,null, null);
+        Resultat resultat2 = new Resultat(null,null,null, null);
         String[] scinde = Result.split("-");
         int score1 = Integer.parseInt(scinde[0]);
         int score2 = Integer.parseInt(scinde[1]);
@@ -90,11 +92,12 @@ public class MatchService implements Serializable {
             resultat2.setId_equipe(equipe2);
             cote = "N";
         }
-        this.equipeService.updScore(equipe1);
-        this.equipeService.updScore(equipe2);
 
         resultatRepository.save(resultat1);
         resultatRepository.save(resultat2);
+
+        this.equipeService.updScore(equipe1);
+        this.equipeService.updScore(equipe2);
 
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl  = "http://localhost:8081/Parie/profit";
@@ -106,16 +109,5 @@ public class MatchService implements Serializable {
     public String createResult() {
         FakeValuesService fvs = new FakeValuesService(new Locale("fr,FR"),new RandomService());
         return fvs.numerify("#-#");
-    }
-
-    public info_match envoiScores(Long id) {
-        Match game = findMatch(id);
-        info_match infomatch = new info_match(null, null, null, null, null);
-        infomatch.setId_match(id);
-        infomatch.setNom_eq1(game.getId_equipe1().getNom());
-        infomatch.setNom_eq2(game.getId_equipe2().getNom());
-        infomatch.setScore_eq1(game.getId_equipe1().getScore());
-        infomatch.setScore_eq2(game.getId_equipe2().getScore());
-        return infomatch;
     }
 }

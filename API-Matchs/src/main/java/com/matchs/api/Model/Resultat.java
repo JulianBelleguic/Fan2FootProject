@@ -1,6 +1,5 @@
 package com.matchs.api.Model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +21,10 @@ public class Resultat {
     private Float resultat;
 
     @ManyToOne
+    @JoinColumn(name = "id_equipe")
     private Equipe id_equipe;
+
+    @OneToOne
+    @JoinColumn(name = "id_match")
+    private Match id_match;
 }

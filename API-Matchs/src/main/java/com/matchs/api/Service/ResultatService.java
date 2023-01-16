@@ -5,7 +5,7 @@ import com.matchs.api.Repository.ResultatRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.util.List;
+
 
 @Service
 public class ResultatService implements Serializable {
@@ -18,7 +18,7 @@ public class ResultatService implements Serializable {
     }
 
     public Resultat findResultat(Long id) {
-        return this.repository.findById(id).orElse(new Resultat(null, null, null));
+        return this.repository.findById(id).orElse(new Resultat(null, null, null, null));
     }
 
     public Resultat addResultat(Resultat model) {
