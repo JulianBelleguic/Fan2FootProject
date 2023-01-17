@@ -53,4 +53,12 @@ public class JoueurService implements Serializable{
         this.repository.save(joueur);
         return true;
     }
+
+    public Joueur updateJoueur (Joueur updatedJoueur) {
+        return repository.save(updatedJoueur);
+    }
+
+    public void deleteJoueur (Long id){
+        repository.deleteById(id);
+    }
 }
