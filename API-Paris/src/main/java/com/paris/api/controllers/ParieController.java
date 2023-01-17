@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,11 +48,11 @@ public class ParieController {
     }
 
     @PutMapping("/add")
-    @Operation(summary = "Create one 'pari'.", description = "Create one 'pari' from idmatch and score team.")
+    @Operation(summary = "Create one 'pari'.", description = "Create one 'pari' from idmatch and score team's.")
     public ResponseEntity<ParieModel> addParie(@RequestParam Long idMatch, @RequestParam Float scoreEqip1, @RequestParam Float scoreEqip2){
         ParieModel model = this.service.addParie(idMatch, scoreEqip1, scoreEqip2);
         if (model.getId()==null){
-            return new ResponseEntity<>(model,HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(model,HttpStatus.NOT_ACCEPTABLE);
         }else{
             return new ResponseEntity<>(model,HttpStatus.CREATED);
         }
@@ -59,8 +60,13 @@ public class ParieController {
 
     @PutMapping("/addByJSON")
     @Operation(summary = "Create one 'pari'.", description = "Create one 'pari' from the provided JSON Body.")
-    public ResponseEntity<ParieModel> createParie(@RequestParam ParieModel parie){
-        return new ResponseEntity<>(service.createParie(parie), HttpStatus.CREATED);
+    public ResponseEntity<ParieModel> addByJSON(@Valid @RequestBody ParieModel pari){
+        ParieModel model = this.service.createPari(pari);
+        if (model.getId()==null){
+            return new ResponseEntity<>(model,HttpStatus.NOT_ACCEPTABLE);
+        }else{
+            return new ResponseEntity<>(model,HttpStatus.CREATED);
+        }
     }
 
     @DeleteMapping("/deleteByID/{id}")
@@ -74,12 +80,5 @@ public class ParieController {
         }
 
     }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
-        return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
 
 }
