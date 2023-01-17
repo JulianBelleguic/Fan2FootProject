@@ -83,4 +83,14 @@ public class ParieurService implements Serializable {
         return this.repository.save(parieur);
     }
 
+    public String delByID(Long id){
+        if (repository.existsById(id)){
+            repository.deleteById(id);
+            return "Parieur supprimé";
+        }
+        else{
+            return "Id parieur non trouvé.";
+        }
+    }
+
 }
