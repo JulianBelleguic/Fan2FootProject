@@ -12,6 +12,6 @@ import java.util.List;
 public interface AssoPariParieurRepository extends JpaRepository<AssoParisParieurModel, Long> {
     List<AssoParisParieurModel> findAllByIdParieur(Long idParieur);
     @Query(value = "SELECT asso_pari_parieur.* FROM asso_pari_parieur join parie on parie.id_parie=asso_pari_parieur.id_paris\n" +
-            " where id_match=:id and cote_choisie like :cote", nativeQuery = true)
+            " where id_match=:id and coteChoisie like :cote", nativeQuery = true)
     List<AssoParisParieurModel> findUpdParieur(@Param("id") Long id, @Param("cote") String cote);
 }
