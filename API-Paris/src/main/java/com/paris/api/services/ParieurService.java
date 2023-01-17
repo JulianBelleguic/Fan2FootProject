@@ -1,7 +1,7 @@
 package com.paris.api.services;
 
-import com.github.javafaker.Faker;
 import com.paris.api.models.AssoParisParieurModel;
+import com.paris.api.models.ParieModel;
 import com.paris.api.models.ParieurModel;
 import com.paris.api.repository.AssoPariParieurRepository;
 import com.paris.api.repository.ParieurRepository;
@@ -29,6 +29,7 @@ public class ParieurService implements Serializable {
         return this.repository.findById(id).orElse(new ParieurModel());
     }
 
+    @Deprecated
     public ParieurModel createRandomParieur() {
         Faker faker = new Faker(new Locale("fr-FR"));
         ParieurModel parieur = new ParieurModel();

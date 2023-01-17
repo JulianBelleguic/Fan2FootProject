@@ -1,9 +1,8 @@
 package com.matchs.api.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
-
-import java.util.Objects;
 
 @Entity
 @Table(name = "joueur")
@@ -19,16 +18,28 @@ public class Joueur {
     private Long id;
 
     @ManyToOne
-    private Equipe id_equipe;
+    @JoinColumn(name = "id_equipe")
+    private Equipe equipe;
 
     @Column(length=30)
+    @NotBlank(message = "Entrez un nom")
+    @Size(min = 2, message = "Au moins 2 caractères")
     private String nom;
 
     @Column(length=30)
+    @NotBlank(message = "Entrez un prénom")
+    @Size(min = 2, message = "Au moins 2 caractères")
     private String prenom;
 
+    @NotNull(message = "Entrez un age")
+    @Min(value = 16, message = "Au moins 16")
+    @Max(value = 65, message = "Au plus 65")
     private Integer age;
 
+
+    @NotNull(message = "Entrez un score")
+    @Min(value = 0, message = "Au moins 0")
+    @Max(value = 99, message = "Au plus 99")
     private Integer score;
 
 }
