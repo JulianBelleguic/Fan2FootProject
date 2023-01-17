@@ -86,4 +86,14 @@ class ApiParisApplicationTests {
 		verify(parieurServiceMock).soustraireBalance(1L, 10);
 	}
 
+	@Test
+	void parieurAdditionArgent() {
+		ParieurService parieurServiceMock = mock(ParieurService.class);
+		AssoPariParieurService asso = mock(AssoPariParieurService.class);
+		ParieController parieController = mock(ParieController.class);
+		ParieurController parieurController = new ParieurController(parieurServiceMock, asso, parieController);
+		parieurController.additionnerBalance(1L, 10);
+		verify(parieurServiceMock).additionnerBalance(1L, 10);
+	}
+
 }
