@@ -1,3 +1,3 @@
-/API-Paris/target/
+**/target/
 /.idea/
 **/application.properties
