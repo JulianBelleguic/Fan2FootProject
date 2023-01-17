@@ -86,9 +86,14 @@ public class EquipeController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @Operation(summary = "Delete team.", description = "Delete team from the provided Id.")
+    @Operation(summary = "Delete team.", description = "Delete team of provided Id.")
     public ResponseEntity<Equipe> deleteEquipeById(@PathVariable ("id") Long id) {
-        equipeService.delEquipe(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        if (!repository.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        else {
+            equipeService.delEquipe(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 }

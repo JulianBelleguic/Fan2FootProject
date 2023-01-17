@@ -60,10 +60,15 @@ public class MatchController {
     }
 
     @GetMapping("/delete/{id}")
-    @Operation(summary = "delete match.", description = "Parameters : (long) id Match")
-    public ResponseEntity delMatch(@RequestParam Long id){
-        this.service.delMatch(id);
-        return new ResponseEntity(HttpStatus.OK);
+    @Operation(summary = "delete match.", description = "Delete match of provided id")
+    public ResponseEntity<Match> delMatch(@PathVariable("id") Long id){
+        if (!repository.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        else {
+            service.delMatch(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
 }

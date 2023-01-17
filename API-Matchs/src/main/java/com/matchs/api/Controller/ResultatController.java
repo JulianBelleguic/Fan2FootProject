@@ -50,10 +50,15 @@ public class ResultatController {
         }
     }
 
-    @GetMapping("/del")
-    public ResponseEntity<Object> delMatch(@RequestParam Long id){
-        this.service.delResultat(id);
-        return new ResponseEntity(HttpStatus.OK);
+    @GetMapping("/del/{id}")
+    public ResponseEntity<Object> delMatch(@PathVariable Long id){
+        if (!repository.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        else {
+            service.delResultat(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping("/find")
