@@ -3,13 +3,11 @@ package com.paris.api.controllers;
 import com.paris.api.models.ParieModel;
 import com.paris.api.services.ParieService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

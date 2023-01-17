@@ -4,7 +4,6 @@ import com.paris.api.models.ParieModel;
 import com.paris.api.repository.ParieRepository;
 import org.apache.commons.math3.util.Precision;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.Serializable;
 import java.util.List;
