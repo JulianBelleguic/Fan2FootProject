@@ -1,6 +1,7 @@
 package com.matchs.api.Controller;
 
 import com.matchs.api.Model.Match;
+import com.matchs.api.Repository.MatchRepository;
 import com.matchs.api.Service.MatchService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,11 @@ import java.util.Objects;
 public class MatchController {
 
     private final MatchService service;
+    private final MatchRepository repository;
 
-    public MatchController(MatchService service) {
+    public MatchController(MatchService service, MatchRepository repository) {
         this.service = service;
+        this.repository = repository;
     }
 
     @GetMapping("/getbyid")
@@ -44,11 +47,16 @@ public class MatchController {
         return new ResponseEntity(model, HttpStatus.OK);
     }
 
-    @PostMapping("/upd")
+    @PostMapping("/update")
     @Operation(summary = "Update match", description = "Parameters : Match object (JSON)")
-    public ResponseEntity<Object> updMatch(@RequestBody Match p_model){
-        Match model = this.service.updMatch(p_model);
-        return new ResponseEntity(model, HttpStatus.OK);
+    public ResponseEntity<Object> updMatch(@RequestBody Match model){
+        if (!repository.existsById(model.getId_match())) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        else {
+            service.updMatch(model);
+            return new ResponseEntity<>(model,HttpStatus.OK);
+        }
     }
 
     @GetMapping("/del")
