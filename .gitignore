@@ -1,1 +1,6 @@
 /.idea/
+**/target
+/API-Matchs/src/main/resources/application.properties
+/API-Paris/src/main/resources/application.properties
+/API-Matchs/API-Matchs.iml
+/API-Paris/paris.iml
