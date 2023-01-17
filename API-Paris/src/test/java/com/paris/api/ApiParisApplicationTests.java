@@ -18,7 +18,7 @@ class ApiParisApplicationTests {
 	}
 
 	@Test
-	void addParie() {
+	void ParieAddParie() {
 		ParieService parieServiceMock = mock(ParieService.class);
 		ParieController parieController = new ParieController(parieServiceMock);
 		Long idMatch = 1L;
@@ -28,12 +28,20 @@ class ApiParisApplicationTests {
 		verify(parieServiceMock).addParie(1L, 0f, 0f);
 	}
 	@Test
-	void createParie() {
+	void parieCreateParie() {
 		ParieService parieServiceMock = mock(ParieService.class);
 		ParieController parieController = new ParieController(parieServiceMock);
 		ParieModel model = new ParieModel();
 		parieController.createParie(model);
 		verify(parieServiceMock).createParie(model);
+	}
+	@Test
+	void pariedeleteParieByID() {
+		ParieService parieServiceMock = mock(ParieService.class);
+		ParieController parieController = new ParieController(parieServiceMock);
+		ParieModel model = new ParieModel();
+		parieController.deleteByID(1L);
+		verify(parieServiceMock).deleteByID(1L);
 	}
 
 }
