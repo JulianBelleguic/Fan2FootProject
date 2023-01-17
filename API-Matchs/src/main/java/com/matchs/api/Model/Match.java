@@ -16,7 +16,7 @@ public class Match {
     @Column(name = "match_id", nullable = false, updatable = false)
     private Long id_match;
 
-    @Column(name="resultat")
+    @Column(name="resultat", length = 5)
     private String resultat;
 
     @ManyToOne

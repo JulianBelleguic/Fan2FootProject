@@ -41,9 +41,10 @@ public class ParieController {
         List<ParieModel> paris = ParieService.all();
         return paris;
     }
+
     @GetMapping("/add")
-    public ResponseEntity<Object> addParie(@RequestParam Long id){
-        ParieModel model = this.service.addParie(id);
-        return new ResponseEntity<>(model, HttpStatus.OK);
+    public ResponseEntity<Object> addParie(@RequestParam Long idMatch, @RequestParam Float scoreEqip1, @RequestParam Float scoreEqip2){
+        Boolean result = this.service.addParie(idMatch, scoreEqip1, scoreEqip2);
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }

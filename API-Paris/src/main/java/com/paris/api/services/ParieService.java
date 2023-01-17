@@ -1,11 +1,10 @@
 package com.paris.api.services;
 
 import com.paris.api.models.ParieModel;
-import com.paris.api.models.info_match;
 import com.paris.api.repository.ParieRepository;
+import org.apache.commons.math3.util.Precision;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,11 +16,11 @@ public class ParieService implements Serializable {
     private static ParieRepository repository;
 
     public ParieService (ParieRepository repository){
-        this.repository = repository;
+        ParieService.repository = repository;
     }
 
     public ParieModel findByID(Long id) {
-        return this.repository.findById(id).orElse(new ParieModel(null, null, 0,0,0));
+        return repository.findById(id).orElse(new ParieModel(null, null, 0,0,0));
     }
     @GetMapping("/all")
     public static List<ParieModel> all() {
@@ -29,7 +28,7 @@ public class ParieService implements Serializable {
     }
 
     public ParieModel createParie(ParieModel model) {
-        return this.repository.save(model);
+        return repository.save(model);
     }
 
     public String deleteByID(Long id){
@@ -37,27 +36,21 @@ public class ParieService implements Serializable {
         return "Parieur supprimer";
     }
 
-    public ParieModel addParie(Long id){
-        //info_match result = new info_match(null,null,null,null,null);
-        RestTemplate restTemplate = new RestTemplate();
-        String fooResourceUrl  = "http://localhost:8080/api/match/scores";
-        info_match response = restTemplate.getForObject(fooResourceUrl + "?id=" + id, info_match.class);
-        System.out.println(response);
+    public Boolean addParie(Long idMatch, Float scoreEqip1, Float scoreEqip2){
         ParieModel newParie = new ParieModel(null, null, 0,0,0);
-        assert response != null;
-        newParie.setIdMatch(response.getId_match());
-        newParie.setCoteA(calculChances(response.getScore_eq1(), response.getScore_eq2(), "A"));
-        newParie.setCoteB(calculChances(response.getScore_eq1(), response.getScore_eq2(), "B"));
-        newParie.setCoteN(calculChances(response.getScore_eq1(), response.getScore_eq2(), "N"));
-        return this.repository.save(newParie);
+        newParie.setIdMatch(idMatch);
+        newParie.setCoteA(calculChances(scoreEqip1, scoreEqip2, "A"));
+        newParie.setCoteB(calculChances(scoreEqip1, scoreEqip2, "B"));
+        newParie.setCoteN(calculChances(scoreEqip1, scoreEqip2, "N"));
+        repository.save(newParie);
+        return true;
     }
 
-    private static Float calculChances (Integer score1, Integer score2, String call) {
+    private static Float calculChances (Float score1, Float score2, String call) {
         float chanceA, chanceB;
         Float result = null;
 
-        int delta = Math.abs(score1 - score2);
-
+        float delta = Math.abs(score1 - score2);
 
         float chanceNulle = (float) ((50 - (delta / 2.0)) / 100.0);
 
@@ -70,16 +63,15 @@ public class ParieService implements Serializable {
             chanceB = (float) (((50 + (delta / 2.0)) / 100) * ((50 + (delta / 2)) / 100.0));
         }
 
-
         if (Objects.equals(call, "A")) {
 
-            result = 1 / chanceA;
+            result = Precision.round(1 / chanceA, 2);
         }
         else if (Objects.equals(call, "B")) {
-            result = 1 / chanceB;
+            result = Precision.round(1 / chanceB, 2);
         }
         else if (Objects.equals(call, "N")) {
-            result = 1 / chanceNulle;
+            result = Precision.round(1 / chanceNulle, 2);
         }
         return result;
     }

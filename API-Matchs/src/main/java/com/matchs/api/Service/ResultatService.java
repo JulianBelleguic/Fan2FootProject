@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 
+
 @Service
 public class ResultatService implements Serializable {
     // on crée l'attribut de class qui va contenir le repository
@@ -17,7 +18,7 @@ public class ResultatService implements Serializable {
     }
 
     public Resultat findResultat(Long id) {
-        return this.repository.findById(id).orElse(new Resultat(null, null, null));
+        return this.repository.findById(id).orElse(new Resultat(null, null, null, null));
     }
 
     public Resultat addResultat(Resultat model) {
@@ -31,4 +32,5 @@ public class ResultatService implements Serializable {
     public void delResultat(Long id) {
         this.repository.deleteById(id);
     }
+
 }

@@ -2,6 +2,7 @@ package com.matchs.api.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name= "resultat")
@@ -20,6 +21,10 @@ public class Resultat {
     private Float resultat;
 
     @ManyToOne
+    @JoinColumn(name = "id_equipe")
     private Equipe id_equipe;
 
+    @OneToOne
+    @JoinColumn(name = "id_match")
+    private Match id_match;
 }

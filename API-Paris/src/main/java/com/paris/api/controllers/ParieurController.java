@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,18 +31,32 @@ public class ParieurController {
     private AssoPariParieurService serviceAsso;
     private ParieController parieController;
 
-@Autowired
+    @Autowired
     public ParieurController(ParieurService service, @Lazy AssoPariParieurService serviceAsso, ParieController parieController){
         this.service = service;
         this.serviceAsso = serviceAsso;
         this.parieController = parieController;
+    }
+    @PostMapping("/add")
+    @Operation(summary = "Ajoute one 'parieur'.", description = "Ajoute one 'parieur' from the provided Body.")
+    public ParieurModel addParieur(@RequestBody ParieurModel parieur){
+        return service.addParieur(parieur);
+    }
 
-    }
     @PostMapping("/create")
-    @Operation(summary = "Create one 'parieur'.", description = "Create one 'parieur' from the provided Body.")
-    public ParieurModel createParieur(@RequestBody ParieurModel parieur){
-        return service.createParieur(parieur);
+    @Operation(summary = "Create and add user.", description = "Create and Add user with faker")
+    public ResponseEntity<ParieurModel> createRandomParieur(){
+        ParieurModel newParieur = this.service.addParieur(this.service.createRandomParieur());
+        return new ResponseEntity<>(newParieur, HttpStatus.OK);
     }
+
+    @PostMapping("/createmul/{n}")
+    @Operation(summary = "Create n random gamblers.", description = "create n random gamblers with Faker")
+    public ResponseEntity<List<ParieurModel>> createMultipleParieur(@PathVariable ("n") Integer n) {
+        ArrayList<ParieurModel> list = this.service.createMultipleParieur(n);
+        return new ResponseEntity<>(list, HttpStatus.CREATED);
+    }
+
     @PutMapping("/deleteByID/{id}")
     @Operation(summary = "Delete one 'parieur'.", description = "Delete one 'parieur' from the provided Id.")
     public String deleteByID(@RequestParam Long id){
@@ -51,8 +66,7 @@ public class ParieurController {
     @PutMapping("/findByID/{id}")
     @Operation(summary = "Find one 'parieur'.", description = "Find one 'parieur' from the provided Id.")
     public ParieurModel searchById(@RequestParam Long id){
-        ParieurModel model = this.service.findParieur(id);
-        return model;
+        return this.service.findParieur(id);
     }
     @GetMapping("/getParis")
     public List<ParieModel> getParis(){
@@ -76,11 +90,15 @@ public class ParieurController {
     }
 
     @GetMapping("/getParier")
-    public List<AssoParisParieurModel> getParierByParieurId(@RequestParam Long id_parieur){
-        List<AssoParisParieurModel> parier = serviceAsso.getParierByIdJoueur(id_parieur);
-
+    public List<AssoParisParieurModel> getParierByParieurId(@RequestParam Long idParieur){
+        List<AssoParisParieurModel> parier = serviceAsso.getParierByIdJoueur(idParieur);
         return parier;
     }
 
+    @PutMapping("/profit")
+    public ResponseEntity updBalanceByMatch(@RequestParam Long idmatch,@RequestParam String cote ){
+        this.service.updBalanceByMatch(idmatch, cote);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

@@ -3,19 +3,37 @@ package com.matchs.api.Controller;
 import com.matchs.api.Model.Equipe;
 import com.matchs.api.Service.JoueurService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import com.matchs.api.Model.Joueur;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/joueur")
+@RequestMapping("/joueur")
 public class JoueurController {
 
     private final JoueurService service;
 
     public JoueurController(JoueurService service) {
         this.service = service;
+    }
+
+    @PostMapping("/create")
+    @Operation(summary = "Create and add player.", description = "Create and Add player with faker ")
+    public ResponseEntity<Joueur> createRandomJoueur(){
+        Joueur newJoueur = this.service.addJoueur(this.service.createRandomJoueur());
+        return new ResponseEntity<>(newJoueur, HttpStatus.OK);
+    }
+
+    @PostMapping("/createmul/{n}")
+    @Operation(summary = "Create n random players.", description = "create n random players with Faker")
+    public ResponseEntity<List<Joueur>> createMultipleJoueur(@PathVariable ("n") Integer n) {
+        ArrayList<Joueur> list = this.service.createMultipleJoueur(n);
+        return new ResponseEntity<>(list, HttpStatus.CREATED);
     }
 
     @GetMapping("/find/{id}")
@@ -32,7 +50,7 @@ public class JoueurController {
 
     @PostMapping("/add")
     @Operation(summary = "Add player.", description = "Add player from the Body provided.")
-    public ResponseEntity<Joueur> addJoueur(@RequestBody Joueur joueur){
+    public ResponseEntity<Joueur> addJoueur(@Valid @RequestBody Joueur joueur){
         Joueur newJoueur = this.service.addJoueur(joueur);
         return new ResponseEntity<>(newJoueur, HttpStatus.OK);
     }
@@ -40,7 +58,7 @@ public class JoueurController {
    public ResponseEntity<Joueur> updateEquipe(@PathVariable Long idJ, @PathVariable Equipe idEq) {
        boolean ans = this.service.addEquipeToJoueur(idJ, idEq);
        Joueur model = this.service.findJoueur(idJ);
-       if (ans == true){
+       if (ans){
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        }else {
            return new ResponseEntity<>(model, HttpStatus.OK);
