@@ -102,7 +102,6 @@ public class MatchService implements Serializable {
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl  = "http://localhost:8081/Parie/profit";
         restTemplate.put(fooResourceUrl + "?idmatch=" + id + "&cote=" + cote,null);
-
         return match;
     }
 
