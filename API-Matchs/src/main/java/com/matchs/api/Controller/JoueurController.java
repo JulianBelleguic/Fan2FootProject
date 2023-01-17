@@ -86,8 +86,7 @@ public class JoueurController {
     @DeleteMapping("/delete/{id}")
     @Operation(summary = "Delete player.", description = "Delete player from the Id provided.")
     public ResponseEntity<Joueur> deleteJoueurById(@PathVariable Long id){
-        Joueur model = this.service.findJoueur(id);
-        if (model.getId() == null) {
+        if (!repository.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
         else {

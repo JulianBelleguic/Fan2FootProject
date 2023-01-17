@@ -59,7 +59,7 @@ public class MatchController {
         }
     }
 
-    @GetMapping("/del")
+    @GetMapping("/delete/{id}")
     @Operation(summary = "delete match.", description = "Parameters : (long) id Match")
     public ResponseEntity delMatch(@RequestParam Long id){
         this.service.delMatch(id);
