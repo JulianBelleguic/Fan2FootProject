@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "assoPariParieur")
+@Table(name = "parier")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class AssoParisParieurModel {
+public class ParierModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 

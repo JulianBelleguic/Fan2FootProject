@@ -1,6 +1,8 @@
 package com.paris.api.models;
 
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,27 +21,20 @@ public class ParieModel {
     @Column(name="id_parie", nullable=false, updatable=false)
     private Long id;
 
+    @NotNull(message = "idMatch is mandatory")
     @Column(length=30)
     private Long idMatch;
 
+    @NotNull(message = "coteA is mandatory")
     @Column(name="coteA")
-    private float CoteA = 0;
+    private float coteA = 0;
 
+    @NotNull(message = "coteB is mandatory")
     @Column(name="coteB")
-    private float CoteB = 0;
+    private float coteB = 0;
 
+    @NotNull(message = "coteN is mandatory")
     @Column(name="coteN")
-    private float CoteN = 0;
+    private float coteN = 0;
 
-    public double getCoteA() {
-        return CoteA;
-    }
-
-    public double getCoteB() {
-        return CoteB;
-    }
-
-    public double getCoteN() {
-        return CoteN;
-    }
 }
