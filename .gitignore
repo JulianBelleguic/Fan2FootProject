@@ -1,2 +1,4 @@
 /.idea/
 **/target
+/API-Matchs/src/main/resources/application.properties
+/API-Paris/src/main/resources/application.properties
