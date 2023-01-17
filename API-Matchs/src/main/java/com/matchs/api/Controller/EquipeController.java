@@ -1,8 +1,8 @@
 package com.matchs.api.Controller;
 
 import com.matchs.api.Model.Equipe;
+import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Service.EquipeService;
-import org.hibernate.annotations.Cascade;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
@@ -19,10 +19,12 @@ import java.util.List;
 public class EquipeController {
     // on crée l'attribut de class qui va contenir le service associé à notre controller
     private final EquipeService equipeService;
+    private final EquipeRepository repository;
 
     @Autowired
-    public EquipeController(EquipeService equipeService) {
+    public EquipeController(EquipeService equipeService, EquipeRepository repository) {
         this.equipeService = equipeService;
+        this.repository = repository;
     }
 
     @GetMapping("/all")
@@ -74,8 +76,13 @@ public class EquipeController {
     @PutMapping("/update")
     @Operation(summary = "Update team.", description = "Update team from the provided Body.")
     public ResponseEntity<Equipe> updateEquipe(@RequestBody Equipe equipe)  {
-        Equipe updatedEquipe = equipeService.updEquipe(equipe);
-        return new ResponseEntity<>(updatedEquipe, HttpStatus.OK);
+        if (!repository.existsById(equipe.getId())) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        else {
+            equipeService.updEquipe(equipe);
+            return new ResponseEntity<>(equipe,HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("/delete/{id}")

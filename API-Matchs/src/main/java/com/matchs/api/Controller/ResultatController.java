@@ -2,6 +2,7 @@ package com.matchs.api.Controller;
 
 
 import com.matchs.api.Model.Resultat;
+import com.matchs.api.Repository.ResultatRepository;
 import com.matchs.api.Service.ResultatService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +15,11 @@ import java.util.Objects;
 public class ResultatController {
 
     private final ResultatService service;
+    private final ResultatRepository repository;
 
-    public ResultatController(ResultatService service) {
+    public ResultatController(ResultatService service, ResultatRepository repository) {
         this.service = service;
+        this.repository = repository;
     }
 
     @GetMapping("/getbyid")
@@ -36,10 +39,15 @@ public class ResultatController {
         return new ResponseEntity(model, HttpStatus.OK);
     }
 
-    @PostMapping("/upd")
-    public ResponseEntity<Object> updResultat(@RequestBody Resultat p_model){
-        Resultat model = this.service.updResultat(p_model);
-        return new ResponseEntity(model, HttpStatus.OK);
+    @PostMapping("/update")
+    public ResponseEntity<Object> updResultat(@RequestBody Resultat model){
+        if (!repository.existsById(model.getId_resultat())) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        else {
+            service.updResultat(model);
+            return new ResponseEntity<>(model,HttpStatus.OK);
+        }
     }
 
     @GetMapping("/del")

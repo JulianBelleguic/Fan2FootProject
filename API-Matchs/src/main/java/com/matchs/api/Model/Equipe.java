@@ -47,5 +47,7 @@ public class Equipe {
     private List<Resultat> id_equipe = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER, targetEntity = Joueur.class, mappedBy = "equipe")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Joueur> list_joueurs = new ArrayList<>();
+
  }

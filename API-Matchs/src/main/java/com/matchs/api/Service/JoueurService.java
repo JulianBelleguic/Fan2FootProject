@@ -1,8 +1,9 @@
 package com.matchs.api.Service;
 
 import com.github.javafaker.Faker;
-import com.matchs.api.Model.Equipe;
+import com.matchs.api.Controller.EquipeController;
 import com.matchs.api.Model.Joueur;
+import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.JoueurRepository;
 import org.springframework.stereotype.Service;
 
@@ -47,12 +48,7 @@ public class JoueurService implements Serializable{
         return list;
     }
 
-    public boolean addEquipeToJoueur(Long joueurId, Equipe equipe){
-        Joueur joueur = this.repository.getReferenceById(joueurId);
-        joueur.setEquipe(equipe);
-        this.repository.save(joueur);
-        return true;
-    }
+
 
     public Joueur updateJoueur (Joueur updatedJoueur) {
         return repository.save(updatedJoueur);

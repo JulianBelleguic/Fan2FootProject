@@ -1,7 +1,7 @@
 package com.matchs.api.Controller;
 
-import com.matchs.api.Model.Equipe;
 import com.matchs.api.Repository.JoueurRepository;
+import com.matchs.api.Service.EquipeService;
 import com.matchs.api.Service.JoueurService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -20,9 +20,12 @@ public class JoueurController {
     private final JoueurService service;
     private final JoueurRepository repository;
 
-    public JoueurController(JoueurService service, JoueurRepository repository) {
+    private final EquipeService equipeService;
+
+    public JoueurController(JoueurService service, JoueurRepository repository, EquipeService equipeService) {
         this.service = service;
         this.repository = repository;
+        this.equipeService = equipeService;
     }
 
     @PostMapping("/create")
@@ -58,8 +61,8 @@ public class JoueurController {
         return new ResponseEntity<>(newJoueur, HttpStatus.OK);
     }
     @RequestMapping(value = "/addEtoJ/{idJ}/{idEq}", method = RequestMethod.PUT)
-   public ResponseEntity<Joueur> updateEquipeDuJoueur(@PathVariable Long idJ, @PathVariable Equipe idEq) {
-       boolean ans = this.service.addEquipeToJoueur(idJ, idEq);
+   public ResponseEntity<Joueur> updateEquipeDuJoueur(@PathVariable Long idJ, @PathVariable Long idEq) {
+       boolean ans = equipeService.addEquipeToJoueur(idJ, idEq);
        Joueur model = this.service.findJoueur(idJ);
        if (ans){
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -71,7 +74,7 @@ public class JoueurController {
     @PutMapping("/update")
     @Operation(summary = "Update player.", description = "Update player from the Id provided to the body provided.")
     public ResponseEntity<Joueur> updateJoueur(@Valid @RequestBody Joueur updatedJoueur){
-        if (repository.existsById(updatedJoueur.getId())) {
+        if (!repository.existsById(updatedJoueur.getId())) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
         else {
