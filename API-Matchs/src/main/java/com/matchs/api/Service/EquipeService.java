@@ -44,10 +44,15 @@ public class EquipeService implements Serializable {
     }
 
     public boolean addEquipeToJoueur(Long joueurId, Long id_equipe){
-        Joueur joueur = joueurService.findJoueur(joueurId);
-        joueur.setEquipe(findEquipe(id_equipe));
-        joueurRepository.save(joueur);
-        return true;
+        if (!joueurRepository.existsById(joueurId) || !equipeRepository.existsById(id_equipe)){
+            return false;
+        }
+        else {
+            Joueur joueur = joueurService.findJoueur(joueurId);
+            joueur.setEquipe(findEquipe(id_equipe));
+            joueurRepository.save(joueur);
+            return true;
+        }
     }
 
     @Deprecated
@@ -90,8 +95,8 @@ public class EquipeService implements Serializable {
         return model;
     }
 
-    public Equipe updEquipe(Equipe model) {
-        return this.equipeRepository.save(model);
+    public void updEquipe(Equipe model) {
+        this.equipeRepository.save(model);
     }
 
     public void delEquipe(Long id) {
