@@ -58,5 +58,15 @@ class ApiParisApplicationTests {
 		parieurController.addParieur(parieur);
 		verify(parieurServiceMock).addParieur(parieur);
 	}
+	@Test
+	void parieurDeleteByID() {
+		ParieurService parieurServiceMock = mock(ParieurService.class);
+		AssoPariParieurService asso = mock(AssoPariParieurService.class);
+		ParieController parieController = mock(ParieController.class);
+		ParieurController parieurController = new ParieurController(parieurServiceMock, asso, parieController);
+		ParieurModel parieur = new ParieurModel();
+		parieurController.deleteByID(1L);
+		verify(parieurServiceMock).deleteByID(1L);
+	}
 
 }
