@@ -70,8 +70,7 @@ public class ParieurController {
     }
     @GetMapping("/getParis")
     public List<ParieModel> getParis(){
-        List<ParieModel> paris = parieController.findAll();
-        return paris;
+        return ParieController.findAll();
     }
 
     @GetMapping("/ajouterArgent")
