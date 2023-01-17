@@ -96,6 +96,7 @@ public class ParieurController {
     }
 
     @PutMapping("/profit")
+    // Elle sert à quoi cette fonction ?
     public ResponseEntity updBalanceByMatch(@RequestParam Long idmatch,@RequestParam String cote ){
         this.service.updBalanceByMatch(idmatch, cote);
         return new ResponseEntity<>(HttpStatus.OK);
