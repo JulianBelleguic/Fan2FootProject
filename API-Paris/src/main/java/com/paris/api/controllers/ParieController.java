@@ -21,6 +21,7 @@ public class ParieController {
     public ParieController(ParieService service){
         this.service = service;
     }
+
     @PostMapping("/create")
     @Operation(summary = "Create one 'pari'.", description = "Create one 'pari' from the provided Body.")
     public ParieModel createParie(@RequestParam ParieModel parie){
