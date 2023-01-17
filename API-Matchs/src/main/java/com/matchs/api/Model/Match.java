@@ -24,4 +24,5 @@ public class Match {
 
     @ManyToOne
     private Equipe id_equipe2;
+
 }

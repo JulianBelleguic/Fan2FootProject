@@ -29,8 +29,10 @@ public class AssoParisParieurModel {
     @Column(length=30)
     private double montant;
 
+
     @Column(name="coteChoisie", length = 1)
     private String coteChoisie;
+
 
     @Column(length=30)
     private double gainPotentiel;

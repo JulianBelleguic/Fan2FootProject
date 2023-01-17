@@ -5,7 +5,6 @@ import com.matchs.api.Model.Equipe;
 import com.matchs.api.Model.Joueur;
 import com.matchs.api.Model.Resultat;
 import com.matchs.api.Repository.EquipeRepository;
-import com.matchs.api.Repository.JoueurRepository;
 import com.matchs.api.Repository.ResultatRepository;
 import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,29 +24,20 @@ public class EquipeService implements Serializable {
     private final ResultatRepository resultatRepository;
 
     private final JoueurService joueurService;
-    private final JoueurRepository joueurRepository;
 
     @Autowired
     // on propose un constructeur, qui va recevoir une instance du repository fournie automatiquement par Spring
-    public EquipeService(EquipeRepository equipeRepository, ResultatService resultatService, ResultatRepository resultatRepository, JoueurService joueurService, JoueurRepository joueurRepository) {
+    public EquipeService(EquipeRepository equipeRepository, ResultatService resultatService, ResultatRepository resultatRepository, JoueurService joueurService) {
         this.equipeRepository = equipeRepository;
         this.resultatService = resultatService;
         this.resultatRepository = resultatRepository;
         this.joueurService = joueurService;
-        this.joueurRepository = joueurRepository;
     }
 
     public List<Equipe> findAllEquipes() { return equipeRepository.findAll(); }
 
     public Equipe findEquipe(Long id) {
         return this.equipeRepository.findById(id).orElse(new Equipe(null, null, null, null, null, null, null));
-    }
-
-    public boolean addEquipeToJoueur(Long joueurId, Long id_equipe){
-        Joueur joueur = joueurService.findJoueur(joueurId);
-        joueur.setEquipe(findEquipe(id_equipe));
-        joueurRepository.save(joueur);
-        return true;
     }
 
     @Deprecated
@@ -90,8 +80,8 @@ public class EquipeService implements Serializable {
         return model;
     }
 
-    public void updEquipe(Equipe model) {
-        this.equipeRepository.save(model);
+    public Equipe updEquipe(Equipe model) {
+        return this.equipeRepository.save(model);
     }
 
     public void delEquipe(Long id) {
