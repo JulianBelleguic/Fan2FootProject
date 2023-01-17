@@ -34,21 +34,21 @@ public class EquipeController {
         return new ResponseEntity<>(equipes, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PutMapping("/create")
     @Operation(summary = "Create random team.", description = "create a random team with Faker")
     public ResponseEntity<Equipe> createRandomEquipe() {
         Equipe newEquipe = this.equipeService.addEquipe(this.equipeService.createRandomEquipe());
         return new ResponseEntity<>(newEquipe, HttpStatus.CREATED);
     }
 
-    @PostMapping("/createmul/{n}")
+    @PutMapping("/createmul/{n}")
     @Operation(summary = "Create n random full teams.", description = "create n random teams with Faker")
     public ResponseEntity<List<Equipe>> createMultipleEquipe(@PathVariable ("n") Integer n) {
         ArrayList<Equipe> list = this.equipeService.createMultipleEquipe(n);
         return new ResponseEntity<>(list, HttpStatus.CREATED);
     }
 
-    @PostMapping("/createfull")
+    @PutMapping("/createfull")
     @Operation(summary = "Create random full team.", description = "create a random full team with Faker")
     public ResponseEntity<Equipe> createRandomFullEquipe() {
         Equipe newEquipe = this.equipeService.createRandomFUllEquipe();
@@ -66,14 +66,14 @@ public class EquipeController {
         }
     }
 
-    @PostMapping("/add")
+    @PutMapping("/add")
     @Operation(summary = "Add team.", description = "Add team from the provided Body.")
     public ResponseEntity<Equipe> addEquipe(@RequestBody Equipe equipe) {
         Equipe newEquipe = equipeService.addEquipe(equipe);
         return new ResponseEntity<>(newEquipe, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     @Operation(summary = "Update team.", description = "Update team from the provided Body.")
     public ResponseEntity<Equipe> updateEquipe(@RequestBody Equipe equipe)  {
         if (!repository.existsById(equipe.getId())) {
@@ -86,9 +86,14 @@ public class EquipeController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @Operation(summary = "Delete team.", description = "Delete team from the provided Id.")
+    @Operation(summary = "Delete team.", description = "Delete team of provided Id.")
     public ResponseEntity<Equipe> deleteEquipeById(@PathVariable ("id") Long id) {
-        equipeService.delEquipe(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        if (!repository.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        else {
+            equipeService.delEquipe(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 }

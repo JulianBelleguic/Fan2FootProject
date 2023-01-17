@@ -22,21 +22,21 @@ public class ResultatController {
         this.repository = repository;
     }
 
-    @GetMapping("/getbyid")
-    public ResponseEntity<Resultat> getMatch(@RequestParam Long id){
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Resultat> getMatch(@PathVariable Long id){
         Resultat model = this.service.findResultat(id);
         if (Objects.isNull(model.getId_resultat())) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         else {
-            return new ResponseEntity(model, HttpStatus.OK);
+            return new ResponseEntity<>(model, HttpStatus.OK);
         }
     }
 
-    @PostMapping("/add")
+    @PutMapping("/add")
     public ResponseEntity<Object> addResultat(@RequestBody Resultat p_model){
         Resultat model = this.service.addResultat(p_model);
-        return new ResponseEntity(model, HttpStatus.OK);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @PostMapping("/update")
@@ -50,16 +50,15 @@ public class ResultatController {
         }
     }
 
-    @GetMapping("/del")
-    public ResponseEntity<Object> delMatch(@RequestParam Long id){
-        this.service.delResultat(id);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @GetMapping("/find")
-    public ResponseEntity<Object> findResultat(@RequestParam Long id){
-        Resultat model = this.service.findResultat(id);
-        return new ResponseEntity(model, HttpStatus.OK);
+    @DeleteMapping ("/delete/{id}")
+    public ResponseEntity<Object> delMatch(@PathVariable Long id){
+        if (!repository.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        else {
+            service.delResultat(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
 }
