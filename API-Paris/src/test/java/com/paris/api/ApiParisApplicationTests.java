@@ -20,13 +20,20 @@ class ApiParisApplicationTests {
 	@Test
 	void addParie() {
 		ParieService parieServiceMock = mock(ParieService.class);
-		ParieController parieModel = new ParieController(parieServiceMock);
+		ParieController parieController = new ParieController(parieServiceMock);
 		Long idMatch = 1L;
 		Float scoreEqip1 = 0f;
 		Float scoreEqip2 = 0f;
-		parieModel.addParie(idMatch, scoreEqip1, scoreEqip2);
+		parieController.addParie(idMatch, scoreEqip1, scoreEqip2);
 		verify(parieServiceMock).addParie(1L, 0f, 0f);
 	}
-
+	@Test
+	void createParie() {
+		ParieService parieServiceMock = mock(ParieService.class);
+		ParieController parieController = new ParieController(parieServiceMock);
+		ParieModel model = new ParieModel();
+		parieController.createParie(model);
+		verify(parieServiceMock).createParie(model);
+	}
 
 }
