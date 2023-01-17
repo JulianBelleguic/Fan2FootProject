@@ -1,25 +1,23 @@
 package com.paris.api.services;
 
+import com.github.javafaker.Faker;
 import com.paris.api.models.AssoParisParieurModel;
-import com.paris.api.models.ParieModel;
 import com.paris.api.models.ParieurModel;
 import com.paris.api.repository.AssoPariParieurRepository;
 import com.paris.api.repository.ParieurRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 @Service
 public class ParieurService implements Serializable {
 
     private final ParieurRepository repository;
-    private AssoPariParieurRepository assoRepository;
+    private final AssoPariParieurRepository assoRepository;
 
     public ParieurService (ParieurRepository repository, AssoPariParieurRepository assoRepository){
         this.repository = repository;
@@ -82,9 +80,5 @@ public class ParieurService implements Serializable {
         parieur.setBalance(parieur.getBalance() + montant);
         return this.repository.save(parieur);
     }
-
-
-
-
 
 }
