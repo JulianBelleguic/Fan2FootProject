@@ -68,16 +68,15 @@ public class JoueurController {
        }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @Operation(summary = "Update player.", description = "Update player from the Id provided to the body provided.")
-    public ResponseEntity<Joueur> updateJoueur(@PathVariable Long id, @Valid @RequestBody Joueur updatedJoueur){
-        Joueur model = this.service.findJoueur(id);
-        if (model.getId() == null) {
+    public ResponseEntity<Joueur> updateJoueur(@Valid @RequestBody Joueur updatedJoueur){
+        if (repository.existsById(updatedJoueur.getId())) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
         else {
-            service.updateJoueur(id, updatedJoueur);
-            return new ResponseEntity<>(model,HttpStatus.OK);
+            service.updateJoueur(updatedJoueur);
+            return new ResponseEntity<>(updatedJoueur,HttpStatus.OK);
         }
     }
 

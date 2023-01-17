@@ -54,15 +54,8 @@ public class JoueurService implements Serializable{
         return true;
     }
 
-    public Joueur updateJoueur (Long joueurId, Joueur updatedJoueur) {
-        Joueur model = repository.getReferenceById(joueurId);
-        model.setEquipe(updatedJoueur.getEquipe());
-        model.setScore(updatedJoueur.getScore());
-        model.setAge(updatedJoueur.getAge());
-        model.setPrenom(updatedJoueur.getPrenom());
-        model.setNom(updatedJoueur.getNom());
-        repository.save(model);
-        return model;
+    public Joueur updateJoueur (Joueur updatedJoueur) {
+        return repository.save(updatedJoueur);
     }
 
     public void deleteJoueur (Long id){
