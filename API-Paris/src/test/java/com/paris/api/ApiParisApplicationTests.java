@@ -1,5 +1,6 @@
 package com.paris.api;
 
+import com.paris.api.controllers.AssoPariParieurController;
 import com.paris.api.controllers.ParieController;
 import com.paris.api.controllers.ParieurController;
 import com.paris.api.models.AssoParisParieurModel;
@@ -94,6 +95,14 @@ class ApiParisApplicationTests {
 		ParieurController parieurController = new ParieurController(parieurServiceMock, asso, parieController);
 		parieurController.additionnerBalance(1L, 10);
 		verify(parieurServiceMock).additionnerBalance(1L, 10);
+	}
+
+	@Test
+	void AssoParier() {
+		AssoPariParieurService assoService = mock(AssoPariParieurService.class);
+		AssoPariParieurController assoController = new AssoPariParieurController(assoService);
+		assoController.parier(1L,1L,20, "A");
+		verify(assoService).parier(1L,1L,20, "A");
 	}
 
 }
