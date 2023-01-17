@@ -8,6 +8,7 @@ import com.paris.api.services.ParieurService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -24,7 +25,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/Parieur")
+@RequestMapping("/parieur")
 @Validated
 public class ParieurController {
 
@@ -39,8 +40,8 @@ public class ParieurController {
         this.parieController = parieController;
     }
     @PutMapping("/add")
-    @Operation(summary = "Ajoute one 'parieur'.", description = "Ajoute one 'parieur' from the provided Body.")
-    public ParieurModel addParieur(@RequestBody ParieurModel parieur){
+    @Operation(summary = "Add one 'parieur'.", description = "Add one 'parieur' from the provided Body.")
+    public ParieurModel addParieur(@Valid @RequestBody ParieurModel parieur){
         return service.addParieur(parieur);
     }
 
@@ -57,11 +58,13 @@ public class ParieurController {
         ArrayList<ParieurModel> list = this.service.createMultipleParieur(n);
         return new ResponseEntity<>(list, HttpStatus.CREATED);
     }
+
     @GetMapping("/findByID/{id}")
     @Operation(summary = "Find one 'parieur'.", description = "Find one 'parieur' from the provided Id.")
     public ParieurModel searchById(@PathVariable Long id){
         return this.service.findParieur(id);
     }
+
     @DeleteMapping("/deleteByID/{id}")
     @Operation(summary = "Delete one 'parieur'.", description = "Delete one 'parieur' from the provided Id.")
     public String deleteByID(@PathVariable Long id){

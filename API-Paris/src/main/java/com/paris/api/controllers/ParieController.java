@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pari")
-@Validated
+//@Validated
 public class ParieController {
 
     private final ParieService service;
