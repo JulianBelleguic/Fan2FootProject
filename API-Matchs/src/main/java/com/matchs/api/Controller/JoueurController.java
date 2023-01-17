@@ -60,11 +60,12 @@ public class JoueurController {
         Joueur newJoueur = this.service.addJoueur(joueur);
         return new ResponseEntity<>(newJoueur, HttpStatus.OK);
     }
-    @RequestMapping(value = "/addEtoJ/{idJ}/{idEq}", method = RequestMethod.PUT)
+
+    @PostMapping(value = "/addEtoJ/{idJ}/{idEq}")
    public ResponseEntity<Joueur> updateEquipeDuJoueur(@PathVariable Long idJ, @PathVariable Long idEq) {
        boolean ans = equipeService.addEquipeToJoueur(idJ, idEq);
        Joueur model = this.service.findJoueur(idJ);
-       if (ans){
+       if (!ans){
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        }else {
            return new ResponseEntity<>(model, HttpStatus.OK);
