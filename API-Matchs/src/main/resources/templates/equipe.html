@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>SpringApp</title>
+    <link href="../static/css.js/style.css" th:href="@{css.js/style.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-2">
+    <div class="card">
+        <div class="card-header">Liste des Equipes</div>
+        <div class="card-body">
+            <table style="width:100%" class="table">
+                <thead>
+                <tr>
+                    <th>Id</th><th>Nom</th><th>Score</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="r:${listEquipes}">
+                    <td th:text="${r.id}"></td>
+                    <td th:text="${r.nom}"></td>
+                    <td th:text="${r.score}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,8 +1,11 @@
 package com.matchs.api.Controller;
 
+import ch.qos.logback.core.model.Model;
 import com.matchs.api.Model.Equipe;
+import com.matchs.api.Service.EquipeService;
 import com.matchs.api.Service.JoueurService;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import com.matchs.api.Model.Joueur;
 import org.springframework.http.HttpStatus;
@@ -17,8 +20,11 @@ public class JoueurController {
 
     private final JoueurService service;
 
-    public JoueurController(JoueurService service) {
+    private final EquipeService Eservice;
+
+    public JoueurController(JoueurService service, EquipeService eservice) {
         this.service = service;
+        Eservice = eservice;
     }
 
     @PostMapping("/create")
@@ -54,8 +60,9 @@ public class JoueurController {
         return new ResponseEntity<>(newJoueur, HttpStatus.OK);
     }
     @RequestMapping(value = "/addEtoJ/{idJ}/{idEq}", method = RequestMethod.PUT)
-   public ResponseEntity<Joueur> updateEquipe(@PathVariable Long idJ, @PathVariable Equipe idEq) {
-       boolean ans = this.service.addEquipeToJoueur(idJ, idEq);
+   public ResponseEntity<Joueur> updateEquipe(@PathVariable Long idJ, @PathVariable Long idEq) {
+       Equipe equipe = this.Eservice.findEquipe(idEq);
+       boolean ans = this.service.addEquipeToJoueur(idJ, equipe.getId());
        Joueur model = this.service.findJoueur(idJ);
        if (ans){
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);

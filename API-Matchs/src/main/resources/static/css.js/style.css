@@ -1,0 +1,55 @@
+body{
+    background: url(../images/bg.jpg)
+    no-repeat center center fixed;
+    background-size: cover;
+}
+h1 {
+    font-size: 70px;
+    font-weight: 600;
+    background-image: linear-gradient(to left, #553c9a, #b393d3);
+    color: transparent;
+    -webkit-background-clip: text;
+    position: relative;
+}
+tbody {
+    background-color: lightcyan;
+
+}
+.TableDisplay {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.TableDisplay thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+.TableDisplay th,
+.TableDisplay td {
+    padding: 12px 15px;
+}
+.TableDisplay tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.TableDisplay tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.TableDisplay tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.TableDisplay tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+.btn-Acceuil{
+    color: #553c9a;
+    background-color: #00DDDD;
+    margin: 250px;
+    position: center;
+}

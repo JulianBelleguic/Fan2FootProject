@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SpringApp</title>
+    <link href="../static/css.js/style.css" th:href="@{css.js/style.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+ </head>
+ <body>
+
+ <div class="container mt-2">
+     <div class="card">
+         <div class="card-header">Liste des Joueurs</div>
+         <div class="card-body">
+             <form method="get" th:action="@{joueur}">
+                 <input type="text" name="rechercher" th:value="${rechercher}">
+                 <button type="submit" class="btn-primary">Chercher par Nom</button>
+             </form>
+             <table style="width:100%" class="table">
+                 <thead>
+                 <tr>
+                     <th>Id</th><th>Id_Equipe</th><th>Nom</th><th>Prenom</th><th>Age</th><th>Score</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr th:each="p:${listJoueurs}">
+                     <td th:text="${p.id}"></td>
+                     <td th:text="${p.id_equipe}"></td>
+                     <td th:text="${p.nom}"></td>
+                     <td th:text="${p.prenom}"></td>
+                     <td th:text="${p.age}"></td>
+                     <td th:text="${p.score}"></td>
+                     <td>
+                         <a onclick="return confirm('Êtes vous sur de vouloir supprimer ce joueur ?')" class="btn btn-danger" th:href="@{delete(id=${p.id},rechercher=${rechercher}, page=${currentPage})}">Effacer</a>
+                     </td>
+                 </tr>
+                 </tbody>
+             </table>
+             <ul class="nav nav-pills">
+                 <li th:each="page, status:${pages}">
+                     <a th:class="${status.index==currentPage? 'btn btn-primary ms-1':'btn btn-outline-primary ms-1'}"
+                        th:text="${status.index}" th:href="@{joueur(page=${status.index},rechercher=${rechercher})}"></a>
+                 </li>
+             </ul>
+         </div>
+     </div>
+ </div>
+ </body>
+ </html>

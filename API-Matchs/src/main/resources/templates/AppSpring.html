@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="../static/css.js/style.css" th:href="@{css.js/Appstyle.css}" rel="stylesheet" />
+<script> th:src="../static/css.js/script.js"</script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>AppSpring</h1>
+<h2>Générer Joueurs</h2>
+<a th:href="@{GenJoueurs}" class="GenBtn">Générer Joueurs</a>
+<br>
+<a th:href="@{AddEquipeToJoueur}" class="AddBtn">Add equipe to joueur Joueurs</a>
+<br>
+<br>
+<form method="get" th:action="@{index1}">
+    <input type="text" id="ajout" name="ajout" />
+    <button type="submit">Ajout</button>
+</form>
+</body>
+</html>
