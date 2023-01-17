@@ -22,29 +22,29 @@ public class MatchController {
         this.repository = repository;
     }
 
-    @GetMapping("/getbyid")
+    @GetMapping("/find/{id}")
     @Operation(summary = "Select one match.", description = "Get one match from the (long) id provided.")
-    public ResponseEntity<Match> getMatch(@RequestParam Long id){
+    public ResponseEntity<Match> getMatch(@PathVariable Long id){
         Match model = this.service.findMatch(id);
         if (Objects.isNull(model.getId_match())) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         else {
-            return new ResponseEntity(model, HttpStatus.OK);
+            return new ResponseEntity<>(model, HttpStatus.OK);
         }
     }
 
-    @GetMapping("/result/{id_match}")
+    @PostMapping("/result/{id_match}")
     public ResponseEntity<Object> addResultat(@PathVariable ("id_match") Long id_match) {
         Match model = this.service.addResultat(id_match, this.service.createResult());
-        return new ResponseEntity(model, HttpStatus.OK);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
-    @GetMapping("/add/{id_eq1}/{id_eq2}")
+    @PutMapping("/create/{id_eq1}/{id_eq2}")
     public ResponseEntity<Object> addMatchById(@PathVariable ("id_eq1") Long id_equipe1,@PathVariable ("id_eq2") Long id_equipe2) {
         Match new_model = new Match();
         Match model = this.service.addMatch(new_model, id_equipe1, id_equipe2);
-        return new ResponseEntity(model, HttpStatus.OK);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @PostMapping("/update")
@@ -59,7 +59,7 @@ public class MatchController {
         }
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Operation(summary = "delete match.", description = "Delete match of provided id")
     public ResponseEntity<Match> delMatch(@PathVariable("id") Long id){
         if (!repository.existsById(id)) {

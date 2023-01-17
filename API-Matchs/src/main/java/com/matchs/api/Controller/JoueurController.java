@@ -28,7 +28,7 @@ public class JoueurController {
         this.equipeService = equipeService;
     }
 
-    @PostMapping("/create")
+    @PutMapping("/create")
     @Operation(summary = "Create and add player.", description = "Create and Add player with faker ")
     public ResponseEntity<Joueur> createRandomJoueur(){
         Joueur newJoueur = this.service.addJoueur(this.service.createRandomJoueur());
@@ -54,7 +54,7 @@ public class JoueurController {
         }
     }
 
-    @PostMapping("/add")
+    @PutMapping("/add")
     @Operation(summary = "Add player.", description = "Add player from the Body provided.")
     public ResponseEntity<Joueur> addJoueur(@Valid @RequestBody Joueur joueur){
         Joueur newJoueur = this.service.addJoueur(joueur);
@@ -71,7 +71,7 @@ public class JoueurController {
        }
     }
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     @Operation(summary = "Update player.", description = "Update player from the Id provided to the body provided.")
     public ResponseEntity<Joueur> updateJoueur(@Valid @RequestBody Joueur updatedJoueur){
         if (!repository.existsById(updatedJoueur.getId())) {

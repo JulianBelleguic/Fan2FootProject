@@ -90,8 +90,8 @@ public class EquipeService implements Serializable {
         return model;
     }
 
-    public Equipe updEquipe(Equipe model) {
-        return this.equipeRepository.save(model);
+    public void updEquipe(Equipe model) {
+        this.equipeRepository.save(model);
     }
 
     public void delEquipe(Long id) {
