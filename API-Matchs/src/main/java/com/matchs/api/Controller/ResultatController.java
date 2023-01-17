@@ -50,7 +50,7 @@ public class ResultatController {
         }
     }
 
-    @GetMapping("/del/{id}")
+    @GetMapping("/delete/{id}")
     public ResponseEntity<Object> delMatch(@PathVariable Long id){
         if (!repository.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
