@@ -1,17 +1,12 @@
 package com.paris.api.services;
 
-import com.paris.api.controllers.ParieController;
-import com.paris.api.controllers.ParieurController;
-import com.paris.api.models.AssoParisParieurModel;
+import com.paris.api.models.ParierModel;
 import com.paris.api.models.ParieModel;
 import com.paris.api.models.ParieurModel;
 import com.paris.api.repository.AssoPariParieurRepository;
-import com.paris.api.repository.ParieurRepository;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,35 +15,31 @@ public class AssoPariParieurService implements Serializable {
     private final AssoPariParieurRepository repository;
     private final ParieService parieService;
     private final ParieurService parieurService;
-    private final ParieurController parieurController;
 
 
-    public AssoPariParieurService (AssoPariParieurRepository repository,ParieService parieService, ParieurService parieurService, @Lazy ParieurController parieurController){
+    public AssoPariParieurService (AssoPariParieurRepository repository,ParieService parieService, ParieurService parieurService){
         this.repository = repository;
         this.parieService = parieService;
         this.parieurService = parieurService;
-        this.parieurController = parieurController;
     }
 
-    public AssoParisParieurModel findAssoParisParieur(Long id) {
-        return this.repository.findById(id).orElse(new AssoParisParieurModel());
+    public ParierModel findPari(Long id) {
+        return this.repository.findById(id).orElse(new ParierModel());
     }
 
-    public AssoParisParieurModel addAssoParisParieur(AssoParisParieurModel model) {
+    public ParierModel addAssoParisParieur(ParierModel model) {
         return this.repository.save(model);
     }
-    public List<AssoParisParieurModel> getParierByIdJoueur(Long id_joueur){
+    public List<ParierModel> getParierByIdJoueur(Long id_joueur){
         return this.repository.findAllByIdParieur(id_joueur);
     }
 
-    public AssoParisParieurModel parier( Long id_parieur,  Long id_parie,  double montant, String cote){
-        ParieurModel parieur = parieurController.searchById(id_parieur);
-        if (parieur.getBalance() < montant ||parieur.getBalance() > 0)
-        {} else
+    public ParierModel parier(Long id_parieur, Long id_parie, double montant, String cote){
+        ParieurModel parieur = parieurService.findParieur(id_parieur);
+        if (parieur.getBalance() > montant)
         {
             double gainPotentiel;
-
-            AssoParisParieurModel model = new AssoParisParieurModel();
+            ParierModel model = new ParierModel();
             ParieModel pariModel = this.parieService.findByID(id_parie);
             ParieurModel parieurModel = this.parieurService.findParieur(id_parieur);
             if ("A".equalsIgnoreCase(cote) || "a".equalsIgnoreCase(cote))
@@ -70,7 +61,8 @@ public class AssoPariParieurService implements Serializable {
             model.setGainPotentiel(gainPotentiel);
             return this.repository.save(model);
         }
-        return new AssoParisParieurModel();
+        else {
+            return new ParierModel();}
     }
 
 }

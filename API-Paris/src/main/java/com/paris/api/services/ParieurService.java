@@ -1,8 +1,7 @@
 package com.paris.api.services;
 
 import com.github.javafaker.Faker;
-import com.paris.api.models.AssoParisParieurModel;
-import com.paris.api.models.ParieModel;
+import com.paris.api.models.ParierModel;
 import com.paris.api.models.ParieurModel;
 import com.paris.api.repository.AssoPariParieurRepository;
 import com.paris.api.repository.ParieurRepository;
@@ -59,8 +58,8 @@ public class ParieurService implements Serializable {
     }
 
     public void updBalanceByMatch(Long idmatch, String cote){
-        List<AssoParisParieurModel> lst = this.assoRepository.findUpdParieur(idmatch, cote);
-        for (AssoParisParieurModel obj :lst){
+        List<ParierModel> lst = this.assoRepository.findUpdParieur(idmatch, cote);
+        for (ParierModel obj :lst){
             ParieurModel parieur = findParieur(obj.getIdParieur());
             parieur.setBalance(parieur.getBalance()+ obj.getGainPotentiel());
             this.repository.save(parieur);

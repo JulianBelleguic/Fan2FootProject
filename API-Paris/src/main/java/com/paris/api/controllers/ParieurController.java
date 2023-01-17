@@ -1,19 +1,12 @@
 package com.paris.api.controllers;
 
-import com.paris.api.models.AssoParisParieurModel;
-import com.paris.api.models.ParieModel;
 import com.paris.api.models.ParieurModel;
 import com.paris.api.services.AssoPariParieurService;
 import com.paris.api.services.ParieurService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,15 +47,20 @@ public class ParieurController {
 
     @PutMapping("/createmul/{n}")
     @Operation(summary = "Create n random gamblers.", description = "create n random gamblers with Faker")
-    public ResponseEntity<List<ParieurModel>> createMultipleParieur(@PathVariable ("n") Integer n) {
+    public ResponseEntity<List<ParieurModel>> createMultipleParieur(@Max(20) @PathVariable ("n") Integer n) {
         ArrayList<ParieurModel> list = this.service.createMultipleParieur(n);
         return new ResponseEntity<>(list, HttpStatus.CREATED);
     }
 
-    @GetMapping("/findByID/{id}")
+    @GetMapping("/findByID")
     @Operation(summary = "Find one 'parieur'.", description = "Find one 'parieur' from the provided Id.")
-    public ParieurModel searchById(@PathVariable Long id){
-        return this.service.findParieur(id);
+    public ResponseEntity<ParieurModel> findByID(@RequestParam Long id){
+        ParieurModel model = this.service.findParieur(id);
+        if (model.getId() == null){
+            return new ResponseEntity<>(model,HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(model,HttpStatus.FOUND);
+        }
     }
 
     @DeleteMapping("/deleteByID/{id}")

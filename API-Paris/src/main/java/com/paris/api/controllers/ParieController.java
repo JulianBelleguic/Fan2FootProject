@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pari")
-//@Validated
+@Validated
 public class ParieController {
 
     private final ParieService service;
@@ -38,6 +38,7 @@ public class ParieController {
     }
 
     @GetMapping("/findById")
+    @Operation(summary = "Find one 'pari'.", description = "Find one 'pari' from the provided Id.")
     public ResponseEntity<ParieModel> findByID(@RequestParam Long id){
         ParieModel model = this.service.findByID(id);
         if (model.getId() == null){
