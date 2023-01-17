@@ -14,6 +14,7 @@ public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "match_id", nullable = false, updatable = false)
+    @OneToOne(targetEntity = Resultat.class, mappedBy = "id_match", cascade = CascadeType.REMOVE)
     private Long id_match;
 
     @Column(name="resultat", length = 5)
@@ -24,4 +25,6 @@ public class Match {
 
     @ManyToOne
     private Equipe id_equipe2;
+
+
 }
