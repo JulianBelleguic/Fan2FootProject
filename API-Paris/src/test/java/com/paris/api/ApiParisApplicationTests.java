@@ -64,9 +64,26 @@ class ApiParisApplicationTests {
 		AssoPariParieurService asso = mock(AssoPariParieurService.class);
 		ParieController parieController = mock(ParieController.class);
 		ParieurController parieurController = new ParieurController(parieurServiceMock, asso, parieController);
-		ParieurModel parieur = new ParieurModel();
 		parieurController.deleteByID(1L);
 		verify(parieurServiceMock).deleteByID(1L);
+	}
+	@Test
+	void parieurAjouterArgent() {
+		ParieurService parieurServiceMock = mock(ParieurService.class);
+		AssoPariParieurService asso = mock(AssoPariParieurService.class);
+		ParieController parieController = mock(ParieController.class);
+		ParieurController parieurController = new ParieurController(parieurServiceMock, asso, parieController);
+		parieurController.ajouterArgent(1L, 10);
+		verify(parieurServiceMock).saveBalance(1L, 10);
+	}
+	@Test
+	void parieurSoustraireArgent() {
+		ParieurService parieurServiceMock = mock(ParieurService.class);
+		AssoPariParieurService asso = mock(AssoPariParieurService.class);
+		ParieController parieController = mock(ParieController.class);
+		ParieurController parieurController = new ParieurController(parieurServiceMock, asso, parieController);
+		parieurController.soustraireBalance(1L, 10);
+		verify(parieurServiceMock).soustraireBalance(1L, 10);
 	}
 
 }
