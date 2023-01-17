@@ -71,7 +71,7 @@ public class JoueurController {
     @PutMapping("/update")
     @Operation(summary = "Update player.", description = "Update player from the Id provided to the body provided.")
     public ResponseEntity<Joueur> updateJoueur(@Valid @RequestBody Joueur updatedJoueur){
-        if (repository.existsById(updatedJoueur.getId())) {
+        if (!repository.existsById(updatedJoueur.getId())) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
         else {

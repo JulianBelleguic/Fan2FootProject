@@ -23,7 +23,6 @@ public class Joueur {
 
     @ManyToOne
     @JoinColumn(name = "id_equipe")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Equipe equipe;
 
     @Column(length=30)
