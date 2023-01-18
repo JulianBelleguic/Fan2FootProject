@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.BDDAssumptions.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,13 +41,9 @@ public class ParieTest{
 
 	@BeforeEach
 	public void setup(){
-//		this.parieServiceMock = mock(ParieService.class);
 		this.pari1 = new ParieModel();
-
-
 		this.listPari =new ArrayList<>();
 		listPari.add(pari1);
-
 	}
 
 	@Test
@@ -58,5 +55,13 @@ public class ParieTest{
 		//THEN
 		verify(parieRepository).findAll();
 		assertEquals(parieServiceMock.all(), listPari);
+	}
+
+	@Test
+	public void findById(){
+		when(parieRepository.findById(1L)).thenReturn(Optional.ofNullable(pari1));
+		parieServiceMock.findByID(1L);
+		verify(parieRepository).findById(1L);
+		assertEquals(parieServiceMock.findByID(1L), pari1);
 	}
 }
