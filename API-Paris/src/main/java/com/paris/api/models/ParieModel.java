@@ -37,4 +37,6 @@ public class ParieModel {
     @Column(name="coteN")
     private float coteN = 0;
 
+
+
 }

@@ -60,11 +60,12 @@ public class ParieController {
     @PutMapping("/addByJSON")
     @Operation(summary = "Create one 'pari'.", description = "Create one 'pari' from the provided JSON Body.")
     public ResponseEntity<ParieModel> addByJSON(@Valid @RequestBody ParieModel pari){
-        ParieModel model = this.service.createPari(pari);
-        if (model.getId()==null){
-            return new ResponseEntity<>(model,HttpStatus.NOT_ACCEPTABLE);
+        this.service.createPari(pari);
+        if (pari.getId()==null){
+            return new ResponseEntity<>(pari,HttpStatus.NOT_ACCEPTABLE);
         }else{
-            return new ResponseEntity<>(model,HttpStatus.CREATED);
+            return new ResponseEntity<>(pari,HttpStatus.CREATED);
+
         }
     }
 

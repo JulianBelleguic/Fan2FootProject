@@ -1,6 +1,6 @@
 package com.paris.api;
 
-import com.paris.api.controllers.AssoPariParieurController;
+import com.paris.api.controllers.ParierController;
 import com.paris.api.controllers.ParieController;
 import com.paris.api.controllers.ParieurController;
 import com.paris.api.models.ParieModel;
@@ -35,20 +35,16 @@ class ApiParisApplicationTests {
 	void parieCreateParie() {
 		ParieService parieServiceMock = mock(ParieService.class);
 		ParieController parieController = new ParieController(parieServiceMock);
-		ParieModel model = new ParieModel();
-		parieController.createParie(model);
-		verify(parieServiceMock).createParie(model);
-		/*		parieController.addByJSON(model);
-		verify(parieServiceMock).createPari(model);*/
+		ParieModel model = new ParieModel(1L,1L,0f,0f,0f);
+		parieController.addByJSON(model);
+		verify(parieServiceMock).createPari(model);
 	}
 	@Test
 	void parieDeleteParieByID() {
 		ParieService parieServiceMock = mock(ParieService.class);
 		ParieController parieController = new ParieController(parieServiceMock);
-		parieController.deleteByID(1L);
-		verify(parieServiceMock).deleteByID(1L);
-		/*		parieController.delByID(1L);
-		verify(parieServiceMock).delByID(1L);*/
+	parieController.delByID(1L);
+		verify(parieServiceMock).delByID(1L);
 	}
 	@Test
 	void parieurAdd() {

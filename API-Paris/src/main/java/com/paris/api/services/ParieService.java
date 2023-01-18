@@ -52,12 +52,8 @@ public class ParieService implements Serializable {
     }
 
     public ParieModel createPari(ParieModel pari) {
-        List<ParieModel> model = repository.findByidMatch(pari.getIdMatch());
-        if (model.isEmpty()) {
-            return repository.save(pari);
-        }else{
-            return new ParieModel();
-        }
+        repository.findByidMatch(pari.getIdMatch());
+        return new ParieModel();
     }
 
     private static Float calculChances (Float score1, Float score2, String call) {
