@@ -1,10 +1,9 @@
 package com.matchs.api.Service;
 
 import com.github.javafaker.Faker;
-import com.matchs.api.Controller.EquipeController;
 import com.matchs.api.Model.Joueur;
-import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.JoueurRepository;
+import com.matchs.api.Repository.MatchRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -16,7 +15,7 @@ public class JoueurService implements Serializable{
 
     private final JoueurRepository repository;
 
-    public JoueurService(JoueurRepository repository) {
+    public JoueurService(JoueurRepository repository, MatchRepository matchRepository) {
         this.repository = repository;
     }
 
@@ -25,7 +24,7 @@ public class JoueurService implements Serializable{
     }
 
     public Joueur addJoueur(Joueur model) {
-        return this.repository.save(model);
+        return  this.repository.save(model);
     }
 
     @Deprecated

@@ -32,5 +32,4 @@ public class ResultatService implements Serializable {
     public void delResultat(Long id) {
         this.repository.deleteById(id);
     }
-
 }

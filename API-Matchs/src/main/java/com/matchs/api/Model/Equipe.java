@@ -31,23 +31,23 @@ public class Equipe {
     private String nom;
     private Float score;
 
-    @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe1", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe1", cascade = CascadeType.REMOVE)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ToString.Exclude
     private List<Match> id_equipe1 = new ArrayList<>();
 
-    @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe2", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Match.class, mappedBy = "id_equipe2", cascade = CascadeType.REMOVE)
     @JsonProperty (access = JsonProperty.Access.WRITE_ONLY)
     @ToString.Exclude
     private List<Match> id_equipe2 = new ArrayList<>();
 
-    @OneToMany(targetEntity = Resultat.class, mappedBy = "id_equipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Resultat.class, mappedBy = "id_equipe", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ToString.Exclude
     private List<Resultat> id_equipe = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Joueur.class, mappedBy = "equipe")
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Joueur.class, mappedBy = "equipe", cascade = CascadeType.REMOVE)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Joueur> list_joueurs = new ArrayList<>();
 
- }
+}
