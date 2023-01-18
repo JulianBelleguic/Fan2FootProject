@@ -39,7 +39,7 @@ public class MatchService implements Serializable {
         }
         this.matchRepository.save(model);
         RestTemplate restTemplate = new RestTemplate();
-        String fooResourceUrl  = "http://localhost:8081/Parie/add";
+        String fooResourceUrl  = "http://localhost:8081/pari/add";
         Boolean response = restTemplate.getForObject(fooResourceUrl + "?idMatch=" + model.getId_match() + "&scoreEqip1=" + eqp1.getScore() + "&scoreEqip2=" + eqp2.getScore(), Boolean.class);
         if (Boolean.TRUE.equals(response)){
             System.out.println("Pari créé.");
