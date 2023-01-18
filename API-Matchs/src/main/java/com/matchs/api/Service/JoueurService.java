@@ -50,8 +50,7 @@ public class JoueurService implements Serializable{
 
 
 
-    public Joueur updateJoueur (Joueur updatedJoueur) {
-        return repository.save(updatedJoueur);
+    public Joueur updateJoueur (Joueur updatedJoueur) {return repository.save(updatedJoueur);
     }
 
     public void deleteJoueur (Long id){

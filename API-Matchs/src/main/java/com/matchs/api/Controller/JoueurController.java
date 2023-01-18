@@ -79,8 +79,8 @@ public class JoueurController {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
         else {
-            service.updateJoueur(updatedJoueur);
-            return new ResponseEntity<>(updatedJoueur,HttpStatus.OK);
+            Joueur joueur = service.updateJoueur(updatedJoueur);
+            return new ResponseEntity<>(joueur,HttpStatus.OK);
         }
     }
 
