@@ -17,17 +17,16 @@ import java.util.List;
 @RequestMapping("/pari")
 @Validated
 public class ParieController {
-
-    private final ParieService service;
-
     @Autowired
+    ParieService service;
+
     public ParieController(ParieService service){
         this.service = service;
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<ParieModel>> findAll() {
-        List<ParieModel> paris = ParieService.all();
+        List<ParieModel> paris = service.all();
         if (paris.isEmpty()) {
             return new ResponseEntity<>(paris, HttpStatus.NOT_FOUND);
         } else {

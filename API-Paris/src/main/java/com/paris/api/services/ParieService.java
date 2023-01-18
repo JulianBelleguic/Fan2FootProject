@@ -19,7 +19,7 @@ public class ParieService implements Serializable {
     }
 
 
-    public static List<ParieModel> all() {
+    public List<ParieModel> all() {
         return repository.findAll();
     }
     public ParieModel findByID(Long id) {
@@ -38,17 +38,15 @@ public class ParieService implements Serializable {
     }
 
     public ParieModel addParie(Long idMatch, Float scoreEqip1, Float scoreEqip2){
-        List<ParieModel> model = repository.findByidMatch(idMatch);
-        if (model.isEmpty()){
-            ParieModel newParie = new ParieModel(null, null, 0,0,0);
+
+            ParieModel newParie = new ParieModel();
             newParie.setIdMatch(idMatch);
             newParie.setCoteA(calculChances(scoreEqip1, scoreEqip2, "A"));
             newParie.setCoteB(calculChances(scoreEqip1, scoreEqip2, "B"));
             newParie.setCoteN(calculChances(scoreEqip1, scoreEqip2, "N"));
-            return repository.save(newParie);}
-        else {
-            return new ParieModel();
-        }
+            repository.save(newParie);
+            return newParie;
+
     }
 
     public ParieModel createPari(ParieModel pari) {
