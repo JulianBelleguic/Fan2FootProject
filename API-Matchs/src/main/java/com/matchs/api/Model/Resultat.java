@@ -2,7 +2,6 @@ package com.matchs.api.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name= "resultat")
@@ -24,7 +23,8 @@ public class Resultat {
     @JoinColumn(name = "id_equipe")
     private Equipe id_equipe;
 
-    @OneToOne
-    @JoinColumn(name = "id_match")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "match_id")
+    @ToString.Exclude
     private Match id_match;
 }

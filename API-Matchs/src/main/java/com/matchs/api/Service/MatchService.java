@@ -28,7 +28,7 @@ public class MatchService implements Serializable {
         this.resultatRepository = resultatRepository;
     }
 
-    public Match findMatch(Long id) {return this.matchRepository.findById(id).orElse(new Match(null, null,null,null));}
+    public Match findMatch(Long id) {return this.matchRepository.findById(id).orElse(new Match(null, null,null,null, null));}
 
     public Match addMatch(Match model, Long idEquipe1, Long idEquipe2) {
         Equipe eqp1 = equipeService.findEquipe(idEquipe1);
@@ -66,33 +66,31 @@ public class MatchService implements Serializable {
         this.matchRepository.save(match);
         Equipe equipe1 = equipeService.findEquipe(match.getId_equipe1().getId());
         Equipe equipe2 = equipeService.findEquipe(match.getId_equipe2().getId());
-        Resultat resultat1 = new Resultat(null,null,null, null);
-        Resultat resultat2 = new Resultat(null,null,null, null);
+        Resultat resultat1 = new Resultat(null,null,null, match);
+        Resultat resultat2 = new Resultat(null,null,null, match);
         String[] scinde = Result.split("-");
         int score1 = Integer.parseInt(scinde[0]);
         int score2 = Integer.parseInt(scinde[1]);
         if (score1>score2){
-                resultat1.setResultat(1.0f);
-                resultat2.setResultat(0.0f);
-                resultat1.setId_equipe(equipe1);
-                resultat2.setId_equipe(equipe2);
-                cote = "A";
+            resultat1.setResultat(1.0f);
+            resultat2.setResultat(0.0f);
+            cote = "A";
         }
         else if (score2>score1){
             resultat1.setResultat(0.0f);
             resultat2.setResultat(1.0f);
-            resultat1.setId_equipe(equipe1);
-            resultat2.setId_equipe(equipe2);
             cote = "B";
         }
         else{
             resultat1.setResultat(0.5f);
             resultat2.setResultat(0.5f);
-            resultat1.setId_equipe(equipe1);
-            resultat2.setId_equipe(equipe2);
             cote = "N";
         }
 
+        resultat1.setId_equipe(equipe1);
+        resultat2.setId_equipe(equipe2);
+        resultat1.setId_match(match);
+        resultat2.setId_match(match);
         resultatRepository.save(resultat1);
         resultatRepository.save(resultat2);
 
@@ -100,8 +98,8 @@ public class MatchService implements Serializable {
         this.equipeService.updScore(equipe2);
 
         RestTemplate restTemplate = new RestTemplate();
-        String fooResourceUrl  = "http://localhost:8081/Parie/profit";
-        restTemplate.put(fooResourceUrl + "?idmatch=" + id + "&cote=" + cote,null);
+//        String fooResourceUrl  = "http://localhost:8081/Parieur/profit";
+//        restTemplate.put(fooResourceUrl + "?idmatch=" + id + "&cote=" + cote,null);
         return match;
     }
 

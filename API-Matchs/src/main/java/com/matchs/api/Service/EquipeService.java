@@ -20,7 +20,6 @@ import java.util.Locale;
 public class EquipeService implements Serializable {
     // on crée l'attribut de class qui va contenir le repository
     private final EquipeRepository equipeRepository;
-    private final ResultatService resultatService;
 
     private final ResultatRepository resultatRepository;
 
@@ -31,7 +30,6 @@ public class EquipeService implements Serializable {
     // on propose un constructeur, qui va recevoir une instance du repository fournie automatiquement par Spring
     public EquipeService(EquipeRepository equipeRepository, ResultatService resultatService, ResultatRepository resultatRepository, JoueurService joueurService, JoueurRepository joueurRepository) {
         this.equipeRepository = equipeRepository;
-        this.resultatService = resultatService;
         this.resultatRepository = resultatRepository;
         this.joueurService = joueurService;
         this.joueurRepository = joueurRepository;
@@ -77,7 +75,7 @@ public class EquipeService implements Serializable {
     public ArrayList<Equipe> createMultipleEquipe(Integer n) {
         ArrayList<Equipe> list = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            Equipe newEquipe = addEquipe(createRandomFUllEquipe());
+            Equipe newEquipe = createRandomFUllEquipe();
             list.add(newEquipe);
         }
         return list;
@@ -85,13 +83,12 @@ public class EquipeService implements Serializable {
 
     public Equipe addEquipe(Equipe model) {
         this.equipeRepository.save(model);
-        for (int i = 0; i < 10; i++) {
-            Resultat resultat = new Resultat();
-            resultat.setResultat(0.5F);
-            resultat.setId_equipe(model);
-            System.out.println(resultat);
-            this.resultatService.addResultat(resultat);
-        }
+//        for (int i = 0; i < 10; i++) {
+//            Resultat resultat = new Resultat();
+//            resultat.setResultat(0.5F);
+//            resultat.setId_equipe(model);
+//            this.resultatService.addResultat(resultat);
+//        }
         return model;
     }
 
@@ -104,7 +101,7 @@ public class EquipeService implements Serializable {
     }
 
     public void updScore(Equipe equipe) {
-        Float sommeResultats;
+        float sommeResultats;
         sommeResultats = this.resultatRepository.findResulats(equipe.getId());
         float score = equipe.getScore();
         float variation;

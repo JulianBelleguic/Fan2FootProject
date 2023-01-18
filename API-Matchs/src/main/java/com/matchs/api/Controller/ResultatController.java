@@ -60,5 +60,4 @@ public class ResultatController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
-
 }
