@@ -14,8 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/equipe")
-
-
 public class EquipeController {
     // on crée l'attribut de class qui va contenir le service associé à notre controller
     private final EquipeService equipeService;

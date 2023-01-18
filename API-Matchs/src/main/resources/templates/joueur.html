@@ -2,12 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>SpringApp</title>
+    <title>Joueurs</title>
     <link href="../static/css.js/style.css" th:href="@{css.js/style.css}" rel="stylesheet" />
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
  </head>
  <body>
-
+ <div class="bandeaudroite">
+     <ul>
+         <li class="droite"><a th:href="@{Menu}" class="menu">Retour Menu</a></li>
+     </ul>
+ </div>
  <div class="container mt-2">
      <div class="card">
          <div class="card-header">Liste des Joueurs</div>
@@ -24,14 +28,14 @@
                  </thead>
                  <tbody>
                  <tr th:each="p:${listJoueurs}">
-                     <td th:text="${p.id}"></td>
-                     <td th:text="${p.id_equipe}"></td>
-                     <td th:text="${p.nom}"></td>
-                     <td th:text="${p.prenom}"></td>
-                     <td th:text="${p.age}"></td>
-                     <td th:text="${p.score}"></td>
+                     <td class="ligne" th:text="${p.id}"></td>
+                     <td class="ligne" th:text="${p.id_equipe}"></td>
+                     <td class="ligne" th:text="${p.nom}"></td>
+                     <td class="ligne" th:text="${p.prenom}"></td>
+                     <td class="ligne" th:text="${p.age}"></td>
+                     <td class="ligne" th:text="${p.score}"></td>
                      <td>
-                         <a onclick="return confirm('Êtes vous sur de vouloir supprimer ce joueur ?')" class="btn btn-danger" th:href="@{delete(id=${p.id},rechercher=${rechercher}, page=${currentPage})}">Effacer</a>
+                         <a onclick="return confirm('Êtes vous sur de vouloir supprimer ce joueur ?')" class="btn btn-danger" th:href="@{deleteJoueur(id=${p.id},rechercher=${rechercher}, page=${currentPage})}">Effacer</a>
                      </td>
                  </tr>
                  </tbody>
@@ -44,6 +48,9 @@
              </ul>
          </div>
      </div>
+ </div>
+ <div class="bandeau">
+ <a th:href="@{GenJoueurs(rechercher=${rechercher}, page=${currentPage})}" class="boutongen">Générer Joueurs</a>
  </div>
  </body>
  </html>

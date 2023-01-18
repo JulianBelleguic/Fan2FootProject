@@ -1,55 +1,93 @@
 body{
-    background: url(../images/bg.jpg)
+    background: url(../images/background.jpg)
     no-repeat center center fixed;
     background-size: cover;
 }
-h1 {
-    font-size: 70px;
-    font-weight: 600;
-    background-image: linear-gradient(to left, #553c9a, #b393d3);
-    color: transparent;
-    -webkit-background-clip: text;
-    position: relative;
+div.bandeaudroite
+{
+    margin: 30px auto;
+    width: 50%;
+    text-align:center;
+    position:relative;
+    border: 1px solid black;
+    box-shadow: 8px 8px 5px black;
+    padding: 4px 40px;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 50px;
 }
-tbody {
-    background-color: lightcyan;
-
+div.bandeau
+{
+    margin: 30px auto;
+    width: 20%;
+    text-align:center;
+    position:relative;
+    border: 1px solid black;
+    box-shadow: 8px 8px 5px black;
+    padding: 4px 40px;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 50px;
 }
-.TableDisplay {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+li.droite
+{
+    display: inline;
+    text-align:right;
+    color: white;
+    font-size:50px;
+    border-radius: 15px;
+    opacity: 0.5;
+    font-weight:bold;
+    margin-right: 40px;
 }
-.TableDisplay thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
+a.menu
+{
+    color: white;
+    font-size:35px;
+    text-decoration:none;
 }
-.TableDisplay th,
-.TableDisplay td {
-    padding: 12px 15px;
+div.card
+{
+    background-color: #C17503;
+    margin: 40px auto;
+    opacity: 0.7;
 }
-.TableDisplay tbody tr {
-    border-bottom: 1px solid #dddddd;
+div.card-header
+{
+    color: black;
 }
-
-.TableDisplay tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+table.table
+{
+    background-color: #C17503;
+    border-color: #C17503;
+    margin: 40px auto;
 }
-
-.TableDisplay tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+td.ligne
+{
+    background-color: #C17503;
+    border-color: black;
 }
-.TableDisplay tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
+a.btn-primary
+{
+    background-color: #C17503;
+    color: black;
+    border-color: black;
 }
-.btn-Acceuil{
-    color: #553c9a;
-    background-color: #00DDDD;
-    margin: 250px;
-    position: center;
+a.btn
+{
+    background-color: grey;
+    color: black;
+    border-color: black;
+    --bs-btn-hover-bg: black;
+    --bs-btn-hover-border-color: #C17503;
+    --bs-btn-active-bg: #C17503;
+    --bs-btn-active-border-color: #C17503;
+}
+a.btn-danger
+{
+    background-color: red;
+    --bs-btn-hover-bg: red;
+    --bs-btn-hover-border-color: red;
+}
+a.boutongen
+{
+    color: #C17503;
 }

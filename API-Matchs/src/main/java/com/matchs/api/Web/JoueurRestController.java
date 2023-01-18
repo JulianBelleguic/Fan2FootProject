@@ -2,15 +2,14 @@ package com.matchs.api.Web;
 
 import ch.qos.logback.core.model.Model;
 import com.matchs.api.Controller.JoueurController;
-import com.matchs.api.Model.AppUser;
 import com.matchs.api.Model.Equipe;
 import com.matchs.api.Model.Joueur;
 import com.matchs.api.Model.Match;
-import com.matchs.api.Repository.AppUserRepository;
+import com.matchs.api.Model.Resultat;
 import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.JoueurRepository;
 import com.matchs.api.Repository.MatchRepository;
-import com.matchs.api.Service.AccountServiceImpl;
+import com.matchs.api.Repository.ResultatRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,11 +28,11 @@ public class JoueurRestController {
 
     private JoueurRepository joueurRepository;
 
-    private EquipeRepository equipeRepository;
+    private JoueurController joueurController;
 
     private MatchRepository matchRepository;
 
-    private JoueurController joueurController;
+    private ResultatRepository resultatRepository;
 
 
     @GetMapping(path = "/AppSpring")
@@ -41,13 +40,31 @@ public class JoueurRestController {
         return "AppSpring";
     }
 
-    @RequestMapping("/Acceuil")
-    public String Acceuil() {
-        return "Acceuil";
+    @RequestMapping("/Menu")
+    public String Menu() {
+        return "Menu";
     }
 
+    @RequestMapping("/Affichage")
+    public String Affichage() {
+        return "Affichage";
+    }
 
+    @GetMapping(path = "/match")
+    public String DisplayMatch(ModelMap model){
+        List<Match> matchs = matchRepository.findAll();
+        model.addAttribute("listMatch",matchs);
 
+        return "match";
+    }
+
+    @GetMapping(path = "/resultat")
+    public String DisplayResultats(ModelMap model){
+        List<Resultat> resultats = resultatRepository.findAll();
+        model.addAttribute("listResultat",resultats);
+
+        return "resultat";
+    }
     @GetMapping(path = "/joueur")
     public String DisplayJoueurs(ModelMap model,
                                  @RequestParam(name = "page",defaultValue = "0") int page,
@@ -61,41 +78,17 @@ public class JoueurRestController {
         return "joueur";
     }
 
-    @GetMapping("/delete")
-    public String delete(Long id, String rechercher, int page) {
+    @RequestMapping("/GenJoueurs")
+    public String GenJoueurs(String rechercher, int page) {
+        joueurController.createRandomJoueur();
+        return "redirect:/joueur?page="+page+"&rechercher="+rechercher;
+    }
+
+    @GetMapping("/deleteJoueur")
+    public String deleteJoueur(Long id, String rechercher, int page) {
         joueurRepository.deleteById(id);
         return "redirect:/joueur?page="+page+"&rechercher="+rechercher;
         //return "redirect:/Acceuil";
-    }
-
-
-    @GetMapping(path = "/equipe")
-    public String DisplayEquipe(ModelMap model){
-        List<Equipe> equipes=equipeRepository.findAll();
-        model.addAttribute("listEquipes",equipes);
-
-        return "equipe";
-    }
-
-    @GetMapping(path = "/match")
-    public String DisplayMatch(ModelMap model){
-        List<Match> matchs = matchRepository.findAll();
-        model.addAttribute("listMatch",matchs);
-
-        return "match";
-    }
-//
-
-
-
-
-
-
-
-    @RequestMapping("/GenJoueurs")
-    public String GenJoueurs() {
-        joueurController.createRandomJoueur();
-        return "AppSpring";
     }
 
     @RequestMapping("/AddEquipeToJoueur")
@@ -103,5 +96,8 @@ public class JoueurRestController {
         joueurController.updateEquipe(1L,1L);
         return "AppSpring";
     }
+
+
+
 
 }

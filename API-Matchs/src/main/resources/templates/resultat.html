@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Matchs</title>
+    <title>Résultats</title>
     <link href="../static/css.js/style.css" th:href="@{css.js/style.css}" rel="stylesheet" />
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
 </head>
@@ -14,20 +14,19 @@
 </div>
 <div class="container mt-2">
     <div class="card">
-        <div class="card-header">Liste des Matchs</div>
+        <div class="card-header">Liste des Résulats</div>
         <div class="card-body">
             <table style="width:100%" class="table">
                 <thead>
                 <tr>
-                    <th>Id</th><th>Resultat</th><th>Equipe1</th><th>Equipe2</th>
+                    <th>Id</th><th>resultat</th><th>Equipe</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="r:${listMatch}">
-                    <td th:text="${r.id_match}"></td>
+                <tr th:each="r:${listResultat}">
+                    <td th:text="${r.id_resultat}"></td>
                     <td th:text="${r.resultat}"></td>
-                    <td th:text="${r.id_equipe1}"></td>
-                    <td th:text="${r.id_equipe2}"></td>
+                    <td th:text="${r.id_equipe}"></td>
                 </tr>
                 </tbody>
             </table>

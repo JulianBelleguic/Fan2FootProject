@@ -2,15 +2,24 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>SpringApp</title>
+  <title>Equipes</title>
     <link href="../static/css.js/style.css" th:href="@{css.js/style.css}" rel="stylesheet" />
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
 </head>
 <body>
+<div class="bandeaudroite">
+    <ul>
+        <li class="droite"><a th:href="@{Menu}" class="menu">Retour Menu</a></li>
+    </ul>
+</div>
 <div class="container mt-2">
     <div class="card">
         <div class="card-header">Liste des Equipes</div>
         <div class="card-body">
+            <form method="get" th:action="@{equipe}">
+                <input type="text" name="rechercher" th:value="${rechercher}">
+                <button type="submit" class="btn-primary">Chercher par Nom</button>
+            </form>
             <table style="width:100%" class="table">
                 <thead>
                 <tr>
@@ -19,14 +28,26 @@
                 </thead>
                 <tbody>
                 <tr th:each="r:${listEquipes}">
-                    <td th:text="${r.id}"></td>
-                    <td th:text="${r.nom}"></td>
-                    <td th:text="${r.score}"></td>
+                    <td class="ligne" th:text="${r.id}"></td>
+                    <td class="ligne" th:text="${r.nom}"></td>
+                    <td class="ligne" th:text="${r.score}"></td>
+                    <td>
+                        <a onclick="return confirm('Êtes vous sur de vouloir supprimer cette équipe ?')" class="btn btn-danger" th:href="@{deleteEquipe(id=${r.id},rechercher=${rechercher}, page=${currentPage})}">Effacer</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
+            <ul class="nav nav-pills">
+                <li th:each="page, status:${pages}">
+                    <a th:class="${status.index==currentPage? 'btn btn-primary ms-1':'btn btn-outline-primary ms-1'}"
+                       th:text="${status.index}" th:href="@{equipe(page=${status.index},rechercher=${rechercher})}"></a>
+                </li>
+            </ul>
         </div>
     </div>
+</div>
+<div class="bandeau">
+    <a th:href="@{GenEquipes(rechercher=${rechercher}, page=${currentPage})}" class="boutongen">Générer Equipe</a>
 </div>
 </body>
 </html>
