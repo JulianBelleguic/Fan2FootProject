@@ -2,8 +2,10 @@ package com.matchs.api.Controller;
 
 import com.matchs.api.Model.Match;
 import com.matchs.api.Repository.MatchRepository;
+import com.matchs.api.Repository.ResultatRepository;
 import com.matchs.api.Service.MatchService;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,12 @@ public class MatchController {
 
     private final MatchService service;
     private final MatchRepository repository;
+    private final ResultatRepository resultatRepository;
 
-    public MatchController(MatchService service, MatchRepository repository) {
+    public MatchController(MatchService service, MatchRepository repository, ResultatRepository resultatRepository) {
         this.service = service;
         this.repository = repository;
+        this.resultatRepository = resultatRepository;
     }
 
     @GetMapping("/find/{id}")
@@ -36,8 +40,17 @@ public class MatchController {
 
     @PostMapping("/result/{id_match}")
     public ResponseEntity<Object> addResultat(@PathVariable ("id_match") Long id_match) {
-        Match model = this.service.addResultat(id_match, this.service.createResult());
-        return new ResponseEntity<>(model, HttpStatus.OK);
+        if (!repository.existsById(id_match)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            if (service.findMatch(id_match).getResultat() != null) {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            } else {
+                Match model = this.service.addResultat(id_match, this.service.createResult());
+                return new ResponseEntity<>(model, HttpStatus.OK);
+            }
+        }
     }
 
     @PutMapping("/create/{id_eq1}/{id_eq2}")
