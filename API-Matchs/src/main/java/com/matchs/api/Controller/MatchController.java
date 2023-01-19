@@ -1,11 +1,11 @@
 package com.matchs.api.Controller;
 
 import com.matchs.api.Model.Match;
+import com.matchs.api.Repository.EquipeRepository;
 import com.matchs.api.Repository.MatchRepository;
 import com.matchs.api.Repository.ResultatRepository;
 import com.matchs.api.Service.MatchService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +18,12 @@ public class MatchController {
 
     private final MatchService service;
     private final MatchRepository repository;
-    private final ResultatRepository resultatRepository;
+    private final EquipeRepository equipeRepository;
 
-    public MatchController(MatchService service, MatchRepository repository, ResultatRepository resultatRepository) {
+    public MatchController(MatchService service, MatchRepository repository, EquipeRepository equipeRepository) {
         this.service = service;
         this.repository = repository;
-        this.resultatRepository = resultatRepository;
+        this.equipeRepository = equipeRepository;
     }
 
     @GetMapping("/find/{id}")
@@ -54,17 +54,23 @@ public class MatchController {
     }
 
     @PutMapping("/create/{id_eq1}/{id_eq2}")
+    @Operation(summary = "Play match", description = "Play match between the teams from the ids provided")
     public ResponseEntity<Object> addMatchById(@PathVariable ("id_eq1") Long id_equipe1,@PathVariable ("id_eq2") Long id_equipe2) {
-        Match new_model = new Match();
-        Match model = this.service.addMatch(new_model, id_equipe1, id_equipe2);
-        return new ResponseEntity<>(model, HttpStatus.OK);
+        if (!equipeRepository.existsById(id_equipe1) || !equipeRepository.existsById(id_equipe2)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            Match new_model = new Match();
+            Match model = this.service.addMatch(new_model, id_equipe1, id_equipe2);
+            return new ResponseEntity<>(model, HttpStatus.OK);
+        }
     }
 
     @PostMapping("/update")
     @Operation(summary = "Update match", description = "Parameters : Match object (JSON)")
     public ResponseEntity<Object> updMatch(@RequestBody Match model){
         if (!repository.existsById(model.getId_match())) {
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         else {
             service.updMatch(model);
@@ -76,12 +82,11 @@ public class MatchController {
     @Operation(summary = "delete match.", description = "Delete match of provided id")
     public ResponseEntity<Match> delMatch(@PathVariable("id") Long id){
         if (!repository.existsById(id)) {
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         else {
             service.delMatch(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
-
 }
