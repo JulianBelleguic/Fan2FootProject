@@ -98,8 +98,8 @@ public class MatchService implements Serializable {
         this.equipeService.updScore(equipe2);
 
         RestTemplate restTemplate = new RestTemplate();
-//        String fooResourceUrl  = "http://localhost:8081/Parieur/profit";
-//        restTemplate.put(fooResourceUrl + "?idmatch=" + id + "&cote=" + cote,null);
+        String fooResourceUrl  = "http://localhost:8081/Parieur/profit";
+        restTemplate.put(fooResourceUrl + "?idmatch=" + id + "&cote=" + cote,null);
         return match;
     }
 
